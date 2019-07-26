@@ -9,6 +9,8 @@
   "private": false,
   "scripts": {
     "build": "webpack --mode production",
+    "lint": "tslint -c tslint.json src/**/*.{ts,tsx} stories/**/*.{ts,tsx}",
+    "fix": "tslint -c tslint.json src/**/*.{ts,tsx} stories/**/*.{ts,tsx} --fix",
     "start": "start-storybook -p 6006 -c .storybook"
   },
   "devDependencies": {
@@ -20,6 +22,9 @@
     "jest": "^24.8.0",
     "react-docgen-typescript-loader": "^3.1.0",
     "ts-jest": "^24.0.2",
+    "tslint": "^5.18.0",
+    "tslint-react": "^4.0.0",
+    "tslint-react-hooks": "^2.2.1",
     "typescript": "^3.5.3",
     "webpack": "^4.38.0",
     "webpack-cli": "^3.3.6"
