@@ -19,10 +19,14 @@
     "@types/jest": "^24.0.15",
     "@types/storybook__react": "^4.0.2",
     "awesome-typescript-loader": "^5.2.1",
+    "husky": ">=1",
     "jest": "^24.8.0",
+    "lint-staged": ">=8",
+    "prettier": "^1.18.2",
     "react-docgen-typescript-loader": "^3.1.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.0.0",
     "tslint-react-hooks": "^2.2.1",
     "typescript": "^3.5.3",
@@ -34,5 +38,21 @@
     "@types/react-dom": "^16.8.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts,tsx}": [
+      "tslint --fix",
+      "prettier --write",
+      "git add"
+    ]
   }
 }
