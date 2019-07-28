@@ -1,22 +1,31 @@
+import { createMuiTheme } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import { App } from '../src/index';
-storiesOf('Material Ui', module).add('AudioPlayer', () => <App />, {
-  info: {
-    text: `
-### Notes
+import { AudioPlayer } from '../src';
 
-light button seen on <https://zpl.io/aM49ZBd>
+const theme = createMuiTheme({});
+
+storiesOf('Material Ui', module).add(
+  'AudioPlayer',
+  () => {
+    return (
+      <ThemeProvider theme={theme}>
+        <AudioPlayer src="https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3" />
+      </ThemeProvider>
+    );
+  },
+  {
+    info: {
+      text: `
+### Notes
 
 ### Usage
 ~~~js
-<App
-  label={text('label', 'Enroll')}
-  disabled={boolean('disabled',false)}
-  onClick={() => alert('hello there')}
-/>
+<AudioPlayer src='https://music.com/song'/>
 ~~~
 
 `
+    }
   }
-});
+);
