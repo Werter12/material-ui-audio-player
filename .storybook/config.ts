@@ -1,3 +1,4 @@
+import { withA11y } from '@storybook/addon-a11y';
 import { withInfo } from '@storybook/addon-info';
 import { addDecorator, addParameters, configure } from '@storybook/react';
 import { themes } from '@storybook/theming';
@@ -8,6 +9,8 @@ addParameters({
     theme: themes.light
   }
 });
+
+addDecorator(withA11y);
 
 addDecorator(
   withInfo({
