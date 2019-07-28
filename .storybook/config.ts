@@ -2,12 +2,14 @@ import { withA11y } from '@storybook/addon-a11y';
 import { withInfo } from '@storybook/addon-info';
 import { addDecorator, addParameters, configure } from '@storybook/react';
 import { themes } from '@storybook/theming';
+import viewports from './viewports';
 
 addParameters({
   options: {
     brandTitle: 'material-ui-audio-player',
     theme: themes.light
-  }
+  },
+  viewport: { viewports }
 });
 
 addDecorator(withA11y);
