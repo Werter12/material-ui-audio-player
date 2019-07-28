@@ -11,7 +11,10 @@ storiesOf('Material Ui', module).add(
   () => {
     return (
       <ThemeProvider theme={theme}>
-        <AudioPlayer src="https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3" />
+        <AudioPlayer
+          width="900px"
+          src="https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3"
+        />
       </ThemeProvider>
     );
   },

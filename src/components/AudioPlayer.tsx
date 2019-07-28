@@ -1,6 +1,6 @@
 import { Grid, Paper, Slider } from '@material-ui/core';
 import { PlayCircleFilledWhite, VolumeOff, VolumeUp } from '@material-ui/icons';
-import { withStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
 import cx from 'classnames';
 import * as React from 'react';
 
@@ -17,13 +17,14 @@ export interface IAudioPlayerClassNameProps {
 
 interface IAudioPlayerProps {
   src: string;
-  classes: any;
   rounded?: boolean;
   elevation?: number;
   classNames?: Partial<IAudioPlayerClassNameProps>;
+  width?: string;
+  height?: string;
 }
 
-export const styles = (theme: any) => {
+export const useStyles = makeStyles((theme: any) => {
   const elevations = {};
   theme.shadows.forEach((shadow, index) => {
     elevations[`elevation${index}`] = {
@@ -32,35 +33,63 @@ export const styles = (theme: any) => {
   });
 
   return {
-    root: {
+    root: (props: any) => ({
       backgroundColor: theme.palette.background.paper,
       color: theme.palette.text.primary,
+      width: props.width,
+      height: props.height,
       transition: theme.transitions.create('box-shadow')
+    }),
+    sliderContainer: {
+      flex: '1 1 auto'
+    },
+    iconContainer: {
+      flex: '0 0 auto'
+    },
+    volumeIconContainer: {
+      position: 'relative',
+      '&:hover': {
+        cursor: 'pointer'
+      }
+    },
+    volumeControlContainer: {
+      position: 'absolute',
+
+      height: '60px',
+      padding: '10px 5px'
     },
     rounded: {
       borderRadius: theme.shape.borderRadius
     },
     ...elevations
   };
-};
+});
 
 const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   src,
-  classes,
   rounded = true,
   elevation = 1,
-  classNames = {}
+  classNames = {},
+  width = '100%',
+  height = 'auto'
 }) => {
+  const componentStyles = { width, height };
   const player = React.useRef<HTMLAudioElement | null>(null);
+  const classes = useStyles(componentStyles);
+  const [volumeSlider, openVolumeSlider] = React.useState(false);
+  const toggleVolumeSlider = (value: boolean) => () => {
+    openVolumeSlider(value);
+  };
   return (
     <>
-      <audio ref={player}>
+      <audio ref={player} hidden={true}>
         <source src={src} />
       </audio>
       <Grid
         container={true}
-        spacing={4}
+        spacing={3}
         component={Paper}
+        alignItems="center"
         className={cx(
           classes.root,
           classes[`elevation${elevation}`],
@@ -70,13 +99,23 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           classNames.root
         )}
       >
-        <Grid item={true}>
-          <PlayCircleFilledWhite />
+        <Grid item={true} className={classes.iconContainer}>
+          <PlayCircleFilledWhite fontSize="large" />
         </Grid>
-        <Grid item={true}>
-          <VolumeUp />
+        <Grid
+          item={true}
+          className={cx(classes.iconContainer, classes.volumeIconContainer)}
+          onMouseEnter={toggleVolumeSlider(true)}
+          onMouseLeave={toggleVolumeSlider(false)}
+        >
+          <VolumeUp fontSize="large" />
+          {volumeSlider && (
+            <Paper className={cx(classes.volumeControlContainer)}>
+              <Slider orientation="vertical" aria-labelledby="volume-control" />
+            </Paper>
+          )}
         </Grid>
-        <Grid item={true}>
+        <Grid item={true} className={classes.sliderContainer}>
           <Slider />
         </Grid>
       </Grid>
@@ -84,4 +123,4 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   );
 };
 
-export default withStyles(styles, { name: 'AudioPlayer' })(AudioPlayer);
+export default AudioPlayer;

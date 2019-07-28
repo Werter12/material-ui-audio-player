@@ -16,7 +16,8 @@ addDecorator(
   withInfo({
     styles: {
       infoStory: {
-        minHeight: '100px'
+        minHeight: '100px',
+        paddingLeft: '55px'
       }
     },
     inline: true,
