@@ -1,6 +1,6 @@
-import { Grid, Paper, Slider } from '@material-ui/core';
+import { Grid, Paper, Slider, useMediaQuery } from '@material-ui/core';
 import { PlayCircleFilledWhite, VolumeOff, VolumeUp } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, useTheme } from '@material-ui/styles';
 import cx from 'classnames';
 import * as React from 'react';
 
@@ -54,8 +54,12 @@ export const useStyles = makeStyles((theme: any) => {
     },
     volumeControlContainer: {
       position: 'absolute',
-
-      height: '60px',
+      height: '20px',
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        height: '60px',
+        width: 'auto'
+      },
       padding: '10px 5px'
     },
     rounded: {
@@ -75,7 +79,9 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
 }) => {
   const componentStyles = { width, height };
   const player = React.useRef<HTMLAudioElement | null>(null);
+  const theme: { [key: string]: any } = useTheme();
   const classes = useStyles(componentStyles);
+  const desktop = useMediaQuery(theme.breakpoints.up('sm'));
   const [volumeSlider, openVolumeSlider] = React.useState(false);
   const toggleVolumeSlider = (value: boolean) => () => {
     openVolumeSlider(value);
@@ -111,7 +117,10 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           <VolumeUp fontSize="large" />
           {volumeSlider && (
             <Paper className={cx(classes.volumeControlContainer)}>
-              <Slider orientation="vertical" aria-labelledby="volume-control" />
+              <Slider
+                orientation={desktop ? 'vertical' : 'horizontal'}
+                aria-labelledby="volume-control"
+              />
             </Paper>
           )}
         </Grid>
