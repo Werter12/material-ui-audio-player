@@ -1,5 +1,16 @@
-import { Grid, Paper, Slider, useMediaQuery } from '@material-ui/core';
-import { PlayCircleFilledWhite, VolumeOff, VolumeUp } from '@material-ui/icons';
+import {
+  Grid,
+  Paper,
+  Slider,
+  Typography,
+  useMediaQuery
+} from '@material-ui/core';
+import {
+  CloudDownload,
+  PlayCircleFilledWhite,
+  VolumeOff,
+  VolumeUp
+} from '@material-ui/icons';
 import { makeStyles, useTheme } from '@material-ui/styles';
 // tslint:disable-next-line
 import { StylesHook } from '@material-ui/styles/makeStyles';
@@ -13,6 +24,7 @@ export interface IAudioPlayerClassNameProps {
   muteIcon: string;
   mainSlider: string;
   volumeSlider: string;
+  downloadIcon: string;
   // loopIcon: string;
   // muteIcon: string;
   // slider: string;
@@ -28,12 +40,13 @@ enum AudioPlayerVariation {
 }
 
 interface IAudioPlayerProps {
-  src: string;
+  src: string | string[];
   rounded?: boolean;
   elevation?: number;
   useStyles?: StylesHook<any>;
   width?: string;
   height?: string;
+  download?: boolean;
   variation?: AudioPlayerVariation;
 }
 
@@ -71,6 +84,33 @@ export const useComponentStyles = makeStyles((theme: any) => {
     voluemeUpIcon: (props: any) => ({
       color: props.mainColor
     }),
+    downloadLink: (props: any) => ({
+      color: props.mainColor,
+      textDecoration: 'none',
+      '&:hover': {
+        color: props.mainColor
+      },
+      '&:focus': {
+        color: props.mainColor
+      },
+      '&:active': {
+        color: props.mainColor
+      }
+    }),
+    downloadsContainer: {
+      position: 'absolute',
+      width: 'auto',
+      top: '85%'
+    },
+    downloadsItemContainer: {
+      padding: '8px 14px'
+    },
+    cloudDownloadIconContainer: {
+      position: 'relative'
+    },
+    cloudDownloadIcon: (props: any) => ({
+      color: props.mainColor
+    }),
     volumeIconContainer: {
       position: 'relative',
       '&:hover': {
@@ -100,7 +140,8 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   useStyles = () => ({}),
   width = '100%',
   height = 'auto',
-  variation = 'primary'
+  variation = 'primary',
+  download = false
 }) => {
   const player = React.useRef<HTMLAudioElement | null>(null);
   const theme: { [key: string]: any } = useTheme();
@@ -118,10 +159,71 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   const toggleVolumeSlider = (value: boolean) => () => {
     openVolumeSlider(value);
   };
+  const [downloadsDropdownOpened, openDownloadsDropdown] = React.useState(
+    false
+  );
+  const toggleDownloadsDropdown = (value: boolean) => () => {
+    openDownloadsDropdown(value);
+  };
+  const downloadOptions = Array.isArray(src) ? (
+    <Grid
+      item={true}
+      className={cx(classes.iconContainer, classes.cloudDownloadIconContainer)}
+      onMouseEnter={toggleDownloadsDropdown(true)}
+      onMouseLeave={toggleDownloadsDropdown(false)}
+    >
+      <CloudDownload
+        fontSize="large"
+        className={cx(classes.cloudDownloadIcon, classNames.downloadIcon)}
+      />
+      {downloadsDropdownOpened && (
+        <Grid
+          container={true}
+          direction="column"
+          alignItems="center"
+          justify="center"
+          component={Paper}
+          className={classes.downloadsContainer}
+        >
+          {src.map((srcLink, index) => {
+            return (
+              <Grid
+                key={index}
+                item={true}
+                className={classes.downloadsItemContainer}
+              >
+                <a
+                  className={classes.downloadLink}
+                  href={srcLink}
+                  download={true}
+                >
+                  <Typography color="textPrimary">
+                    {srcLink
+                      .substring(srcLink.lastIndexOf('.') + 1)
+                      .toUpperCase()}
+                  </Typography>
+                </a>
+              </Grid>
+            );
+          })}
+        </Grid>
+      )}
+    </Grid>
+  ) : (
+    <Grid item={true} className={classes.iconContainer}>
+      <a className={classes.downloadLink} href={src} download={true}>
+        <CloudDownload fontSize="large" className={classNames.downloadIcon} />
+      </a>
+    </Grid>
+  );
   return (
     <>
       <audio ref={player} hidden={true}>
-        <source src={src} />
+        {Array.isArray(src) ? (
+          src.map((srcLink, index) => <source key={index} src={srcLink} />)
+        ) : (
+          <source src={src} />
+        )}
       </audio>
       <Grid
         container={true}
@@ -143,6 +245,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
             className={cx(classes.playCircleIcon, classNames.playIcon)}
           />
         </Grid>
+        {download && downloadOptions}
         <Grid
           item={true}
           className={cx(classes.iconContainer, classes.volumeIconContainer)}
