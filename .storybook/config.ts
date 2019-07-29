@@ -1,5 +1,6 @@
 import { withA11y } from '@storybook/addon-a11y';
 import { withInfo } from '@storybook/addon-info';
+import { withKnobs } from '@storybook/addon-knobs';
 import { addDecorator, addParameters, configure } from '@storybook/react';
 import { themes } from '@storybook/theming';
 import viewports from './viewports';
@@ -12,8 +13,8 @@ addParameters({
   viewport: { viewports }
 });
 
+addDecorator(withKnobs);
 addDecorator(withA11y);
-
 addDecorator(
   withInfo({
     styles: {
