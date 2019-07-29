@@ -72,7 +72,7 @@ export const useComponentStyles = makeStyles((theme: any) => {
     slider: (props: any) => ({
       color: props.mainColor
     }),
-    iconContainer: {
+    commonContainer: {
       flex: '0 0 auto',
       '&:hover': {
         cursor: 'pointer'
@@ -168,7 +168,10 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   const downloadOptions = Array.isArray(src) ? (
     <Grid
       item={true}
-      className={cx(classes.iconContainer, classes.cloudDownloadIconContainer)}
+      className={cx(
+        classes.commonContainer,
+        classes.cloudDownloadIconContainer
+      )}
       onMouseEnter={toggleDownloadsDropdown(true)}
       onMouseLeave={toggleDownloadsDropdown(false)}
     >
@@ -210,7 +213,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       )}
     </Grid>
   ) : (
-    <Grid item={true} className={classes.iconContainer}>
+    <Grid item={true} className={classes.commonContainer}>
       <a className={classes.downloadLink} href={src} download={true}>
         <CloudDownload fontSize="large" className={classNames.downloadIcon} />
       </a>
@@ -239,7 +242,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           classNames.root
         )}
       >
-        <Grid item={true} className={classes.iconContainer}>
+        <Grid item={true} className={classes.commonContainer}>
           <PlayCircleFilledWhite
             fontSize="large"
             className={cx(classes.playCircleIcon, classNames.playIcon)}
@@ -248,7 +251,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         {download && downloadOptions}
         <Grid
           item={true}
-          className={cx(classes.iconContainer, classes.volumeIconContainer)}
+          className={cx(classes.commonContainer, classes.volumeIconContainer)}
           onMouseEnter={toggleVolumeSlider(true)}
           onMouseLeave={toggleVolumeSlider(false)}
         >
@@ -266,8 +269,14 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
             </Paper>
           )}
         </Grid>
+        <Grid item={true} className={classes.commonContainer}>
+          <Typography>00:00</Typography>
+        </Grid>
         <Grid item={true} className={classes.sliderContainer}>
           <Slider className={cx(classes.slider, classNames.mainSlider)} />
+        </Grid>
+        <Grid item={true} className={classes.commonContainer}>
+          <Typography>00:00</Typography>
         </Grid>
       </Grid>
     </>
