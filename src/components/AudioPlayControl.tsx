@@ -8,6 +8,12 @@ import cx from 'classnames';
 import * as React from 'react';
 import PLAYER from './state/player';
 
+export const useComponentStyles = makeStyles({
+  icon: (props: any) => ({
+    color: props.mainColor
+  })
+});
+
 interface IAudioPlayControlProps {
   playerStatus: string;
   mainColor: string;
@@ -16,12 +22,6 @@ interface IAudioPlayControlProps {
   replayAudio: () => void;
   classNames: any;
 }
-
-export const useComponentStyles = makeStyles({
-  icon: (props: any) => ({
-    color: props.mainColor
-  })
-});
 
 const AudioPlayControl: React.FunctionComponent<IAudioPlayControlProps> = ({
   playerStatus,

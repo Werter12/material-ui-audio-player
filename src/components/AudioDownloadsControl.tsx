@@ -4,12 +4,6 @@ import { makeStyles } from '@material-ui/styles';
 import cx from 'classnames';
 import * as React from 'react';
 
-interface IAudioDownloadsControl {
-  src: any;
-  mainColor: string;
-  classNames?: any;
-}
-
 export const useComponentStyles = makeStyles({
   commonContainer: {
     flex: '0 0 auto',
@@ -51,6 +45,12 @@ export const useComponentStyles = makeStyles({
     color: props.mainColor
   })
 });
+
+interface IAudioDownloadsControl {
+  src: string | string[];
+  mainColor: string;
+  classNames?: any;
+}
 
 export const AudioDownloadsControl: React.FunctionComponent<
   IAudioDownloadsControl
