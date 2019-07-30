@@ -5,24 +5,21 @@ import {
   Typography,
   useMediaQuery
 } from '@material-ui/core';
-import {
-  CloudDownload,
-  PauseCircleFilled,
-  PlayCircleFilledWhite,
-  VolumeOff,
-  VolumeUp
-} from '@material-ui/icons';
+import { CloudDownload, VolumeOff, VolumeUp } from '@material-ui/icons';
 import { makeStyles, useTheme } from '@material-ui/styles';
 // tslint:disable-next-line
 import { StylesHook } from '@material-ui/styles/makeStyles';
 import cx from 'classnames';
 import * as React from 'react';
+import AudioPlayControl from './AudioPlayControl';
 import {
+  audioEnded,
   changeAudioVolume,
   changePlayerSlider,
   muteAudio,
   pauseAudio,
   playAudio,
+  replayAudio,
   setPlayerDuration,
   setPlayerTime,
   unmuteAudio
@@ -39,12 +36,14 @@ const actionCreators = [
   changeAudioVolume,
   setPlayerDuration,
   setPlayerTime,
-  changePlayerSlider
+  changePlayerSlider,
+  audioEnded,
+  replayAudio
 ];
 
 function populateDispatch(dispatch, player, ...funcs) {
   return funcs.reduce((acc, func) => {
-    return { ...acc, [`${func.name}Internal`]: func(dispatch, player) };
+    return { ...acc, [`_${func.name}`]: func(dispatch, player) };
   }, {});
 }
 const inititalState = {
@@ -266,38 +265,39 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
 
   const [state, dispatch] = React.useReducer(reducer, inititalState);
   const {
-    pauseAudioInternal,
-    playAudioInternal,
-    muteAudioInternal,
-    unmuteAudioInternal,
-    changeAudioVolumeInternal,
-    setPlayerDurationInternal,
-    setPlayerTimeInternal,
-    changePlayerSliderInternal
+    _pauseAudio,
+    _playAudio,
+    _muteAudio,
+    _unmuteAudio,
+    _changeAudioVolume,
+    _setPlayerDuration,
+    _setPlayerTime,
+    _changePlayerSlider,
+    _audioEnded,
+    _replayAudio
   } = React.useMemo(() => {
     return populateDispatch(dispatch, player, ...actionCreators);
   }, [dispatch, player, ...actionCreators]);
   const handleVolumeChange = (event: object, value: any) => {
-    changeAudioVolumeInternal(value);
+    _changeAudioVolume(value);
   };
   const handleAudioSliderChange = (event: object, progress: any) => {
-    changePlayerSliderInternal(progress);
+    _changePlayerSlider(progress);
   };
   React.useEffect(() => {
     if (player && player.current) {
-      player.current.addEventListener(
-        'canplaythrough',
-        setPlayerDurationInternal
-      );
-      player.current.addEventListener('timeupdate', setPlayerTimeInternal);
+      player.current.addEventListener('canplaythrough', _setPlayerDuration);
+      player.current.addEventListener('timeupdate', _setPlayerTime);
+      player.current.addEventListener('ended', _audioEnded);
     }
     return () => {
       if (player && player.current) {
         player.current.removeEventListener(
           'canplaythrough',
-          setPlayerDurationInternal
+          _setPlayerDuration
         );
-        player.current.removeEventListener('timeupdate', setPlayerTimeInternal);
+        player.current.removeEventListener('timeupdate', _setPlayerTime);
+        player.current.removeEventListener('ended', _audioEnded);
       }
     };
   }, [player]);
@@ -327,19 +327,14 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         )}
       >
         <Grid item={true} className={classes.commonContainer}>
-          {state.player.status === PLAYER.STATUS.PAUSE ? (
-            <PlayCircleFilledWhite
-              fontSize="large"
-              onClick={playAudioInternal}
-              className={cx(classes.icon, classNames.playIcon)}
-            />
-          ) : (
-            <PauseCircleFilled
-              fontSize="large"
-              onClick={pauseAudioInternal}
-              className={cx(classes.icon, classNames.pauseIcon)}
-            />
-          )}
+          <AudioPlayControl
+            classNames={classNames}
+            playerStatus={state.player.status}
+            mainColor={mainColor}
+            replayAudio={_replayAudio}
+            pauseAudio={_pauseAudio}
+            playAudio={_playAudio}
+          />
         </Grid>
         {download && downloadOptions}
         <Grid
@@ -352,13 +347,13 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
             <VolumeUp
               fontSize="large"
               className={cx(classes.icon, classNames.volumeIcon)}
-              onClick={muteAudioInternal}
+              onClick={_muteAudio}
             />
           ) : (
             <VolumeOff
               fontSize="large"
               className={cx(classes.icon, classNames.volumeIcon)}
-              onClick={unmuteAudioInternal}
+              onClick={_unmuteAudio}
             />
           )}
           {volumeSlider && (

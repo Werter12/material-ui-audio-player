@@ -8,6 +8,8 @@ const PLAYER_VOLUME_CHANGE = 'PLAYER_VOLUME_CHANGE';
 const PLAYER_SET_DURATION = 'PLAYER_SET_DURATION';
 const PLAYER_SET_TIME = 'PLAYER_SET_TIME';
 const PLAYER_SLIDER_MOVED = 'PLAYER_SLIDER_MOVED';
+const PLAYER_AUDIO_ENDED = 'PLAYER_AUDIO_ENDED';
+const PLAYER_REPLAY = 'PLAYER_REPLAY';
 
 const playAudio = (dispatch, player) => () => {
   player.current.play();
@@ -49,6 +51,13 @@ const changePlayerSlider = (dispatch, player) => (progress: number) => {
   }
   dispatch({ type: PLAYER_SLIDER_MOVED, progress, current: currentTime });
 };
+const audioEnded = (dispatch, player) => () => {
+  dispatch({ type: PLAYER_AUDIO_ENDED });
+};
+const replayAudio = (dispatch, player) => () => {
+  player.current.play();
+  dispatch({ type: PLAYER_REPLAY });
+};
 
 export {
   playAudio,
@@ -58,6 +67,8 @@ export {
   changeAudioVolume,
   setPlayerDuration,
   setPlayerTime,
+  audioEnded,
+  replayAudio,
   changePlayerSlider,
   PLAYER_VOLUME_STATUS_UNMUTE,
   PLAYER_VOLUME_STATUS_MUTE,
@@ -66,5 +77,7 @@ export {
   PLAYER_VOLUME_CHANGE,
   PLAYER_SET_DURATION,
   PLAYER_SET_TIME,
-  PLAYER_SLIDER_MOVED
+  PLAYER_SLIDER_MOVED,
+  PLAYER_AUDIO_ENDED,
+  PLAYER_REPLAY
 };

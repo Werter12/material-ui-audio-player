@@ -1,4 +1,6 @@
 import {
+  PLAYER_AUDIO_ENDED,
+  PLAYER_REPLAY,
   PLAYER_SET_DURATION,
   PLAYER_SET_TIME,
   PLAYER_SLIDER_MOVED,
@@ -77,6 +79,22 @@ export default function reducer(state, action) {
           ...state.player,
           progress: action.progress,
           current: action.current
+        }
+      };
+    case PLAYER_AUDIO_ENDED:
+      return {
+        player: {
+          ...state.player,
+          status: PLAYER.STATUS.STOP
+        }
+      };
+    case PLAYER_REPLAY:
+      return {
+        player: {
+          ...state.player,
+          status: PLAYER.STATUS.PLAY,
+          progress: 0,
+          current: 0
         }
       };
     default:

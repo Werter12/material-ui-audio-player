@@ -1,7 +1,8 @@
 export default {
   STATUS: {
     PLAY: 'PLAY',
-    PAUSE: 'PAUSE'
+    PAUSE: 'PAUSE',
+    STOP: 'STOP'
   },
   VOLUME: {
     STATUS: {
