@@ -5,12 +5,13 @@ import {
   Typography,
   useMediaQuery
 } from '@material-ui/core';
-import { CloudDownload, VolumeOff, VolumeUp } from '@material-ui/icons';
+import { VolumeOff, VolumeUp } from '@material-ui/icons';
 import { makeStyles, useTheme } from '@material-ui/styles';
 // tslint:disable-next-line
 import { StylesHook } from '@material-ui/styles/makeStyles';
 import cx from 'classnames';
 import * as React from 'react';
+import AudioDownloadsControl from './AudioDownloadsControl';
 import AudioPlayControl from './AudioPlayControl';
 import {
   audioEnded,
@@ -127,33 +128,6 @@ export const useComponentStyles = makeStyles((theme: any) => {
     icon: (props: any) => ({
       color: props.mainColor
     }),
-    downloadLink: (props: any) => ({
-      color: props.mainColor,
-      textDecoration: 'none',
-      '&:hover': {
-        color: props.mainColor
-      },
-      '&:focus': {
-        color: props.mainColor
-      },
-      '&:active': {
-        color: props.mainColor
-      }
-    }),
-    downloadsContainer: {
-      position: 'absolute',
-      width: 'auto',
-      top: '85%'
-    },
-    downloadsItemContainer: {
-      padding: '8px 14px'
-    },
-    cloudDownloadIconContainer: {
-      position: 'relative'
-    },
-    cloudDownloadIcon: (props: any) => ({
-      color: props.mainColor
-    }),
     volumeIconContainer: {
       position: 'relative',
       '&:hover': {
@@ -202,66 +176,6 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   const toggleVolumeSlider = (value: boolean) => () => {
     openVolumeSlider(value);
   };
-  const [downloadsDropdownOpened, openDownloadsDropdown] = React.useState(
-    false
-  );
-  const toggleDownloadsDropdown = (value: boolean) => () => {
-    openDownloadsDropdown(value);
-  };
-  const downloadOptions = Array.isArray(src) ? (
-    <Grid
-      item={true}
-      className={cx(
-        classes.commonContainer,
-        classes.cloudDownloadIconContainer
-      )}
-      onMouseEnter={toggleDownloadsDropdown(true)}
-      onMouseLeave={toggleDownloadsDropdown(false)}
-    >
-      <CloudDownload
-        fontSize="large"
-        className={cx(classes.cloudDownloadIcon, classNames.downloadIcon)}
-      />
-      {downloadsDropdownOpened && (
-        <Grid
-          container={true}
-          direction="column"
-          alignItems="center"
-          justify="center"
-          component={Paper}
-          className={classes.downloadsContainer}
-        >
-          {src.map((srcLink, index) => {
-            return (
-              <Grid
-                key={index}
-                item={true}
-                className={classes.downloadsItemContainer}
-              >
-                <a
-                  className={classes.downloadLink}
-                  href={srcLink}
-                  download={true}
-                >
-                  <Typography color="textPrimary">
-                    {srcLink
-                      .substring(srcLink.lastIndexOf('.') + 1)
-                      .toUpperCase()}
-                  </Typography>
-                </a>
-              </Grid>
-            );
-          })}
-        </Grid>
-      )}
-    </Grid>
-  ) : (
-    <Grid item={true} className={classes.commonContainer}>
-      <a className={classes.downloadLink} href={src} download={true}>
-        <CloudDownload fontSize="large" className={classNames.downloadIcon} />
-      </a>
-    </Grid>
-  );
 
   const [state, dispatch] = React.useReducer(reducer, inititalState);
   const {
@@ -336,7 +250,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
             playAudio={_playAudio}
           />
         </Grid>
-        {download && downloadOptions}
+        {download && <AudioDownloadsControl src={src} mainColor={mainColor} />}
         <Grid
           item={true}
           className={cx(classes.commonContainer, classes.volumeIconContainer)}
