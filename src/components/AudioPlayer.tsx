@@ -17,8 +17,14 @@ import { makeStyles, useTheme } from '@material-ui/styles';
 import { StylesHook } from '@material-ui/styles/makeStyles';
 import cx from 'classnames';
 import * as React from 'react';
-import { pauseAudio, playAudio } from './actions';
-import PLAYER from './constants';
+import {
+  changeAudioVolume,
+  muteAudio,
+  pauseAudio,
+  playAudio,
+  unmuteAudio
+} from './actions';
+import PLAYER from './player';
 import reducer from './reducer';
 
 function populateDispatch(dispatch, player, ...funcs) {
@@ -26,6 +32,13 @@ function populateDispatch(dispatch, player, ...funcs) {
     return { ...acc, [`${func.name}Internal`]: func(dispatch, player) };
   }, {});
 }
+const inititalState = {
+  player: {
+    status: PLAYER.STATUS.PAUSE,
+    volume: { status: PLAYER.VOLUME.STATUS.UNMUTE },
+    value: PLAYER.VOLUME.DEFAULT_VALUE
+  }
+};
 
 export interface IAudioPlayerClassNameProps {
   root: string;
@@ -35,6 +48,7 @@ export interface IAudioPlayerClassNameProps {
   mainSlider: string;
   volumeSlider: string;
   downloadIcon: string;
+  pauseIcon: string;
   // loopIcon: string;
   // muteIcon: string;
   // slider: string;
@@ -91,7 +105,7 @@ export const useComponentStyles = makeStyles((theme: any) => {
     playCircleIcon: (props: any) => ({
       color: props.mainColor
     }),
-    voluemeUpIcon: (props: any) => ({
+    icon: (props: any) => ({
       color: props.mainColor
     }),
     downloadLink: (props: any) => ({
@@ -229,14 +243,38 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       </a>
     </Grid>
   );
-  const inititalState = { player: { status: PLAYER.STATUS.PAUSE } };
+
   const [state, dispatch] = React.useReducer(reducer, inititalState);
-  const { pauseAudioInternal, playAudioInternal } = populateDispatch(
+  const {
+    pauseAudioInternal,
+    playAudioInternal,
+    muteAudioInternal,
+    unmuteAudioInternal,
+    changeAudioVolumeInternal
+  } = React.useMemo(() => {
+    return populateDispatch(
+      dispatch,
+      player,
+      pauseAudio,
+      playAudio,
+      muteAudio,
+      unmuteAudio,
+      changeAudioVolume
+    );
+  }, [
     dispatch,
     player,
     pauseAudio,
-    playAudio
-  );
+    playAudio,
+    muteAudio,
+    unmuteAudio,
+    changeAudioVolume
+  ]);
+  const handleVolumeChange = (event: object, value: any) => {
+    changeAudioVolumeInternal(value);
+  };
+  // tslint:disable-next-line
+  console.log('state', state);
   return (
     <>
       <audio ref={player} hidden={true}>
@@ -265,10 +303,14 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
             <PlayCircleFilledWhite
               fontSize="large"
               onClick={playAudioInternal}
-              className={cx(classes.playCircleIcon, classNames.playIcon)}
+              className={cx(classes.icon, classNames.playIcon)}
             />
           ) : (
-            <PauseCircleFilled fontSize="large" onClick={pauseAudioInternal} />
+            <PauseCircleFilled
+              fontSize="large"
+              onClick={pauseAudioInternal}
+              className={cx(classes.icon, classNames.pauseIcon)}
+            />
           )}
         </Grid>
         {download && downloadOptions}
@@ -278,15 +320,27 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           onMouseEnter={toggleVolumeSlider(true)}
           onMouseLeave={toggleVolumeSlider(false)}
         >
-          <VolumeUp
-            fontSize="large"
-            className={cx(classes.voluemeUpIcon, classNames.volumeIcon)}
-          />
+          {state.player.volume.status === PLAYER.VOLUME.STATUS.UNMUTE ? (
+            <VolumeUp
+              fontSize="large"
+              className={cx(classes.icon, classNames.volumeIcon)}
+              onClick={muteAudioInternal}
+            />
+          ) : (
+            <VolumeOff
+              fontSize="large"
+              className={cx(classes.icon, classNames.volumeIcon)}
+              onClick={unmuteAudioInternal}
+            />
+          )}
           {volumeSlider && (
             <Paper className={cx(classes.volumeControlContainer)}>
               <Slider
                 orientation="vertical"
                 aria-labelledby="volume-control"
+                value={state.player.volume.value}
+                defaultValue={PLAYER.VOLUME.DEFAULT_VALUE}
+                onChange={handleVolumeChange}
                 className={cx(classes.slider, classNames.volumeSlider)}
               />
             </Paper>
