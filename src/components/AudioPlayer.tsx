@@ -19,13 +19,28 @@ import cx from 'classnames';
 import * as React from 'react';
 import {
   changeAudioVolume,
+  changePlayerSlider,
   muteAudio,
   pauseAudio,
   playAudio,
+  setPlayerDuration,
+  setPlayerTime,
   unmuteAudio
-} from './actions';
-import PLAYER from './player';
-import reducer from './reducer';
+} from './state/actions';
+import { getFormattedTime } from './state/helpers';
+import PLAYER from './state/player';
+import reducer from './state/reducer';
+
+const actionCreators = [
+  pauseAudio,
+  playAudio,
+  muteAudio,
+  unmuteAudio,
+  changeAudioVolume,
+  setPlayerDuration,
+  setPlayerTime,
+  changePlayerSlider
+];
 
 function populateDispatch(dispatch, player, ...funcs) {
   return funcs.reduce((acc, func) => {
@@ -35,8 +50,13 @@ function populateDispatch(dispatch, player, ...funcs) {
 const inititalState = {
   player: {
     status: PLAYER.STATUS.PAUSE,
-    volume: { status: PLAYER.VOLUME.STATUS.UNMUTE },
-    value: PLAYER.VOLUME.DEFAULT_VALUE
+    volume: {
+      status: PLAYER.VOLUME.STATUS.UNMUTE,
+      value: PLAYER.VOLUME.DEFAULT_VALUE
+    },
+    duration: 0,
+    progress: 0,
+    current: 0
   }
 };
 
@@ -250,29 +270,37 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     playAudioInternal,
     muteAudioInternal,
     unmuteAudioInternal,
-    changeAudioVolumeInternal
+    changeAudioVolumeInternal,
+    setPlayerDurationInternal,
+    setPlayerTimeInternal,
+    changePlayerSliderInternal
   } = React.useMemo(() => {
-    return populateDispatch(
-      dispatch,
-      player,
-      pauseAudio,
-      playAudio,
-      muteAudio,
-      unmuteAudio,
-      changeAudioVolume
-    );
-  }, [
-    dispatch,
-    player,
-    pauseAudio,
-    playAudio,
-    muteAudio,
-    unmuteAudio,
-    changeAudioVolume
-  ]);
+    return populateDispatch(dispatch, player, ...actionCreators);
+  }, [dispatch, player, ...actionCreators]);
   const handleVolumeChange = (event: object, value: any) => {
     changeAudioVolumeInternal(value);
   };
+  const handleAudioSliderChange = (event: object, progress: any) => {
+    changePlayerSliderInternal(progress);
+  };
+  React.useEffect(() => {
+    if (player && player.current) {
+      player.current.addEventListener(
+        'canplaythrough',
+        setPlayerDurationInternal
+      );
+      player.current.addEventListener('timeupdate', setPlayerTimeInternal);
+    }
+    return () => {
+      if (player && player.current) {
+        player.current.removeEventListener(
+          'canplaythrough',
+          setPlayerDurationInternal
+        );
+        player.current.removeEventListener('timeupdate', setPlayerTimeInternal);
+      }
+    };
+  }, [player]);
   // tslint:disable-next-line
   console.log('state', state);
   return (
@@ -347,13 +375,17 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           )}
         </Grid>
         <Grid item={true} className={classes.commonContainer}>
-          <Typography>00:00</Typography>
+          <Typography>{getFormattedTime(state.player.current)}</Typography>
         </Grid>
         <Grid item={true} className={classes.sliderContainer}>
-          <Slider className={cx(classes.slider, classNames.mainSlider)} />
+          <Slider
+            className={cx(classes.slider, classNames.mainSlider)}
+            onChange={handleAudioSliderChange}
+            value={state.player.progress}
+          />
         </Grid>
         <Grid item={true} className={classes.commonContainer}>
-          <Typography>00:00</Typography>
+          <Typography>{getFormattedTime(state.player.duration)}</Typography>
         </Grid>
       </Grid>
     </>

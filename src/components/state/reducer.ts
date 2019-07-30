@@ -1,4 +1,7 @@
 import {
+  PLAYER_SET_DURATION,
+  PLAYER_SET_TIME,
+  PLAYER_SLIDER_MOVED,
   PLAYER_STATUS_PAUSE,
   PLAYER_STATUS_PLAY,
   PLAYER_VOLUME_CHANGE,
@@ -51,6 +54,29 @@ export default function reducer(state, action) {
             status: PLAYER.VOLUME.STATUS.UNMUTE,
             value: action.volumeValue
           }
+        }
+      };
+    case PLAYER_SET_DURATION:
+      return {
+        player: {
+          ...state.player,
+          duration: action.duration
+        }
+      };
+    case PLAYER_SET_TIME:
+      return {
+        player: {
+          ...state.player,
+          progress: action.progress,
+          current: action.current
+        }
+      };
+    case PLAYER_SLIDER_MOVED:
+      return {
+        player: {
+          ...state.player,
+          progress: action.progress,
+          current: action.current
         }
       };
     default:
