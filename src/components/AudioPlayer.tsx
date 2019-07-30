@@ -13,34 +13,10 @@ import cx from 'classnames';
 import * as React from 'react';
 import AudioDownloadsControl from './AudioDownloadsControl';
 import AudioPlayControl from './AudioPlayControl';
-import {
-  audioEnded,
-  changeAudioVolume,
-  changePlayerSlider,
-  muteAudio,
-  pauseAudio,
-  playAudio,
-  replayAudio,
-  setPlayerDuration,
-  setPlayerTime,
-  unmuteAudio
-} from './state/actions';
+import { actionCreators } from './state/actions';
 import { getFormattedTime } from './state/helpers';
 import PLAYER from './state/player';
 import reducer from './state/reducer';
-
-const actionCreators = [
-  pauseAudio,
-  playAudio,
-  muteAudio,
-  unmuteAudio,
-  changeAudioVolume,
-  setPlayerDuration,
-  setPlayerTime,
-  changePlayerSlider,
-  audioEnded,
-  replayAudio
-];
 
 function populateDispatch(dispatch, player, ...funcs) {
   return funcs.reduce((acc, func) => {

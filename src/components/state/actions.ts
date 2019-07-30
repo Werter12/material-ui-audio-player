@@ -58,8 +58,7 @@ const replayAudio = (dispatch, player) => () => {
   player.current.play();
   dispatch({ type: PLAYER_REPLAY });
 };
-
-export {
+const actionCreators = [
   playAudio,
   pauseAudio,
   muteAudio,
@@ -69,7 +68,11 @@ export {
   setPlayerTime,
   audioEnded,
   replayAudio,
-  changePlayerSlider,
+  changePlayerSlider
+];
+
+export {
+  actionCreators,
   PLAYER_VOLUME_STATUS_UNMUTE,
   PLAYER_VOLUME_STATUS_MUTE,
   PLAYER_STATUS_PLAY,
