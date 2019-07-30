@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core';
 import {
   CloudDownload,
+  PauseCircleFilled,
   PlayCircleFilledWhite,
   VolumeOff,
   VolumeUp
@@ -16,6 +17,15 @@ import { makeStyles, useTheme } from '@material-ui/styles';
 import { StylesHook } from '@material-ui/styles/makeStyles';
 import cx from 'classnames';
 import * as React from 'react';
+import { pauseAudio, playAudio } from './actions';
+import PLAYER from './constants';
+import reducer from './reducer';
+
+function populateDispatch(dispatch, player, ...funcs) {
+  return funcs.reduce((acc, func) => {
+    return { ...acc, [`${func.name}Internal`]: func(dispatch, player) };
+  }, {});
+}
 
 export interface IAudioPlayerClassNameProps {
   root: string;
@@ -219,6 +229,14 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       </a>
     </Grid>
   );
+  const inititalState = { player: { status: PLAYER.STATUS.PAUSE } };
+  const [state, dispatch] = React.useReducer(reducer, inititalState);
+  const { pauseAudioInternal, playAudioInternal } = populateDispatch(
+    dispatch,
+    player,
+    pauseAudio,
+    playAudio
+  );
   return (
     <>
       <audio ref={player} hidden={true}>
@@ -243,10 +261,15 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         )}
       >
         <Grid item={true} className={classes.commonContainer}>
-          <PlayCircleFilledWhite
-            fontSize="large"
-            className={cx(classes.playCircleIcon, classNames.playIcon)}
-          />
+          {state.player.status === PLAYER.STATUS.PAUSE ? (
+            <PlayCircleFilledWhite
+              fontSize="large"
+              onClick={playAudioInternal}
+              className={cx(classes.playCircleIcon, classNames.playIcon)}
+            />
+          ) : (
+            <PauseCircleFilled fontSize="large" onClick={pauseAudioInternal} />
+          )}
         </Grid>
         {download && downloadOptions}
         <Grid
