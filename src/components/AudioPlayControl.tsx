@@ -20,7 +20,7 @@ interface IAudioPlayControlProps {
   pauseAudio: () => void;
   playAudio: () => void;
   replayAudio: () => void;
-  classNames: any;
+  classNames?: any;
 }
 
 const AudioPlayControl: React.FunctionComponent<IAudioPlayControlProps> = ({
@@ -29,7 +29,7 @@ const AudioPlayControl: React.FunctionComponent<IAudioPlayControlProps> = ({
   pauseAudio,
   playAudio,
   replayAudio,
-  classNames
+  classNames = {}
 }) => {
   const classes = useComponentStyles({ mainColor });
   switch (playerStatus) {
