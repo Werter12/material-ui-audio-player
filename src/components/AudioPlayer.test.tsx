@@ -1,18 +1,14 @@
 import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import AudioPlayer from './AudioPlayer';
+import { mountWithTheme } from './utils/enzymeHelpers';
 
 const theme = createMuiTheme({});
-describe('AudioPlayer component', () => {
+describe('<AudioPlayer />', () => {
+  const src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
   it('renders', () => {
-    const component = shallow(
-      <ThemeProvider theme={theme}>
-        <AudioPlayer src="https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3" />{' '}
-        />
-      </ThemeProvider>
-    );
+    const component = mountWithTheme(<AudioPlayer src={src} />, theme);
     expect(component.exists()).toBeTruthy();
   });
 });

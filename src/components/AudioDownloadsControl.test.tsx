@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import * as React from 'react';
 import AudioDownloadsControl from './AudioDownloadsControl';
 
-describe('AudioVolumeControl component', () => {
+describe('<AudioDownloadsControl />', () => {
   const mainColor = 'green';
   const muiShallow = createShallow({ untilSelector: 'AudioDownloadsControl' });
   const src = 'https://example';

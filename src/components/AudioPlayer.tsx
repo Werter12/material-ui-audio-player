@@ -5,26 +5,19 @@ import {
   Typography,
   useMediaQuery
 } from '@material-ui/core';
-import { VolumeOff, VolumeUp } from '@material-ui/icons';
 import { makeStyles, useTheme } from '@material-ui/styles';
 // tslint:disable-next-line
 import { StylesHook } from '@material-ui/styles/makeStyles';
 import cx from 'classnames';
-import { platform } from 'os';
 import * as React from 'react';
 import AudioDownloadsControl from './AudioDownloadsControl';
 import AudioPlayControl from './AudioPlayControl';
 import AudioVolumeControl from './AudioVolumeControl';
 import { actionCreators } from './state/actions';
-import { getFormattedTime } from './state/helpers';
+import { getFormattedTime, populateDispatch } from './state/helpers';
 import PLAYER from './state/player';
 import reducer from './state/reducer';
 
-function populateDispatch(dispatch, player, ...funcs) {
-  return funcs.reduce((acc, func) => {
-    return { ...acc, [`_${func.name}`]: func(dispatch, player) };
-  }, {});
-}
 const inititalState = {
   player: {
     status: PLAYER.STATUS.PAUSE,

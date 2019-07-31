@@ -8,7 +8,7 @@ import * as React from 'react';
 import AudioPlayControl from './AudioPlayControl';
 import PLAYER from './state/player';
 
-describe('AudioPlayControl component', () => {
+describe('<AudioPlayControl />', () => {
   const mainColor = 'green';
   it('renders', () => {
     const pauseAudioMock = jest.fn();

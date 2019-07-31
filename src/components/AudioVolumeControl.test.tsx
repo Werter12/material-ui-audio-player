@@ -7,7 +7,7 @@ import AudioVolumeControl from './AudioVolumeControl';
 import PLAYER from './state/player';
 import { mountWithTheme } from './utils/enzymeHelpers';
 
-describe('AudioVolumeControl component', () => {
+describe('<AudioVolumeControl />', () => {
   const mainColor = 'green';
   const muiTheme = createMuiTheme({});
   const muiShallow = createShallow({ untilSelector: 'AudioVolumeControl' });
