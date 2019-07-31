@@ -58,7 +58,7 @@ export const AudioVolumeControl: React.FunctionComponent<
 > = ({
   muteAudio,
   unmuteAudio,
-  classNames,
+  classNames = {},
   volume,
   changeAudioVolume,
   mainColor
