@@ -17,7 +17,7 @@ describe('AudioVolumeControl component', () => {
     const changeAudioVolume = jest.fn();
     const volume = {
       status: PLAYER.VOLUME.STATUS.UNMUTE,
-      value: 0
+      value: 100
     };
     const wrapper = mountWithTheme(
       <AudioVolumeControl
@@ -79,5 +79,31 @@ describe('AudioVolumeControl component', () => {
     expect(icon).toHaveLength(1);
     icon.simulate('click');
     expect(unmuteAudio.mock.calls.length).toBe(1);
+  });
+
+  it('toggle volume slider works', () => {
+    const muteAudio = jest.fn();
+    const unmuteAudio = jest.fn();
+    const changeAudioVolume = jest.fn();
+    const volume = {
+      status: PLAYER.VOLUME.STATUS.UNMUTE,
+      value: 100
+    };
+    const wrapper = mountWithTheme(
+      <AudioVolumeControl
+        volume={volume}
+        muteAudio={muteAudio}
+        unmuteAudio={unmuteAudio}
+        changeAudioVolume={changeAudioVolume}
+        mainColor={mainColor}
+      />,
+      muiTheme
+    );
+    const rootGrid = wrapper.find('.MuiGrid-root');
+    expect(rootGrid).toHaveLength(1);
+    rootGrid.simulate('mouseenter');
+    expect(wrapper.find('.MuiSlider-root')).toHaveLength(1);
+    rootGrid.simulate('mouseleave');
+    expect(wrapper.find('.MuiSlider-root')).toHaveLength(0);
   });
 });
