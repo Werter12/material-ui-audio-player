@@ -6,5 +6,10 @@ module.exports = {
   testRegex: '(/test/.*|\\.(test|spec))\\.(ts|tsx|js)$',
   snapshotSerializers: ['enzyme-to-json/serializer'],
   setupFilesAfterEnv: ['./src/setupEnzyme.ts'],
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'json']
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
+  globals: {
+    'ts-jest': {
+      isolatedModules: true
+    }
+  }
 };
