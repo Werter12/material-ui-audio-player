@@ -60,4 +60,4 @@ const AudioPlayControl: React.FunctionComponent<IAudioPlayControlProps> = ({
   }
 };
 
-export default AudioPlayControl;
+export default React.memo(AudioPlayControl);

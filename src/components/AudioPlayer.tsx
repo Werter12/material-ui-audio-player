@@ -10,6 +10,7 @@ import { makeStyles, useTheme } from '@material-ui/styles';
 // tslint:disable-next-line
 import { StylesHook } from '@material-ui/styles/makeStyles';
 import cx from 'classnames';
+import { platform } from 'os';
 import * as React from 'react';
 import AudioDownloadsControl from './AudioDownloadsControl';
 import AudioPlayControl from './AudioPlayControl';
@@ -153,6 +154,9 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   };
   React.useEffect(() => {
     if (player && player.current) {
+      if (player.current.readyState > 3) {
+        _setPlayerDuration();
+      }
       player.current.addEventListener('canplaythrough', _setPlayerDuration);
       player.current.addEventListener('timeupdate', _setPlayerTime);
       player.current.addEventListener('ended', _audioEnded);

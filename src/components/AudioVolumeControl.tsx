@@ -107,4 +107,4 @@ export const AudioVolumeControl: React.FunctionComponent<
   );
 };
 
-export default AudioVolumeControl;
+export default React.memo(AudioVolumeControl);

@@ -118,4 +118,4 @@ export const AudioDownloadsControl: React.FunctionComponent<
   );
 };
 
-export default AudioDownloadsControl;
+export default React.memo(AudioDownloadsControl);

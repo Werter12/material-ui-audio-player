@@ -25,6 +25,7 @@ storiesOf('Material Ui', module)
         'https://converter-audio-example-1.s3.eu-central-1.amazonaws.com/Russell%2C%2BMale%2B-%2BEnglish%2C%2BAustralian+(1)+(online-audio-converter.com).wav',
         'https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3'
       ];
+
       return (
         <ThemeProvider theme={theme}>
           <AudioPlayer
@@ -73,13 +74,15 @@ const srcSet = [
         }
       });
       const variation = select('variation', availableVariations, 'primary');
+      const src =
+        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
       return (
         <ThemeProvider theme={theme}>
           <AudioPlayer
             width="500px"
             variation={variation}
             useStyles={useStyles}
-            src="https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3"
+            src={src}
           />
         </ThemeProvider>
       );
