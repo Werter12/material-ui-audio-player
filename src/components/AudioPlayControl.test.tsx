@@ -14,7 +14,7 @@ describe('AudioPlayControl component', () => {
     const pauseAudioMock = jest.fn();
     const playAudioMock = jest.fn();
     const replayAudioMock = jest.fn();
-    const component = shallow(
+    const wrapper = shallow(
       <AudioPlayControl
         playerStatus={PLAYER.STATUS.PAUSE}
         pauseAudio={pauseAudioMock}
@@ -23,13 +23,13 @@ describe('AudioPlayControl component', () => {
         mainColor={mainColor}
       />
     );
-    expect(component.exists()).toBeTruthy();
+    expect(wrapper.exists()).toBeTruthy();
   });
-  it('should render Play icon', () => {
+  it('should render Play icon and play audio', () => {
     const pauseAudioMock = jest.fn();
     const playAudioMock = jest.fn();
     const replayAudioMock = jest.fn();
-    const component = shallow(
+    const wrapper = shallow(
       <AudioPlayControl
         playerStatus={PLAYER.STATUS.PAUSE}
         pauseAudio={pauseAudioMock}
@@ -38,15 +38,15 @@ describe('AudioPlayControl component', () => {
         mainColor={mainColor}
       />
     );
-    component.simulate('click');
-    expect(component.find(PlayCircleFilledWhite)).toHaveLength(1);
+    wrapper.simulate('click');
+    expect(wrapper.find(PlayCircleFilledWhite)).toHaveLength(1);
     expect(playAudioMock.mock.calls.length).toBe(1);
   });
-  it('should render Pause icon', () => {
+  it('should render Pause icon and pause audio', () => {
     const pauseAudioMock = jest.fn();
     const playAudioMock = jest.fn();
     const replayAudioMock = jest.fn();
-    const component = shallow(
+    const wrapper = shallow(
       <AudioPlayControl
         playerStatus={PLAYER.STATUS.PLAY}
         pauseAudio={pauseAudioMock}
@@ -55,15 +55,15 @@ describe('AudioPlayControl component', () => {
         mainColor={mainColor}
       />
     );
-    component.simulate('click');
-    expect(component.find(PauseCircleFilled)).toHaveLength(1);
+    wrapper.simulate('click');
+    expect(wrapper.find(PauseCircleFilled)).toHaveLength(1);
     expect(pauseAudioMock.mock.calls.length).toBe(1);
   });
-  it('should render Replay icon', () => {
+  it('should render Replay icon and replay audio', () => {
     const pauseAudioMock = jest.fn();
     const playAudioMock = jest.fn();
     const replayAudioMock = jest.fn();
-    const component = shallow(
+    const wrapper = shallow(
       <AudioPlayControl
         playerStatus={PLAYER.STATUS.STOP}
         pauseAudio={pauseAudioMock}
@@ -72,8 +72,8 @@ describe('AudioPlayControl component', () => {
         mainColor={mainColor}
       />
     );
-    component.simulate('click');
-    expect(component.find(Replay)).toHaveLength(1);
+    wrapper.simulate('click');
+    expect(wrapper.find(Replay)).toHaveLength(1);
     expect(replayAudioMock.mock.calls.length).toBe(1);
   });
 });
