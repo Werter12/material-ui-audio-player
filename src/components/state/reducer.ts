@@ -1,5 +1,6 @@
 import {
   PLAYER_AUDIO_ENDED,
+  PLAYER_AUTOPLAY,
   PLAYER_REPLAY,
   PLAYER_SET_DURATION,
   PLAYER_SET_TIME,
@@ -95,6 +96,14 @@ export default function reducer(state, action) {
           status: PLAYER.STATUS.PLAY,
           progress: 0,
           current: 0
+        }
+      };
+    case PLAYER_AUTOPLAY:
+      return {
+        player: {
+          ...state.player,
+          status: PLAYER.STATUS.PLAY,
+          autoplay: true
         }
       };
     default:

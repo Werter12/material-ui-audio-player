@@ -27,7 +27,8 @@ const inititalState = {
     },
     duration: 0,
     progress: 0,
-    current: 0
+    current: 0,
+    autoplay: false
   }
 };
 
@@ -92,6 +93,12 @@ enum AudioPlayerVariation {
   classic = 'classic'
 }
 
+enum AudioPlayerPreload {
+  auto = 'auto',
+  metadata = 'metadata',
+  none = 'none'
+}
+
 interface IAudioPlayerProps {
   src: string | string[];
   rounded?: boolean;
@@ -101,6 +108,9 @@ interface IAudioPlayerProps {
   height?: string;
   download?: boolean;
   variation?: AudioPlayerVariation;
+  preload?: AudioPlayerPreload;
+  // some browsers will block audio autoplay
+  autoplay?: boolean;
 }
 
 const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
@@ -110,8 +120,10 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   useStyles = () => ({}),
   width = '100%',
   height = 'auto',
-  variation = 'primary',
-  download = false
+  variation = AudioPlayerVariation.primary,
+  preload = AudioPlayerPreload.auto,
+  download = false,
+  autoplay = false
 }) => {
   const player = React.useRef<HTMLAudioElement | null>(null);
   const theme: { [key: string]: any } = useTheme();
@@ -137,7 +149,8 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     _setPlayerTime,
     _changePlayerSlider,
     _audioEnded,
-    _replayAudio
+    _replayAudio,
+    _setPlayerAutoplay
   } = React.useMemo(() => {
     return populateDispatch(dispatch, player, ...actionCreators);
   }, [dispatch, player, ...actionCreators]);
@@ -150,16 +163,17 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       if (player.current.readyState > 3) {
         _setPlayerDuration();
       }
-      player.current.addEventListener('canplaythrough', _setPlayerDuration);
+      if (!player.current.autoplay && autoplay) {
+        _setPlayerAutoplay();
+      }
+      player.current.addEventListener('canplay', _setPlayerDuration);
       player.current.addEventListener('timeupdate', _setPlayerTime);
       player.current.addEventListener('ended', _audioEnded);
     }
     return () => {
       if (player && player.current) {
-        player.current.removeEventListener(
-          'canplaythrough',
-          _setPlayerDuration
-        );
+        player.current.removeEventListener('canplay', _setPlayerDuration);
+
         player.current.removeEventListener('timeupdate', _setPlayerTime);
         player.current.removeEventListener('ended', _audioEnded);
       }
@@ -169,7 +183,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   console.log('state', state);
   return (
     <>
-      <audio ref={player} hidden={true}>
+      <audio ref={player} hidden={true} preload={preload}>
         {Array.isArray(src) ? (
           src.map((srcLink, index) => <source key={index} src={srcLink} />)
         ) : (
