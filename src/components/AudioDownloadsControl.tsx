@@ -72,7 +72,7 @@ export const AudioDownloadsControl: React.FunctionComponent<
     >
       <CloudDownload
         fontSize="large"
-        className={cx(classes.cloudDownloadIcon, classNames.downloadIcon)}
+        className={cx(classes.cloudDownloadIcon, classNames.downloadsIcon)}
       />
       {downloadsDropdownOpened && (
         <Grid
@@ -88,14 +88,23 @@ export const AudioDownloadsControl: React.FunctionComponent<
               <Grid
                 key={index}
                 item={true}
-                className={classes.downloadsItemContainer}
+                className={cx(
+                  classes.downloadsItemContainer,
+                  classNames.downloadsContainer
+                )}
               >
                 <a
-                  className={classes.downloadLink}
+                  className={cx(
+                    classes.downloadLink,
+                    classNames.downloadsItemLink
+                  )}
                   href={srcLink}
                   download={true}
                 >
-                  <Typography color="textPrimary">
+                  <Typography
+                    color="textPrimary"
+                    className={classNames.downloadsItemText}
+                  >
                     {srcLink
                       .substring(srcLink.lastIndexOf('.') + 1)
                       .toUpperCase()}

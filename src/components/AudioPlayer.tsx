@@ -41,13 +41,13 @@ export interface IAudioPlayerClassNameProps {
   muteIcon: string;
   mainSlider: string;
   volumeSlider: string;
-  downloadIcon: string;
+  downloadsIcon: string;
   pauseIcon: string;
   loopIcon: string;
-  // slider: string;
-  // track: string;
-  // thumb: string;
-  // text: string;
+  progressTime: string;
+  downloadsContainer: string;
+  downloadsItemLink: string;
+  downloadsItemText: string;
 }
 
 export const useComponentStyles = makeStyles((theme: any) => {
@@ -287,7 +287,9 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           playerColors={playerColors}
         />
         <Grid item={true} className={classes.commonContainer}>
-          <Typography>{getFormattedTime(state.player.current)}</Typography>
+          <Typography className={classNames.progressTime}>
+            {getFormattedTime(state.player.current)}
+          </Typography>
         </Grid>
         <Grid item={true} className={classes.sliderContainer}>
           <Slider
@@ -297,7 +299,9 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           />
         </Grid>
         <Grid item={true} className={classes.commonContainer}>
-          <Typography>{getFormattedTime(state.player.duration)}</Typography>
+          <Typography className={classNames.progressTime}>
+            {getFormattedTime(state.player.duration)}
+          </Typography>
         </Grid>
       </Grid>
     </>

@@ -70,23 +70,38 @@ const srcSet = [
     () => {
       const useStyles = makeStyles({
         playIcon: {
-          color: '#f50057'
+          color: '#f50057',
+          '&:hover': {
+            color: '#ff4081'
+          }
         },
         volumeIcon: {
           color: 'rgba(0, 0, 0, 0.54)'
+        },
+        volumeSlider: {
+          color: 'black'
+        },
+        progressTime: {
+          color: 'rgba(0, 0, 0, 0.54)'
+        },
+        mainSlider: {
+          color: '#3f51b5',
+          '& .MuiSlider-rail': {
+            color: '#7986cb'
+          },
+          '& .MuiSlider-track': {
+            color: '#3f51b5'
+          },
+          '& .MuiSlider-thumb': {
+            color: '#303f9f'
+          }
         }
       });
-      const variation = select('variation', availableVariations, 'primary');
       const src =
         'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
       return (
         <ThemeProvider theme={theme}>
-          <AudioPlayer
-            width="500px"
-            variation={variation}
-            useStyles={useStyles}
-            src={src}
-          />
+          <AudioPlayer width="500px" useStyles={useStyles} src={src} />
         </ThemeProvider>
       );
     },
@@ -100,10 +115,25 @@ const srcSet = [
 ~~~js
 const useStyles = makeStyles({
   playIcon: {
-    color: '#f50057'
+    color: '#f50057',
+    '&:hover': {
+      color: '#ff4081'
+    }
   },
   volumeIcon: {
     color: 'rgba(0, 0, 0, 0.54)'
+  },
+  mainSlider: {
+    color: '#3f51b5',
+    '& .MuiSlider-rail': {
+      color: '#7986cb'
+    },
+    '& .MuiSlider-track': {
+      color: '#3f51b5'
+    },
+    '& .MuiSlider-thumb': {
+      color: '#303f9f'
+    }
   }
 })
 <AudioPlayer src='https://music.com/song' useStyles={useStyles}/>
