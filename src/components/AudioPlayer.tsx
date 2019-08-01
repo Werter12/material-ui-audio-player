@@ -5,6 +5,7 @@ import {
   Typography,
   useMediaQuery
 } from '@material-ui/core';
+import { Repeat } from '@material-ui/icons';
 import { makeStyles, useTheme } from '@material-ui/styles';
 // tslint:disable-next-line
 import { StylesHook } from '@material-ui/styles/makeStyles';
@@ -28,6 +29,7 @@ const inititalState = {
     duration: 0,
     progress: 0,
     current: 0,
+    loop: false,
     autoplay: false
   }
 };
@@ -41,8 +43,7 @@ export interface IAudioPlayerClassNameProps {
   volumeSlider: string;
   downloadIcon: string;
   pauseIcon: string;
-  // loopIcon: string;
-  // muteIcon: string;
+  loopIcon: string;
   // slider: string;
   // track: string;
   // thumb: string;
@@ -69,7 +70,7 @@ export const useComponentStyles = makeStyles((theme: any) => {
       flex: '1 1 auto'
     },
     slider: (props: any) => ({
-      color: props.mainColor
+      color: props.playerColors.active
     }),
     commonContainer: {
       flex: '0 0 auto',
@@ -77,8 +78,14 @@ export const useComponentStyles = makeStyles((theme: any) => {
         cursor: 'pointer'
       }
     },
+    iconSelected: (props: any) => ({
+      color: props.playerColors.selected
+    }),
     icon: (props: any) => ({
-      color: props.mainColor
+      color: props.playerColors.active,
+      '&:hover': {
+        color: props.playerColors.hover
+      }
     }),
     rounded: {
       borderRadius: theme.shape.borderRadius
@@ -87,10 +94,38 @@ export const useComponentStyles = makeStyles((theme: any) => {
   };
 });
 
-enum AudioPlayerVariation {
+export interface IAudioPlayerColors {
+  active: string;
+  selected: string;
+  disabled: string;
+  hover: string;
+}
+
+export const getColors = (
+  theme,
+  variation: AudioPlayerVariation
+): IAudioPlayerColors => {
+  if (variation === AudioPlayerVariation.default) {
+    return {
+      active: theme.palette.action.active,
+      selected: theme.palette.action.selected,
+      disabled: theme.palette.action.disabled,
+      hover: theme.palette.action.hover
+    };
+  } else {
+    return {
+      active: theme.palette[variation].main,
+      selected: theme.palette[variation].dark,
+      disabled: theme.palette[variation].light,
+      hover: theme.palette[variation].light
+    };
+  }
+};
+
+export enum AudioPlayerVariation {
   primary = 'primary',
   secondary = 'secondary',
-  classic = 'classic'
+  default = 'default'
 }
 
 enum AudioPlayerPreload {
@@ -109,6 +144,7 @@ interface IAudioPlayerProps {
   download?: boolean;
   variation?: AudioPlayerVariation;
   preload?: AudioPlayerPreload;
+  loop?: boolean;
   // some browsers will block audio autoplay
   autoplay?: boolean;
 }
@@ -120,18 +156,16 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   useStyles = () => ({}),
   width = '100%',
   height = 'auto',
-  variation = AudioPlayerVariation.primary,
+  variation = AudioPlayerVariation.default,
   preload = AudioPlayerPreload.auto,
   download = false,
-  autoplay = false
+  autoplay = false,
+  loop = false
 }) => {
   const player = React.useRef<HTMLAudioElement | null>(null);
   const theme: { [key: string]: any } = useTheme();
-  const mainColor =
-    variation === 'classic'
-      ? theme.palette.action.active
-      : theme.palette[variation].main;
-  const componentStyles = { width, height, mainColor };
+  const playerColors: IAudioPlayerColors = getColors(theme, variation);
+  const componentStyles = { width, height, playerColors };
   const classes = useComponentStyles(componentStyles);
   const classNames: Partial<IAudioPlayerClassNameProps> = useStyles(
     componentStyles
@@ -150,13 +184,17 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     _changePlayerSlider,
     _audioEnded,
     _replayAudio,
-    _setPlayerAutoplay
+    _setPlayerAutoplay,
+    _loopAudio
   } = React.useMemo(() => {
     return populateDispatch(dispatch, player, ...actionCreators);
   }, [dispatch, player, ...actionCreators]);
 
   const handleAudioSliderChange = (event: object, progress: any) => {
     _changePlayerSlider(progress);
+  };
+  const handlePlayerTimeUpdate = () => {
+    _setPlayerTime();
   };
   React.useEffect(() => {
     if (player && player.current) {
@@ -167,20 +205,28 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         _setPlayerAutoplay();
       }
       player.current.addEventListener('canplay', _setPlayerDuration);
-      player.current.addEventListener('timeupdate', _setPlayerTime);
+      player.current.addEventListener('timeupdate', handlePlayerTimeUpdate);
       player.current.addEventListener('ended', _audioEnded);
     }
     return () => {
       if (player && player.current) {
         player.current.removeEventListener('canplay', _setPlayerDuration);
 
-        player.current.removeEventListener('timeupdate', _setPlayerTime);
+        player.current.removeEventListener(
+          'timeupdate',
+          handlePlayerTimeUpdate
+        );
         player.current.removeEventListener('ended', _audioEnded);
       }
     };
   }, [player]);
   // tslint:disable-next-line
   console.log('state', state);
+
+  const handleLoop = () => {
+    _loopAudio(!state.player.loop);
+  };
+
   return (
     <>
       <audio ref={player} hidden={true} preload={preload}>
@@ -204,24 +250,41 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           classNames.root
         )}
       >
+        {loop && (
+          <Grid item={true} className={classes.commonContainer}>
+            <Repeat
+              fontSize="large"
+              onClick={handleLoop}
+              className={cx(
+                {
+                  [classes.iconSelected]: state.player.loop,
+                  [classes.icon]: !state.player.loop
+                },
+                classNames.loopIcon
+              )}
+            />
+          </Grid>
+        )}
         <Grid item={true} className={classes.commonContainer}>
           <AudioPlayControl
             classNames={classNames}
             playerStatus={state.player.status}
-            mainColor={mainColor}
+            playerColors={playerColors}
             replayAudio={_replayAudio}
             pauseAudio={_pauseAudio}
             playAudio={_playAudio}
           />
         </Grid>
-        {download && <AudioDownloadsControl src={src} mainColor={mainColor} />}
+        {download && (
+          <AudioDownloadsControl src={src} playerColors={playerColors} />
+        )}
         <AudioVolumeControl
           muteAudio={_muteAudio}
           unmuteAudio={_unmuteAudio}
           classNames={classNames}
           changeAudioVolume={_changeAudioVolume}
           volume={state.player.volume}
-          mainColor={mainColor}
+          playerColors={playerColors}
         />
         <Grid item={true} className={classes.commonContainer}>
           <Typography>{getFormattedTime(state.player.current)}</Typography>

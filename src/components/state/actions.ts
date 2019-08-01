@@ -11,6 +11,7 @@ const PLAYER_SLIDER_MOVED = 'PLAYER_SLIDER_MOVED';
 const PLAYER_AUDIO_ENDED = 'PLAYER_AUDIO_ENDED';
 const PLAYER_REPLAY = 'PLAYER_REPLAY';
 const PLAYER_AUTOPLAY = 'PLAYER_AUTOPLAY';
+const PLAYER_LOOP = 'PLAYER_LOOP';
 
 const playAudio = (dispatch, player) => () => {
   player.current.play();
@@ -59,6 +60,10 @@ const replayAudio = (dispatch, player) => () => {
   player.current.play();
   dispatch({ type: PLAYER_REPLAY });
 };
+const loopAudio = (dispatch, player) => (loop: boolean) => {
+  player.current.loop = loop;
+  dispatch({ type: PLAYER_LOOP, loop });
+};
 const setPlayerAutoplay = (dispatch, player) => () => {
   player.current.autoplay = true;
   setTimeout(() => {
@@ -78,7 +83,8 @@ const actionCreators = [
   audioEnded,
   replayAudio,
   changePlayerSlider,
-  setPlayerAutoplay
+  setPlayerAutoplay,
+  loopAudio
 ];
 
 export {
@@ -93,5 +99,6 @@ export {
   PLAYER_SLIDER_MOVED,
   PLAYER_AUDIO_ENDED,
   PLAYER_REPLAY,
-  PLAYER_AUTOPLAY
+  PLAYER_AUTOPLAY,
+  PLAYER_LOOP
 };

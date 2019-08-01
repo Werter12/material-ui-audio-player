@@ -6,17 +6,21 @@ import {
 import { makeStyles } from '@material-ui/styles';
 import cx from 'classnames';
 import * as React from 'react';
+import { IAudioPlayerColors } from './AudioPlayer';
 import PLAYER from './state/player';
 
 export const useComponentStyles = makeStyles({
   icon: (props: any) => ({
-    color: props.mainColor
+    color: props.playerColors.active,
+    '&:hover': {
+      color: props.playerColors.hover
+    }
   })
 });
 
 interface IAudioPlayControlProps {
   playerStatus: string;
-  mainColor: string;
+  playerColors: IAudioPlayerColors;
   pauseAudio: () => void;
   playAudio: () => void;
   replayAudio: () => void;
@@ -25,13 +29,13 @@ interface IAudioPlayControlProps {
 
 const AudioPlayControl: React.FunctionComponent<IAudioPlayControlProps> = ({
   playerStatus,
-  mainColor,
+  playerColors,
   pauseAudio,
   playAudio,
   replayAudio,
   classNames = {}
 }) => {
-  const classes = useComponentStyles({ mainColor });
+  const classes = useComponentStyles({ playerColors });
   switch (playerStatus) {
     case PLAYER.STATUS.PLAY:
       return (

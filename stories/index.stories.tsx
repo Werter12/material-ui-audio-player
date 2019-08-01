@@ -10,7 +10,7 @@ const theme = createMuiTheme({});
 const availableVariations = {
   primary: 'primary',
   secondary: 'secondary',
-  classic: 'classic'
+  default: 'default'
 };
 
 storiesOf('Material Ui', module)
@@ -21,6 +21,7 @@ storiesOf('Material Ui', module)
       const variation = select('variation', availableVariations, 'primary');
       const elevation = number('elevation', 1);
       const download = boolean('download', true);
+      const loop = boolean('loop', true);
       const srcSet = [
         'https://converter-audio-example-1.s3.eu-central-1.amazonaws.com/Russell%2C%2BMale%2B-%2BEnglish%2C%2BAustralian+(1)+(online-audio-converter.com).wav',
         'https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3'
@@ -33,6 +34,7 @@ storiesOf('Material Ui', module)
             width={width}
             variation={variation}
             download={download}
+            loop={loop}
             src={srcSet}
           />
         </ThemeProvider>
@@ -55,6 +57,7 @@ const srcSet = [
     width="500px"
     variation="primary"
     download={true}
+    loop={loop}
     src={srcSet}
   />
 ~~~

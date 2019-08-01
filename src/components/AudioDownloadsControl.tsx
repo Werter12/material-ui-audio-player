@@ -3,6 +3,7 @@ import { CloudDownload } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import cx from 'classnames';
 import * as React from 'react';
+import { IAudioPlayerColors } from './AudioPlayer';
 
 export const useComponentStyles = makeStyles({
   commonContainer: {
@@ -11,23 +12,17 @@ export const useComponentStyles = makeStyles({
       cursor: 'pointer'
     }
   },
-  playCircleIcon: (props: any) => ({
-    color: props.mainColor
-  }),
-  icon: (props: any) => ({
-    color: props.mainColor
-  }),
   downloadLink: (props: any) => ({
-    color: props.mainColor,
+    color: props.playerColors.active,
     textDecoration: 'none',
     '&:hover': {
-      color: props.mainColor
+      color: props.playerColors.hover
     },
     '&:focus': {
-      color: props.mainColor
+      color: props.playerColors.active
     },
     '&:active': {
-      color: props.mainColor
+      color: props.playerColors.active
     }
   }),
   downloadsContainer: {
@@ -42,20 +37,23 @@ export const useComponentStyles = makeStyles({
     position: 'relative'
   },
   cloudDownloadIcon: (props: any) => ({
-    color: props.mainColor
+    color: props.playerColors.active,
+    '&:hover': {
+      color: props.playerColors.hover
+    }
   })
 });
 
 interface IAudioDownloadsControl {
   src: string | string[];
-  mainColor: string;
+  playerColors: IAudioPlayerColors;
   classNames?: any;
 }
 
 export const AudioDownloadsControl: React.FunctionComponent<
   IAudioDownloadsControl
-> = ({ src, mainColor, classNames = {} }) => {
-  const classes = useComponentStyles({ mainColor });
+> = ({ src, playerColors, classNames = {} }) => {
+  const classes = useComponentStyles({ playerColors });
   const [downloadsDropdownOpened, openDownloadsDropdown] = React.useState(
     false
   );

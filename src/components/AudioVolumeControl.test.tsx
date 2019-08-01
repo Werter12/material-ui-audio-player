@@ -3,13 +3,14 @@ import { createMuiTheme } from '@material-ui/core';
 import { createShallow } from '@material-ui/core/test-utils';
 import { VolumeOff, VolumeUp } from '@material-ui/icons';
 import * as React from 'react';
+import { AudioPlayerVariation, getColors } from './AudioPlayer';
 import AudioVolumeControl from './AudioVolumeControl';
 import PLAYER from './state/player';
 import { mountWithTheme } from './utils/enzymeHelpers';
 
 describe('<AudioVolumeControl />', () => {
-  const mainColor = 'green';
   const muiTheme = createMuiTheme({});
+  const playerColors = getColors(muiTheme, AudioPlayerVariation.default);
   const muiShallow = createShallow({ untilSelector: 'AudioVolumeControl' });
   it('renders', () => {
     const muteAudio = jest.fn();
@@ -25,7 +26,7 @@ describe('<AudioVolumeControl />', () => {
         muteAudio={muteAudio}
         unmuteAudio={unmuteAudio}
         changeAudioVolume={changeAudioVolume}
-        mainColor={mainColor}
+        playerColors={playerColors}
       />,
       muiTheme
     );
@@ -46,7 +47,7 @@ describe('<AudioVolumeControl />', () => {
         muteAudio={muteAudio}
         unmuteAudio={unmuteAudio}
         changeAudioVolume={changeAudioVolume}
-        mainColor={mainColor}
+        playerColors={playerColors}
       />
     );
 
@@ -71,7 +72,7 @@ describe('<AudioVolumeControl />', () => {
         muteAudio={muteAudio}
         unmuteAudio={unmuteAudio}
         changeAudioVolume={changeAudioVolume}
-        mainColor={mainColor}
+        playerColors={playerColors}
       />
     );
 
@@ -95,7 +96,7 @@ describe('<AudioVolumeControl />', () => {
         muteAudio={muteAudio}
         unmuteAudio={unmuteAudio}
         changeAudioVolume={changeAudioVolume}
-        mainColor={mainColor}
+        playerColors={playerColors}
       />,
       muiTheme
     );

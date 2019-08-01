@@ -3,6 +3,7 @@ import { VolumeOff, VolumeUp } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import cx from 'classnames';
 import * as React from 'react';
+import { IAudioPlayerColors } from './AudioPlayer';
 import PLAYER from './state/player';
 
 export const useComponentStyles = makeStyles((theme: any) => {
@@ -11,7 +12,7 @@ export const useComponentStyles = makeStyles((theme: any) => {
       flex: '1 1 auto'
     },
     slider: (props: any) => ({
-      color: props.mainColor
+      color: props.playerColors.active
     }),
     commonContainer: {
       flex: '0 0 auto',
@@ -20,7 +21,10 @@ export const useComponentStyles = makeStyles((theme: any) => {
       }
     },
     icon: (props: any) => ({
-      color: props.mainColor
+      color: props.playerColors.active,
+      '&:hover': {
+        color: props.playerColors.hover
+      }
     }),
     volumeIconContainer: {
       position: 'relative',
@@ -45,7 +49,7 @@ interface IPlayerVolume {
 }
 
 interface IAudioDownloadsControl {
-  mainColor: string;
+  playerColors: IAudioPlayerColors;
   volume: IPlayerVolume;
   muteAudio: () => void;
   unmuteAudio: () => void;
@@ -61,9 +65,9 @@ export const AudioVolumeControl: React.FunctionComponent<
   classNames = {},
   volume,
   changeAudioVolume,
-  mainColor
+  playerColors
 }) => {
-  const classes = useComponentStyles({ mainColor });
+  const classes = useComponentStyles({ playerColors });
   const handleVolumeChange = (event: object, value: any) => {
     changeAudioVolume(value);
   };

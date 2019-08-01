@@ -1,3 +1,4 @@
+import { createMuiTheme } from '@material-ui/core';
 import {
   PauseCircleFilled,
   PlayCircleFilledWhite,
@@ -6,10 +7,12 @@ import {
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import AudioPlayControl from './AudioPlayControl';
+import { AudioPlayerVariation, getColors } from './AudioPlayer';
 import PLAYER from './state/player';
 
 describe('<AudioPlayControl />', () => {
-  const mainColor = 'green';
+  const muiTheme = createMuiTheme({});
+  const playerColors = getColors(muiTheme, AudioPlayerVariation.default);
   it('renders', () => {
     const pauseAudioMock = jest.fn();
     const playAudioMock = jest.fn();
@@ -20,7 +23,7 @@ describe('<AudioPlayControl />', () => {
         pauseAudio={pauseAudioMock}
         playAudio={playAudioMock}
         replayAudio={replayAudioMock}
-        mainColor={mainColor}
+        playerColors={playerColors}
       />
     );
     expect(wrapper.exists()).toBeTruthy();
@@ -35,7 +38,7 @@ describe('<AudioPlayControl />', () => {
         pauseAudio={pauseAudioMock}
         playAudio={playAudioMock}
         replayAudio={replayAudioMock}
-        mainColor={mainColor}
+        playerColors={playerColors}
       />
     );
     wrapper.simulate('click');
@@ -52,7 +55,7 @@ describe('<AudioPlayControl />', () => {
         pauseAudio={pauseAudioMock}
         playAudio={playAudioMock}
         replayAudio={replayAudioMock}
-        mainColor={mainColor}
+        playerColors={playerColors}
       />
     );
     wrapper.simulate('click');
@@ -69,7 +72,7 @@ describe('<AudioPlayControl />', () => {
         pauseAudio={pauseAudioMock}
         playAudio={playAudioMock}
         replayAudio={replayAudioMock}
-        mainColor={mainColor}
+        playerColors={playerColors}
       />
     );
     wrapper.simulate('click');

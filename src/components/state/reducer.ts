@@ -1,6 +1,7 @@
 import {
   PLAYER_AUDIO_ENDED,
   PLAYER_AUTOPLAY,
+  PLAYER_LOOP,
   PLAYER_REPLAY,
   PLAYER_SET_DURATION,
   PLAYER_SET_TIME,
@@ -104,6 +105,13 @@ export default function reducer(state, action) {
           ...state.player,
           status: PLAYER.STATUS.PLAY,
           autoplay: true
+        }
+      };
+    case PLAYER_LOOP:
+      return {
+        player: {
+          ...state.player,
+          loop: action.loop
         }
       };
     default:
