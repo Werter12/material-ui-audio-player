@@ -10,6 +10,7 @@ import { makeStyles, useTheme } from '@material-ui/styles';
 // tslint:disable-next-line
 import { StylesHook } from '@material-ui/styles/makeStyles';
 import cx from 'classnames';
+import { reverse } from 'dns';
 import * as React from 'react';
 import AudioDownloadsControl from './AudioDownloadsControl';
 import AudioPlayControl from './AudioPlayControl';
@@ -66,6 +67,13 @@ export const useComponentStyles = makeStyles((theme: any) => {
       height: props.height,
       transition: theme.transitions.create('box-shadow')
     }),
+    sliderContainerWrapper: (props: any) => ({
+      width: 'auto',
+      flex: '1 1 auto',
+      display: 'flex',
+      boxSizing: 'border-box',
+      order: props.componentsOrder
+    }),
     sliderContainer: {
       flex: '1 1 auto'
     },
@@ -93,7 +101,10 @@ export const useComponentStyles = makeStyles((theme: any) => {
     ...elevations
   };
 });
-
+enum AudioPlayerComponentsOrder {
+  standart = 'standart',
+  reverse = 'reverse'
+}
 export interface IAudioPlayerColors {
   active: string;
   selected: string;
@@ -145,6 +156,7 @@ interface IAudioPlayerProps {
   variation?: AudioPlayerVariation;
   preload?: AudioPlayerPreload;
   loop?: boolean;
+  order?: AudioPlayerComponentsOrder;
   // some browsers will block audio autoplay
   autoplay?: boolean;
 }
@@ -160,12 +172,15 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   preload = AudioPlayerPreload.auto,
   download = false,
   autoplay = false,
+  order = AudioPlayerComponentsOrder.standart,
   loop = false
 }) => {
   const player = React.useRef<HTMLAudioElement | null>(null);
   const theme: { [key: string]: any } = useTheme();
   const playerColors: IAudioPlayerColors = getColors(theme, variation);
-  const componentStyles = { width, height, playerColors };
+  const componentsOrder =
+    order === AudioPlayerComponentsOrder.standart ? 'unset' : '-1';
+  const componentStyles = { width, height, playerColors, componentsOrder };
   const classes = useComponentStyles(componentStyles);
   const classNames: Partial<IAudioPlayerClassNameProps> = useStyles(
     componentStyles
@@ -286,22 +301,29 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           volume={state.player.volume}
           playerColors={playerColors}
         />
-        <Grid item={true} className={classes.commonContainer}>
-          <Typography className={classNames.progressTime}>
-            {getFormattedTime(state.player.current)}
-          </Typography>
-        </Grid>
-        <Grid item={true} className={classes.sliderContainer}>
-          <Slider
-            className={cx(classes.slider, classNames.mainSlider)}
-            onChange={handleAudioSliderChange}
-            value={state.player.progress}
-          />
-        </Grid>
-        <Grid item={true} className={classes.commonContainer}>
-          <Typography className={classNames.progressTime}>
-            {getFormattedTime(state.player.duration)}
-          </Typography>
+        <Grid
+          item={true}
+          container={true}
+          spacing={2}
+          className={cx(classes.sliderContainerWrapper)}
+        >
+          <Grid item={true} className={cx(classes.commonContainer)}>
+            <Typography className={classNames.progressTime}>
+              {getFormattedTime(state.player.current)}
+            </Typography>
+          </Grid>
+          <Grid item={true} className={classes.sliderContainer}>
+            <Slider
+              className={cx(classes.slider, classNames.mainSlider)}
+              onChange={handleAudioSliderChange}
+              value={state.player.progress}
+            />
+          </Grid>
+          <Grid item={true} className={classes.commonContainer}>
+            <Typography className={classNames.progressTime}>
+              {getFormattedTime(state.player.duration)}
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
     </>

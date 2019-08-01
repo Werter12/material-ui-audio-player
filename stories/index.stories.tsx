@@ -13,12 +13,22 @@ const availableVariations = {
   default: 'default'
 };
 
+const availableOrder = {
+  standart: 'standart',
+  reverse: 'reverse'
+};
+
 storiesOf('Material Ui', module)
   .add(
     'AudioPlayer Interactive',
     () => {
       const width = text('width', '500px');
-      const variation = select('variation', availableVariations, 'primary');
+      const variation = select(
+        'variation',
+        availableVariations,
+        availableVariations.primary
+      );
+      const order = select('order', availableOrder, availableOrder.standart);
       const elevation = number('elevation', 1);
       const download = boolean('download', true);
       const loop = boolean('loop', true);
@@ -35,6 +45,7 @@ storiesOf('Material Ui', module)
             variation={variation}
             download={download}
             loop={loop}
+            order={order}
             src={srcSet}
           />
         </ThemeProvider>
