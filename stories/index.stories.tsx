@@ -212,7 +212,7 @@ const useStyles = makeStyles(
   .add('AudioPlayer Responsive', () => {
     return (
       <ThemeProvider theme={muiTheme}>
-        <AudioPlayer src="https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3" />
+        <AudioPlayer src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" />
       </ThemeProvider>
     );
   });
