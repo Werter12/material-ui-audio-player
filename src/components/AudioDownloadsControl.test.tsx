@@ -31,4 +31,15 @@ describe('<AudioDownloadsControl />', () => {
     expect(dropdown.first().text()).toEqual('MP3');
     expect(dropdown.last().text()).toEqual('WAW');
   });
+  it("don't display dropdown on mobile", () => {
+    const wrapper = mount(
+      <AudioDownloadsControl playerColors={playerColors} src={src} />
+    );
+    const rootGrid = wrapper.find('.MuiGrid-root');
+    expect(rootGrid).toHaveLength(1);
+    rootGrid.simulate('mouseenter');
+    const dropdown = wrapper.find('p.MuiTypography-root');
+
+    expect(dropdown).toHaveLength(0);
+  });
 });
