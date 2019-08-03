@@ -133,3 +133,86 @@ The attribute for customizing component styles. Accept the result of
 `makeStyles` function.
 
 - _type:_ `func`
+
+## Customize component styles
+
+```javascript
+import { createMuiTheme } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
+
+const muiTheme = createMuiTheme({});
+
+const useStyles = makeStyles(theme => {
+  return {
+    root: {
+      [theme.breakpoints.down('sm')]: {
+        width: '100%'
+      }
+    },
+    loopIcon: {
+      color: '#3f51b5',
+      '&.selected': {
+        color: '#0921a9'
+      },
+      '&:hover': {
+        color: '#7986cb'
+      },
+      [theme.breakpoints.down('sm')]: {
+        display: 'none'
+      }
+    },
+    playIcon: {
+      color: '#f50057',
+      '&:hover': {
+        color: '#ff4081'
+      }
+    },
+    volumeIcon: {
+      color: 'rgba(0, 0, 0, 0.54)'
+    },
+    volumeSlider: {
+      color: 'black'
+    },
+    progressTime: {
+      color: 'rgba(0, 0, 0, 0.54)'
+    },
+    mainSlider: {
+      color: '#3f51b5',
+      '& .MuiSlider-rail': {
+        color: '#7986cb'
+      },
+      '& .MuiSlider-track': {
+        color: '#3f51b5'
+      },
+      '& .MuiSlider-thumb': {
+        color: '#303f9f'
+      }
+    }
+  };
+});
+
+<ThemeProvider theme={muiTheme}>
+  <AudioPlayer
+    width="500px"
+    useStyles={useStyles}
+    src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+    loop={true}
+  />
+</ThemeProvider>;
+```
+
+### Available classes
+
+- root
+- playIcon
+- volumeIcon
+- muteIcon
+- mainSlider
+- volumeSlider
+- downloadsIcon
+- pauseIcon
+- loopIcon
+- progressTime
+- downloadsContainer
+- downloadsItemLink
+- downloadsItemText
