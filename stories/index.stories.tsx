@@ -30,7 +30,9 @@ storiesOf('Material Ui', module)
       );
       const order = select('order', availableOrder, availableOrder.standart);
       const elevation = number('elevation', 1);
+      const spacing = number('spacing', 3);
       const download = boolean('download', true);
+      const debug = boolean('debug', true);
       const loop = boolean('loop', true);
       const srcSet = [
         'https://converter-audio-example-1.s3.eu-central-1.amazonaws.com/Russell%2C%2BMale%2B-%2BEnglish%2C%2BAustralian+(1)+(online-audio-converter.com).wav',
@@ -46,6 +48,8 @@ storiesOf('Material Ui', module)
             download={download}
             loop={loop}
             order={order}
+            spacing={spacing}
+            debug={debug}
             src={srcSet}
           />
         </ThemeProvider>
@@ -69,6 +73,8 @@ const srcSet = [
     variation="primary"
     download={true}
     loop={loop}
+    spacing={spacing}
+    debug={false}
     src={srcSet}
   />
 ~~~

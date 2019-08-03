@@ -5,6 +5,8 @@ import {
   Typography,
   useMediaQuery
 } from '@material-ui/core';
+// tslint:disable-next-line
+import { GridSpacing } from '@material-ui/core/Grid';
 import { Repeat } from '@material-ui/icons';
 import { makeStyles, useTheme } from '@material-ui/styles';
 // tslint:disable-next-line
@@ -159,6 +161,8 @@ interface IAudioPlayerProps {
   order?: AudioPlayerComponentsOrder;
   // some browsers will block audio autoplay
   autoplay?: boolean;
+  debug?: boolean;
+  spacing?: GridSpacing;
 }
 
 const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
@@ -173,7 +177,10 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   download = false,
   autoplay = false,
   order = AudioPlayerComponentsOrder.standart,
-  loop = false
+  loop = false,
+  debug = false,
+  // tslint:disable-next-line
+  spacing = undefined
 }) => {
   const player = React.useRef<HTMLAudioElement | null>(null);
   const theme: { [key: string]: any } = useTheme();
@@ -185,7 +192,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   const classNames: Partial<IAudioPlayerClassNameProps> = useStyles(
     componentStyles
   );
-  // const desktop = useMediaQuery(theme.breakpoints.up('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [state, dispatch] = React.useReducer(reducer, inititalState);
   const {
@@ -235,12 +242,22 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       }
     };
   }, [player]);
-  // tslint:disable-next-line
-  console.log('state', state);
+
+  if (debug) {
+    // tslint:disable-next-line
+    console.log('state', state);
+    // tslint:disable-next-line
+    console.log('player', player);
+  }
 
   const handleLoop = () => {
     _loopAudio(!state.player.loop);
   };
+  const mainContainerSpacing: GridSpacing = spacing
+    ? spacing
+    : isMobile
+    ? 2
+    : 3;
 
   return (
     <>
@@ -253,7 +270,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       </audio>
       <Grid
         container={true}
-        spacing={3}
+        spacing={mainContainerSpacing}
         component={Paper}
         alignItems="center"
         className={cx(
