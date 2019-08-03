@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import { AudioPlayer } from '../src';
 
-const theme = createMuiTheme({});
+const muiTheme = createMuiTheme({});
 
 const availableVariations = {
   primary: 'primary',
@@ -40,7 +40,7 @@ storiesOf('Material Ui', module)
       ];
 
       return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={muiTheme}>
           <AudioPlayer
             elevation={elevation}
             width={width}
@@ -85,40 +85,64 @@ const srcSet = [
   .add(
     'AudioPlayer Custom styles',
     () => {
-      const useStyles = makeStyles({
-        playIcon: {
-          color: '#f50057',
-          '&:hover': {
-            color: '#ff4081'
-          }
-        },
-        volumeIcon: {
-          color: 'rgba(0, 0, 0, 0.54)'
-        },
-        volumeSlider: {
-          color: 'black'
-        },
-        progressTime: {
-          color: 'rgba(0, 0, 0, 0.54)'
-        },
-        mainSlider: {
-          color: '#3f51b5',
-          '& .MuiSlider-rail': {
-            color: '#7986cb'
+      const useStyles = makeStyles((theme: any) => {
+        return {
+          root: {
+            [theme.breakpoints.down('sm')]: {
+              width: '100%'
+            }
           },
-          '& .MuiSlider-track': {
-            color: '#3f51b5'
+          loopIcon: {
+            color: '#3f51b5',
+            '&.selected': {
+              color: '#0921a9'
+            },
+            '&:hover': {
+              color: '#7986cb'
+            },
+            [theme.breakpoints.down('sm')]: {
+              display: 'none'
+            }
           },
-          '& .MuiSlider-thumb': {
-            color: '#303f9f'
+          playIcon: {
+            color: '#f50057',
+            '&:hover': {
+              color: '#ff4081'
+            }
+          },
+          volumeIcon: {
+            color: 'rgba(0, 0, 0, 0.54)'
+          },
+          volumeSlider: {
+            color: 'black'
+          },
+          progressTime: {
+            color: 'rgba(0, 0, 0, 0.54)'
+          },
+          mainSlider: {
+            color: '#3f51b5',
+            '& .MuiSlider-rail': {
+              color: '#7986cb'
+            },
+            '& .MuiSlider-track': {
+              color: '#3f51b5'
+            },
+            '& .MuiSlider-thumb': {
+              color: '#303f9f'
+            }
           }
-        }
+        };
       });
       const src =
         'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
       return (
-        <ThemeProvider theme={theme}>
-          <AudioPlayer width="500px" useStyles={useStyles} src={src} />
+        <ThemeProvider theme={muiTheme}>
+          <AudioPlayer
+            width="500px"
+            useStyles={useStyles}
+            src={src}
+            loop={true}
+          />
         </ThemeProvider>
       );
     },
@@ -130,30 +154,56 @@ const srcSet = [
  created with makeStyles
 ### Usage
 ~~~js
-const useStyles = makeStyles({
-  playIcon: {
-    color: '#f50057',
-    '&:hover': {
-      color: '#ff4081'
+const useStyles = makeStyles(
+  (theme: any) => {
+    return {
+      root: {
+        [theme.breakpoints.down('sm')]: {
+          width: '100%'
+        },
+      },
+      loopIcon: {
+        color: '#3f51b5',
+        '&.selected': {
+          color: '#0921a9'
+        },
+        '&:hover': {
+          color: '#7986cb'
+        },
+        [theme.breakpoints.down('sm')]: {
+          display: 'none'
+        }
+      },
+      playIcon: {
+        color: '#f50057',
+        '&:hover': {
+          color: '#ff4081'
+        }
+      },
+      volumeIcon: {
+        color: 'rgba(0, 0, 0, 0.54)'
+      },
+      volumeSlider: {
+        color: 'black'
+      },
+      progressTime: {
+        color: 'rgba(0, 0, 0, 0.54)'
+      },
+      mainSlider: {
+        color: '#3f51b5',
+        '& .MuiSlider-rail': {
+          color: '#7986cb'
+        },
+        '& .MuiSlider-track': {
+          color: '#3f51b5'
+        },
+        '& .MuiSlider-thumb': {
+          color: '#303f9f'
+        }
+      }
     }
-  },
-  volumeIcon: {
-    color: 'rgba(0, 0, 0, 0.54)'
-  },
-  mainSlider: {
-    color: '#3f51b5',
-    '& .MuiSlider-rail': {
-      color: '#7986cb'
-    },
-    '& .MuiSlider-track': {
-      color: '#3f51b5'
-    },
-    '& .MuiSlider-thumb': {
-      color: '#303f9f'
-    }
-  }
-})
-<AudioPlayer src='https://music.com/song' useStyles={useStyles}/>
+  });
+<AudioPlayer src='https://music.com/song' useStyles={useStyles} loop={true}/>
 ~~~
 `
       }
@@ -161,7 +211,7 @@ const useStyles = makeStyles({
   )
   .add('AudioPlayer Responsive', () => {
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={muiTheme}>
         <AudioPlayer src="https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3" />
       </ThemeProvider>
     );

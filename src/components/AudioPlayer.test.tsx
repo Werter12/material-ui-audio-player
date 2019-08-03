@@ -8,7 +8,7 @@ const theme = createMuiTheme({});
 describe('<AudioPlayer />', () => {
   const src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
   it('renders', () => {
-    const component = mountWithTheme(<AudioPlayer src={src} />, theme);
-    expect(component.exists()).toBeTruthy();
+    const wrapper = mountWithTheme(<AudioPlayer src={src} />, theme);
+    expect(wrapper.exists()).toBeTruthy();
   });
 });

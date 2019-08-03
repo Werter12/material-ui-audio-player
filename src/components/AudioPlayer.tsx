@@ -12,7 +12,6 @@ import { makeStyles, useTheme } from '@material-ui/styles';
 // tslint:disable-next-line
 import { StylesHook } from '@material-ui/styles/makeStyles';
 import cx from 'classnames';
-import { reverse } from 'dns';
 import * as React from 'react';
 import AudioDownloadsControl from './AudioDownloadsControl';
 import AudioPlayControl from './AudioPlayControl';
@@ -290,6 +289,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
               className={cx(
                 {
                   [classes.iconSelected]: state.player.loop,
+                  selected: state.player.loop,
                   [classes.icon]: !state.player.loop
                 },
                 classNames.loopIcon
