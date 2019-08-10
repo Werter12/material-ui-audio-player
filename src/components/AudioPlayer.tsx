@@ -260,7 +260,20 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     : 3;
 
   return (
-    <>
+    <Grid
+      container={true}
+      spacing={mainContainerSpacing}
+      component={Paper}
+      alignItems="center"
+      className={cx(
+        classes.root,
+        classes[`elevation${elevation}`],
+        {
+          [classes.rounded]: !rounded
+        },
+        classNames.root
+      )}
+    >
       <audio ref={player} hidden={true} preload={preload}>
         {Array.isArray(src) ? (
           src.map((srcLink, index) => <source key={index} src={srcLink} />)
@@ -268,83 +281,68 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           <source src={src} />
         )}
       </audio>
-      <Grid
-        container={true}
-        spacing={mainContainerSpacing}
-        component={Paper}
-        alignItems="center"
-        className={cx(
-          classes.root,
-          classes[`elevation${elevation}`],
-          {
-            [classes.rounded]: !rounded
-          },
-          classNames.root
-        )}
-      >
-        {loop && (
-          <Grid item={true} className={classes.commonContainer}>
-            <Repeat
-              fontSize="large"
-              onClick={handleLoop}
-              className={cx(
-                {
-                  [classes.iconSelected]: state.player.loop,
-                  selected: state.player.loop,
-                  [classes.icon]: !state.player.loop
-                },
-                classNames.loopIcon
-              )}
-            />
-          </Grid>
-        )}
+      {loop && (
         <Grid item={true} className={classes.commonContainer}>
-          <AudioPlayControl
-            classNames={classNames}
-            playerStatus={state.player.status}
-            playerColors={playerColors}
-            replayAudio={_replayAudio}
-            pauseAudio={_pauseAudio}
-            playAudio={_playAudio}
+          <Repeat
+            fontSize="large"
+            onClick={handleLoop}
+            className={cx(
+              {
+                [classes.iconSelected]: state.player.loop,
+                selected: state.player.loop,
+                [classes.icon]: !state.player.loop
+              },
+              classNames.loopIcon
+            )}
           />
         </Grid>
-        {download && (
-          <AudioDownloadsControl src={src} playerColors={playerColors} />
-        )}
-        <AudioVolumeControl
-          muteAudio={_muteAudio}
-          unmuteAudio={_unmuteAudio}
+      )}
+      <Grid item={true} className={classes.commonContainer}>
+        <AudioPlayControl
           classNames={classNames}
-          changeAudioVolume={_changeAudioVolume}
-          volume={state.player.volume}
+          playerStatus={state.player.status}
           playerColors={playerColors}
+          replayAudio={_replayAudio}
+          pauseAudio={_pauseAudio}
+          playAudio={_playAudio}
         />
-        <Grid
-          item={true}
-          container={true}
-          spacing={2}
-          className={cx(classes.sliderContainerWrapper)}
-        >
-          <Grid item={true} className={cx(classes.commonContainer)}>
-            <Typography className={classNames.progressTime}>
-              {getFormattedTime(state.player.current)}
-            </Typography>
-          </Grid>
-          <Grid item={true} className={classes.sliderContainer}>
-            <Slider
-              className={cx(classes.slider, classNames.mainSlider)}
-              onChange={handleAudioSliderChange}
-              value={state.player.progress}
-            />
-          </Grid>
-          <Grid item={true} className={classes.commonContainer}>
-            <Typography className={classNames.progressTime}>
-              {getFormattedTime(state.player.duration)}
-            </Typography>
-          </Grid>
+      </Grid>
+      {download && (
+        <AudioDownloadsControl src={src} playerColors={playerColors} />
+      )}
+      <AudioVolumeControl
+        muteAudio={_muteAudio}
+        unmuteAudio={_unmuteAudio}
+        classNames={classNames}
+        changeAudioVolume={_changeAudioVolume}
+        volume={state.player.volume}
+        playerColors={playerColors}
+      />
+      <Grid
+        item={true}
+        container={true}
+        spacing={2}
+        className={cx(classes.sliderContainerWrapper)}
+      >
+        <Grid item={true} className={cx(classes.commonContainer)}>
+          <Typography className={classNames.progressTime}>
+            {getFormattedTime(state.player.current)}
+          </Typography>
+        </Grid>
+        <Grid item={true} className={classes.sliderContainer}>
+          <Slider
+            className={cx(classes.slider, classNames.mainSlider)}
+            onChange={handleAudioSliderChange}
+            value={state.player.progress}
+          />
+        </Grid>
+        <Grid item={true} className={classes.commonContainer}>
+          <Typography className={classNames.progressTime}>
+            {getFormattedTime(state.player.duration)}
+          </Typography>
         </Grid>
       </Grid>
-    </>
+    </Grid>
   );
 };
 
