@@ -16,6 +16,13 @@
     "coverage": "jest --collect-coverage",
     "start": "start-storybook -p 6006 -c .storybook"
   },
+  "peerDependencies": {
+    "@material-ui/core": "^4.3.0",
+    "@material-ui/icons": "^4.2.1",
+    "@material-ui/styles": "^4.3.0",
+    "react": "*",
+    "react-dom": "*"
+  },
   "devDependencies": {
     "@storybook/addon-a11y": "^5.1.9",
     "@storybook/addon-actions": "^5.1.9",
