@@ -19,7 +19,7 @@
     "start": "start-storybook -p 6006 -c .storybook",
     "build": "yarn tsc",
     "build-storybook": "build-storybook -c .storybook -o .out",
-    "deploy-storybook": "storybook-to-ghpages  --existing-output-dir out"
+    "deploy-storybook": "storybook-to-ghpages  --existing-output-dir=.out"
   },
   "files": [
     "dist"
