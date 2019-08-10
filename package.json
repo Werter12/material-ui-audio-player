@@ -3,7 +3,10 @@
   "version": "1.0.1",
   "description": "Audio player for material ui design",
   "main": "index.js",
-  "repository": "git@github.com:Werter12/material-ui-audio-player.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Werter12/material-ui-audio-player.git"
+  },
   "author": "Werter12 <samofan77@gmail.com>",
   "license": "MIT",
   "private": false,
@@ -81,5 +84,16 @@
       "prettier --write",
       "git add"
     ]
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Werter12/material-ui-audio-player/issues"
+  },
+  "homepage": "https://github.com/Werter12/material-ui-audio-player#readme",
+  "keywords": [
+    "react",
+    "react-component",
+    "material design",
+    "material-ui",
+    "audio player"
+  ]
 }

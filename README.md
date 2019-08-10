@@ -1,6 +1,9 @@
 # Material UI Audio Player
 
-Audio player for material ui design developed with react.js.
+[![Dependency Status](https://img.shields.io/david/Werter12/material-ui-audio-player.svg?style=flat)](https://david-dm.org/jsdir/react-ladda)
+[![NPM version](https://img.shields.io/npm/v/material-ui-audio-player.svg?style=flat)](https://www.npmjs.org/package/react-ladda)
+
+Audio player for material ui design developed with react.js. Requires Material UI 4 version.
 
 ## Base
 
