@@ -3,7 +3,7 @@ import { makeStyles, ThemeProvider } from '@material-ui/styles';
 import { boolean, number, select, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import { AudioPlayer } from '../src';
+import AudioPlayer from '../src';
 
 const muiTheme = createMuiTheme({});
 

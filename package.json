@@ -2,7 +2,7 @@
   "name": "material-ui-audio-player",
   "version": "1.0.3",
   "description": "Audio player for material ui design",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Werter12/material-ui-audio-player.git"
