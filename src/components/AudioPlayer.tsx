@@ -209,8 +209,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     _loopAudio
   } = React.useMemo(() => {
     return populateDispatch(dispatch, player, ...actionCreators);
-  }, [dispatch, player, ...actionCreators]);
-
+  }, [dispatch, player, actionCreators]);
   const handleAudioSliderChange = (event: object, progress: any) => {
     _changePlayerSlider(progress);
   };
@@ -225,7 +224,9 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       if (!player.current.autoplay && autoplay) {
         _setPlayerAutoplay();
       }
-      player.current.addEventListener('canplay', _setPlayerDuration);
+      player.current.addEventListener('canplay', () => {
+        _setPlayerDuration();
+      });
       player.current.addEventListener('timeupdate', handlePlayerTimeUpdate);
       player.current.addEventListener('ended', _audioEnded);
     }
