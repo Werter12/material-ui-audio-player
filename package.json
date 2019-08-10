@@ -17,7 +17,9 @@
     "watch": "jest --watchAll",
     "coverage": "jest --collect-coverage",
     "start": "start-storybook -p 6006 -c .storybook",
-    "build": "yarn tsc"
+    "build": "yarn tsc",
+    "build-storybook": "build-storybook -c .storybook -o .out",
+    "deploy-storybook": "storybook-to-ghpages  --existing-output-dir out"
   },
   "files": [
     "dist"
@@ -36,6 +38,7 @@
     "@storybook/addon-knobs": "^5.1.9",
     "@storybook/addon-viewport": "^5.1.9",
     "@storybook/react": "^5.1.9",
+    "@storybook/storybook-deployer": "^2.8.1",
     "@storybook/theming": "^5.1.9",
     "@types/enzyme": "^3.10.3",
     "@types/jest": "^24.0.15",
