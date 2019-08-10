@@ -3,17 +3,18 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "module": "commonjs",
-    "target": "es6",
+    "target": "es5",
     "lib": ["es5", "es6", "es7", "es2017", "dom"],
     "removeComments": true,
     "allowSyntheticDefaultImports": false,
+    "noErrorTruncation": true,
     "jsx": "react",
-    "allowJs": false,
+    "allowJs": true,
     "moduleResolution": "node",
     "strict": true,
     "rootDirs": ["src", "stories"],
-    "baseUrl": "src",
+    "baseUrl": "src"
   },
-  "exclude": ["node_modules", "build", "scripts"],
-  "include": ["src/**/*"],
+  "exclude": ["node_modules", "build", "scripts", "src/tests"],
+  "include": ["src/**/*"]
 }

@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "yarn tsc",
     "lint": "tslint -c tslint.json src/**/*.{ts,tsx} stories/**/*.{ts,tsx}",
     "fix": "tslint -c tslint.json src/**/*.{ts,tsx} stories/**/*.{ts,tsx} --fix",
     "test": "jest --maxWorkers=1 --verbose",
