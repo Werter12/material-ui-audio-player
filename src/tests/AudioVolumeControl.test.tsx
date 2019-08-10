@@ -3,10 +3,10 @@ import { createMuiTheme } from '@material-ui/core';
 import { createShallow } from '@material-ui/core/test-utils';
 import { VolumeOff, VolumeUp } from '@material-ui/icons';
 import * as React from 'react';
-import { AudioPlayerVariation, getColors } from './AudioPlayer';
-import AudioVolumeControl from './AudioVolumeControl';
-import PLAYER from './state/player';
-import { mountWithTheme } from './utils/enzymeHelpers';
+import { AudioPlayerVariation, getColors } from '../components/AudioPlayer';
+import AudioVolumeControl from '../components/AudioVolumeControl';
+import PLAYER from '../components/state/player';
+import { mountWithTheme } from '../components/utils/enzymeHelpers';
 
 describe('<AudioVolumeControl />', () => {
   const muiTheme = createMuiTheme({});

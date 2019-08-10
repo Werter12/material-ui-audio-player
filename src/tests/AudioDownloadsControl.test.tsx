@@ -3,8 +3,8 @@ import { createMuiTheme } from '@material-ui/core';
 import { createShallow } from '@material-ui/core/test-utils';
 import { mount } from 'enzyme';
 import * as React from 'react';
-import AudioDownloadsControl from './AudioDownloadsControl';
-import { AudioPlayerVariation, getColors } from './AudioPlayer';
+import AudioDownloadsControl from '../components/AudioDownloadsControl';
+import { AudioPlayerVariation, getColors } from '../components/AudioPlayer';
 
 describe('<AudioDownloadsControl />', () => {
   const muiShallow = createShallow({ untilSelector: 'AudioDownloadsControl' });

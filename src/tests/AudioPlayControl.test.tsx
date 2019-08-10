@@ -6,9 +6,9 @@ import {
 } from '@material-ui/icons';
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import AudioPlayControl from './AudioPlayControl';
-import { AudioPlayerVariation, getColors } from './AudioPlayer';
-import PLAYER from './state/player';
+import AudioPlayControl from '../components/AudioPlayControl';
+import { AudioPlayerVariation, getColors } from '../components/AudioPlayer';
+import PLAYER from '../components/state/player';
 
 describe('<AudioPlayControl />', () => {
   const muiTheme = createMuiTheme({});

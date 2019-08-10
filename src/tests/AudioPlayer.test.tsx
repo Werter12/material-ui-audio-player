@@ -1,8 +1,8 @@
 import { createMuiTheme } from '@material-ui/core';
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import AudioPlayer from './AudioPlayer';
-import { mountWithTheme } from './utils/enzymeHelpers';
+import AudioPlayer from '../components/AudioPlayer';
+import { mountWithTheme } from '../components/utils/enzymeHelpers';
 
 const theme = createMuiTheme({});
 describe('<AudioPlayer />', () => {

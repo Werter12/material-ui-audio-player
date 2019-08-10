@@ -9,12 +9,13 @@
     "allowSyntheticDefaultImports": false,
     "noErrorTruncation": true,
     "jsx": "react",
-    "allowJs": true,
+    "declaration": true,
     "moduleResolution": "node",
     "strict": true,
     "rootDirs": ["src", "stories"],
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "outDir": "dist"
   },
-  "exclude": ["node_modules", "build", "scripts", "src/tests"],
+  "exclude": ["node_modules", "build", "scripts", "src/tests", "dist"],
   "include": ["src/**/*"]
 }

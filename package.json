@@ -8,14 +8,18 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "yarn tsc",
     "lint": "tslint -c tslint.json src/**/*.{ts,tsx} stories/**/*.{ts,tsx}",
     "fix": "tslint -c tslint.json src/**/*.{ts,tsx} stories/**/*.{ts,tsx} --fix",
     "test": "jest --maxWorkers=1 --verbose",
     "watch": "jest --watchAll",
     "coverage": "jest --collect-coverage",
-    "start": "start-storybook -p 6006 -c .storybook"
+    "start": "start-storybook -p 6006 -c .storybook",
+    "build": "yarn tsc",
+    "publish": "yarn build && yarn publish"
   },
+  "files": [
+    "dist"
+  ],
   "peerDependencies": {
     "@material-ui/core": "^4.3.0",
     "@material-ui/icons": "^4.2.1",
