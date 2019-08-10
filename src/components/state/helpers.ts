@@ -15,8 +15,9 @@ export const getProgress = (currentTime: number, duration: number) =>
 export const getCurrentTime = (progress: number, duration: number) =>
   parseFloat(((progress * duration) / 100).toString());
 
-export function populateDispatch(dispatch, player, ...funcs) {
+export const populateDispatch = (dispatch, player, ...funcs) => {
   return funcs.reduce((acc, func) => {
-    return { ...acc, [`_${func.name}`]: func(dispatch, player) };
+    const compFuncName = func.name.replace('_actions_', '');
+    return { ...acc, [`_${compFuncName}`]: func(dispatch, player) };
   }, {});
-}
+};

@@ -5,7 +5,7 @@ import cx from 'classnames';
 import * as React from 'react';
 import { IAudioPlayerColors } from './AudioPlayer';
 
-export const useComponentStyles = makeStyles({
+const useComponentStyles = makeStyles({
   commonContainer: {
     flex: '0 0 auto',
     '&:hover': {
