@@ -5,6 +5,8 @@
 
 Audio player for material ui design developed with react.js. Requires Material UI 4 version.
 
+_Demo:_ https://werter12.github.io/material-ui-audio-player/
+
 ## Base
 
 Just add your audio link to `src` and your ready to go.
