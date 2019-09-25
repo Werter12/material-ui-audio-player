@@ -194,20 +194,20 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [state, dispatch] = React.useReducer(reducer, inititalState);
-  const {
-    _pauseAudio,
+  const [
     _playAudio,
+    _pauseAudio,
     _muteAudio,
     _unmuteAudio,
     _changeAudioVolume,
     _setPlayerDuration,
     _setPlayerTime,
-    _changePlayerSlider,
     _audioEnded,
     _replayAudio,
+    _changePlayerSlider,
     _setPlayerAutoplay,
     _loopAudio
-  } = React.useMemo(() => {
+  ] = React.useMemo(() => {
     return populateDispatch(dispatch, player, ...actionCreators);
   }, [dispatch, player, actionCreators]);
   const handleAudioSliderChange = (event: object, progress: any) => {

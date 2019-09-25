@@ -17,7 +17,7 @@ export const getCurrentTime = (progress: number, duration: number) =>
 
 export const populateDispatch = (dispatch, player, ...funcs) => {
   return funcs.reduce((acc, func) => {
-    const compFuncName = func.name.replace('_actions_', '');
-    return { ...acc, [`_${compFuncName}`]: func(dispatch, player) };
-  }, {});
+    acc.push(func(dispatch, player));
+    return acc;
+  }, []);
 };
