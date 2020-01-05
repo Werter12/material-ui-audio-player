@@ -1,6 +1,5 @@
-import { Grid, Paper, Slider, useMediaQuery } from '@material-ui/core';
+import { Grid, makeStyles, Paper, Slider } from '@material-ui/core';
 import { VolumeOff, VolumeUp } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/styles';
 import cx from 'classnames';
 import * as React from 'react';
 import { IAudioPlayerColors } from './AudioPlayer';
