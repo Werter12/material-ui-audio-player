@@ -1,6 +1,12 @@
-import { Grid, Paper, Typography, useMediaQuery } from '@material-ui/core';
+import {
+  Grid,
+  makeStyles,
+  Paper,
+  Typography,
+  useMediaQuery
+} from '@material-ui/core';
 import { CloudDownload } from '@material-ui/icons';
-import { makeStyles, useTheme } from '@material-ui/styles';
+import { useTheme } from '@material-ui/styles';
 import cx from 'classnames';
 import * as React from 'react';
 import { IAudioPlayerColors } from './AudioPlayer';

@@ -1,5 +1,5 @@
-import { createMuiTheme } from '@material-ui/core';
-import { makeStyles, ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme, makeStyles } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
 import { boolean, number, select, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';

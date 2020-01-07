@@ -1,5 +1,6 @@
 import {
   Grid,
+  makeStyles,
   Paper,
   Slider,
   Typography,
@@ -8,7 +9,7 @@ import {
 // tslint:disable-next-line
 import { GridSpacing } from '@material-ui/core/Grid';
 import { Repeat } from '@material-ui/icons';
-import { makeStyles, useTheme } from '@material-ui/styles';
+import { useTheme } from '@material-ui/styles';
 // tslint:disable-next-line
 import { StylesHook } from '@material-ui/styles/makeStyles';
 import cx from 'classnames';
