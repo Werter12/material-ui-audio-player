@@ -8,8 +8,8 @@ import {
 } from '@material-ui/core';
 // tslint:disable-next-line
 import { GridSpacing } from '@material-ui/core/Grid';
+import { useTheme } from '@material-ui/core/styles';
 import { Repeat } from '@material-ui/icons';
-import { useTheme } from '@material-ui/styles';
 // tslint:disable-next-line
 import { StylesHook } from '@material-ui/styles/makeStyles';
 import cx from 'classnames';

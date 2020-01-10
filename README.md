@@ -13,7 +13,7 @@ Just add your audio link to `src` and your ready to go.
 
 ```javascript
 import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import AudioPlayer from 'material-ui-audio-player';
 
 const muiTheme = createMuiTheme({});
@@ -29,7 +29,7 @@ A bunch of props will help to customize component.
 
 ```javascript
 import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import AudioPlayer from 'material-ui-audio-player';
 
 const muiTheme = createMuiTheme({});
@@ -145,7 +145,7 @@ The attribute for customizing component styles. Accept the result of
 
 ```javascript
 import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import AudioPlayer from 'material-ui-audio-player';
 
 const muiTheme = createMuiTheme({});
