@@ -2,15 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.0.9 - 2020-04-13
+## 1.1.0 - 2020-04-13
 
 ### Changed
 
-- Bump material-ui version.
+- Update packages
+- Fix knobs and several AudoPlayer types
 
 ### Added
 
 - CHANGELOG.md
+
+### Removed
+
+- material-ui/styles and started using styles from material-ui/core
 
 ## 1.0.8 - 2020-04-13
 
