@@ -6,7 +6,7 @@ import {
   useMediaQuery
 } from '@material-ui/core';
 import { CloudDownload } from '@material-ui/icons';
-import { useTheme } from '@material-ui/styles';
+import { useTheme } from '@material-ui/core/styles';
 import cx from 'classnames';
 import * as React from 'react';
 import { IAudioPlayerColors } from './AudioPlayer';
