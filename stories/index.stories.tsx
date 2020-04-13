@@ -1,42 +1,55 @@
-import { createMuiTheme, makeStyles } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import {
+  createMuiTheme,
+  makeStyles,
+  GridSpacing,
+  ThemeProvider,
+} from '@material-ui/core';
 import { boolean, number, select, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
-import AudioPlayer from '../src';
+import AudioPlayer, {
+  AudioPlayerVariation,
+  AudioPlayerComponentsOrder,
+} from '../src/components/AudioPlayer';
 
 const muiTheme = createMuiTheme({});
 
 const availableVariations = {
   primary: 'primary',
   secondary: 'secondary',
-  default: 'default'
+  default: 'default',
 };
 
 const availableOrder = {
   standart: 'standart',
-  reverse: 'reverse'
+  reverse: 'reverse',
 };
+
+const gridSpacing: GridSpacing[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 storiesOf('Material Ui', module)
   .add(
     'AudioPlayer Interactive',
     () => {
       const width = text('width', '500px');
-      const variation = select(
+      const variation = select<AudioPlayerVariation>(
         'variation',
         availableVariations,
-        availableVariations.primary
+        AudioPlayerVariation.primary
       );
-      const order = select('order', availableOrder, availableOrder.standart);
+      const order = select<AudioPlayerComponentsOrder>(
+        'order',
+        availableOrder,
+        AudioPlayerComponentsOrder.standart
+      );
       const elevation = number('elevation', 1);
-      const spacing = number('spacing', 3);
+      const spacing = select<GridSpacing>('spacing', gridSpacing, 3);
       const download = boolean('download', true);
       const debug = boolean('debug', true);
       const loop = boolean('loop', true);
       const srcSet = [
         'https://converter-audio-example-1.s3.eu-central-1.amazonaws.com/Russell%2C%2BMale%2B-%2BEnglish%2C%2BAustralian+(1)+(online-audio-converter.com).wav',
-        'https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3'
+        'https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3',
       ];
 
       return (
@@ -78,8 +91,8 @@ const srcSet = [
     src={srcSet}
   />
 ~~~
-`
-      }
+`,
+      },
     }
   )
   .add(
@@ -89,48 +102,48 @@ const srcSet = [
         return {
           root: {
             [theme.breakpoints.down('sm')]: {
-              width: '100%'
-            }
+              width: '100%',
+            },
           },
           loopIcon: {
             color: '#3f51b5',
             '&.selected': {
-              color: '#0921a9'
+              color: '#0921a9',
             },
             '&:hover': {
-              color: '#7986cb'
+              color: '#7986cb',
             },
             [theme.breakpoints.down('sm')]: {
-              display: 'none'
-            }
+              display: 'none',
+            },
           },
           playIcon: {
             color: '#f50057',
             '&:hover': {
-              color: '#ff4081'
-            }
+              color: '#ff4081',
+            },
           },
           volumeIcon: {
-            color: 'rgba(0, 0, 0, 0.54)'
+            color: 'rgba(0, 0, 0, 0.54)',
           },
           volumeSlider: {
-            color: 'black'
+            color: 'black',
           },
           progressTime: {
-            color: 'rgba(0, 0, 0, 0.54)'
+            color: 'rgba(0, 0, 0, 0.54)',
           },
           mainSlider: {
             color: '#3f51b5',
             '& .MuiSlider-rail': {
-              color: '#7986cb'
+              color: '#7986cb',
             },
             '& .MuiSlider-track': {
-              color: '#3f51b5'
+              color: '#3f51b5',
             },
             '& .MuiSlider-thumb': {
-              color: '#303f9f'
-            }
-          }
+              color: '#303f9f',
+            },
+          },
         };
       });
       const src =
@@ -205,8 +218,8 @@ const useStyles = makeStyles(
   });
 <AudioPlayer src='https://music.com/song' useStyles={useStyles} loop={true}/>
 ~~~
-`
-      }
+`,
+      },
     }
   )
   .add('AudioPlayer Responsive', () => {

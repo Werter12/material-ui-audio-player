@@ -4,14 +4,12 @@ import {
   Paper,
   Slider,
   Typography,
-  useMediaQuery
+  useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
 // tslint:disable-next-line
 import { GridSpacing } from '@material-ui/core/Grid';
-import { useTheme } from '@material-ui/core/styles';
 import { Repeat } from '@material-ui/icons';
-// tslint:disable-next-line
-import { StylesHook } from '@material-ui/styles/makeStyles';
 import cx from 'classnames';
 import * as React from 'react';
 import AudioDownloadsControl from './AudioDownloadsControl';
@@ -27,14 +25,14 @@ const inititalState = {
     status: PLAYER.STATUS.PAUSE,
     volume: {
       status: PLAYER.VOLUME.STATUS.UNMUTE,
-      value: PLAYER.VOLUME.DEFAULT_VALUE
+      value: PLAYER.VOLUME.DEFAULT_VALUE,
     },
     duration: 0,
     progress: 0,
     current: 0,
     loop: false,
-    autoplay: false
-  }
+    autoplay: false,
+  },
 };
 
 export interface IAudioPlayerClassNameProps {
@@ -57,7 +55,7 @@ export const useComponentStyles = makeStyles((theme: any) => {
   const elevations = {};
   theme.shadows.forEach((shadow, index) => {
     elevations[`elevation${index}`] = {
-      boxShadow: shadow
+      boxShadow: shadow,
     };
   });
 
@@ -67,45 +65,45 @@ export const useComponentStyles = makeStyles((theme: any) => {
       color: theme.palette.text.primary,
       width: props.width,
       height: props.height,
-      transition: theme.transitions.create('box-shadow')
+      transition: theme.transitions.create('box-shadow'),
     }),
     sliderContainerWrapper: (props: any) => ({
       width: 'auto',
       flex: '1 1 auto',
       display: 'flex',
       boxSizing: 'border-box',
-      order: props.componentsOrder
+      order: props.componentsOrder,
     }),
     sliderContainer: {
-      flex: '1 1 auto'
+      flex: '1 1 auto',
     },
     slider: (props: any) => ({
-      color: props.playerColors.active
+      color: props.playerColors.active,
     }),
     commonContainer: {
       flex: '0 0 auto',
       '&:hover': {
-        cursor: 'pointer'
-      }
+        cursor: 'pointer',
+      },
     },
     iconSelected: (props: any) => ({
-      color: props.playerColors.selected
+      color: props.playerColors.selected,
     }),
     icon: (props: any) => ({
       color: props.playerColors.active,
       '&:hover': {
-        color: props.playerColors.hover
-      }
+        color: props.playerColors.hover,
+      },
     }),
     rounded: {
-      borderRadius: theme.shape.borderRadius
+      borderRadius: theme.shape.borderRadius,
     },
-    ...elevations
+    ...elevations,
   };
 });
-enum AudioPlayerComponentsOrder {
+export enum AudioPlayerComponentsOrder {
   standart = 'standart',
-  reverse = 'reverse'
+  reverse = 'reverse',
 }
 export interface IAudioPlayerColors {
   active: string;
@@ -116,21 +114,21 @@ export interface IAudioPlayerColors {
 
 export const getColors = (
   theme,
-  variation: AudioPlayerVariation
+  variation: keyof typeof AudioPlayerVariation
 ): IAudioPlayerColors => {
   if (variation === AudioPlayerVariation.default) {
     return {
       active: theme.palette.action.active,
       selected: theme.palette.action.selected,
       disabled: theme.palette.action.disabled,
-      hover: theme.palette.action.hover
+      hover: theme.palette.action.hover,
     };
   } else {
     return {
       active: theme.palette[variation].main,
       selected: theme.palette[variation].dark,
       disabled: theme.palette[variation].light,
-      hover: theme.palette[variation].light
+      hover: theme.palette[variation].light,
     };
   }
 };
@@ -138,27 +136,27 @@ export const getColors = (
 export enum AudioPlayerVariation {
   primary = 'primary',
   secondary = 'secondary',
-  default = 'default'
+  default = 'default',
 }
 
 enum AudioPlayerPreload {
   auto = 'auto',
   metadata = 'metadata',
-  none = 'none'
+  none = 'none',
 }
 
 interface IAudioPlayerProps {
   src: string | string[];
   rounded?: boolean;
   elevation?: number;
-  useStyles?: StylesHook<any>;
+  useStyles?: any;
   width?: string;
   height?: string;
   download?: boolean;
-  variation?: AudioPlayerVariation;
+  variation?: keyof typeof AudioPlayerVariation;
   preload?: AudioPlayerPreload;
   loop?: boolean;
-  order?: AudioPlayerComponentsOrder;
+  order?: keyof typeof AudioPlayerComponentsOrder;
   // some browsers will block audio autoplay
   autoplay?: boolean;
   debug?: boolean;
@@ -180,7 +178,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   loop = false,
   debug = false,
   // tslint:disable-next-line
-  spacing = undefined
+  spacing = undefined,
 }) => {
   const player = React.useRef<HTMLAudioElement | null>(null);
   const theme: { [key: string]: any } = useTheme();
@@ -207,7 +205,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     _replayAudio,
     _changePlayerSlider,
     _setPlayerAutoplay,
-    _loopAudio
+    _loopAudio,
   ] = React.useMemo(() => {
     return populateDispatch(dispatch, player, ...actionCreators);
   }, [dispatch, player, actionCreators]);
@@ -270,7 +268,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         classes.root,
         classes[`elevation${elevation}`],
         {
-          [classes.rounded]: !rounded
+          [classes.rounded]: !rounded,
         },
         classNames.root
       )}
@@ -291,7 +289,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
               {
                 [classes.iconSelected]: state.player.loop,
                 selected: state.player.loop,
-                [classes.icon]: !state.player.loop
+                [classes.icon]: !state.player.loop,
               },
               classNames.loopIcon
             )}

@@ -3,10 +3,10 @@ import {
   makeStyles,
   Paper,
   Typography,
-  useMediaQuery
+  useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
 import { CloudDownload } from '@material-ui/icons';
-import { useTheme } from '@material-ui/core/styles';
 import cx from 'classnames';
 import * as React from 'react';
 import { IAudioPlayerColors } from './AudioPlayer';
@@ -15,39 +15,39 @@ const useComponentStyles = makeStyles({
   commonContainer: {
     flex: '0 0 auto',
     '&:hover': {
-      cursor: 'pointer'
-    }
+      cursor: 'pointer',
+    },
   },
   downloadLink: (props: any) => ({
     color: props.playerColors.active,
     textDecoration: 'none',
     '&:hover': {
-      color: props.playerColors.hover
+      color: props.playerColors.hover,
     },
     '&:focus': {
-      color: props.playerColors.active
+      color: props.playerColors.active,
     },
     '&:active': {
-      color: props.playerColors.active
-    }
+      color: props.playerColors.active,
+    },
   }),
   downloadsContainer: {
     position: 'absolute',
     width: 'auto',
-    top: '85%'
+    top: '85%',
   },
   downloadsItemContainer: {
-    padding: '8px 14px'
+    padding: '8px 14px',
   },
   cloudDownloadIconContainer: {
-    position: 'relative'
+    position: 'relative',
   },
   cloudDownloadIcon: (props: any) => ({
     color: props.playerColors.active,
     '&:hover': {
-      color: props.playerColors.hover
-    }
-  })
+      color: props.playerColors.hover,
+    },
+  }),
 });
 
 interface IAudioDownloadsControl {
@@ -56,9 +56,11 @@ interface IAudioDownloadsControl {
   classNames?: any;
 }
 
-export const AudioDownloadsControl: React.FunctionComponent<
-  IAudioDownloadsControl
-> = ({ src, playerColors, classNames = {} }) => {
+export const AudioDownloadsControl: React.FunctionComponent<IAudioDownloadsControl> = ({
+  src,
+  playerColors,
+  classNames = {},
+}) => {
   const classes = useComponentStyles({ playerColors });
   const [downloadsDropdownOpened, openDownloadsDropdown] = React.useState(
     false
