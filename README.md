@@ -12,8 +12,7 @@ _Demo:_ https://werter12.github.io/material-ui-audio-player/
 Just add your audio link to `src` and your ready to go.
 
 ```javascript
-import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import AudioPlayer from 'material-ui-audio-player';
 
 const muiTheme = createMuiTheme({});
@@ -28,15 +27,14 @@ const muiTheme = createMuiTheme({});
 A bunch of props will help to customize component.
 
 ```javascript
-import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import AudioPlayer from 'material-ui-audio-player';
 
 const muiTheme = createMuiTheme({});
 
 const src = [
   'https://converter-audio-example-1.s3.eu-central-1.amazonaws.com/Russell%2C%2BMale%2B-%2BEnglish%2C%2BAustralian+(1)+(online-audio-converter.com).wav',
-  'https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3'
+  'https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3',
 ];
 
 <ThemeProvider theme={muiTheme}>
@@ -150,52 +148,52 @@ import AudioPlayer from 'material-ui-audio-player';
 
 const muiTheme = createMuiTheme({});
 
-const useStyles = makeStyles(theme => {
+const useStyles = makeStyles((theme) => {
   return {
     root: {
       [theme.breakpoints.down('sm')]: {
-        width: '100%'
-      }
+        width: '100%',
+      },
     },
     loopIcon: {
       color: '#3f51b5',
       '&.selected': {
-        color: '#0921a9'
+        color: '#0921a9',
       },
       '&:hover': {
-        color: '#7986cb'
+        color: '#7986cb',
       },
       [theme.breakpoints.down('sm')]: {
-        display: 'none'
-      }
+        display: 'none',
+      },
     },
     playIcon: {
       color: '#f50057',
       '&:hover': {
-        color: '#ff4081'
-      }
+        color: '#ff4081',
+      },
     },
     volumeIcon: {
-      color: 'rgba(0, 0, 0, 0.54)'
+      color: 'rgba(0, 0, 0, 0.54)',
     },
     volumeSlider: {
-      color: 'black'
+      color: 'black',
     },
     progressTime: {
-      color: 'rgba(0, 0, 0, 0.54)'
+      color: 'rgba(0, 0, 0, 0.54)',
     },
     mainSlider: {
       color: '#3f51b5',
       '& .MuiSlider-rail': {
-        color: '#7986cb'
+        color: '#7986cb',
       },
       '& .MuiSlider-track': {
-        color: '#3f51b5'
+        color: '#3f51b5',
       },
       '& .MuiSlider-thumb': {
-        color: '#303f9f'
-      }
-    }
+        color: '#303f9f',
+      },
+    },
   };
 });
 

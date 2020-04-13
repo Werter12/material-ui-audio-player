@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.1 - 2020-04-13
+
+### Changed
+
+- Update README.md
+
 ## 1.1.0 - 2020-04-13
 
 ### Changed
