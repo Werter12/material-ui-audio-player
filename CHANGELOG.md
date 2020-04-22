@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.2 - 2020-04-22
+
+### Changed
+
+- Fix src change logic
+
+### Added
+
+- Add knob to the stroybook as an example that is dynamically changing src is working
+
 ## 1.1.1 - 2020-04-13
 
 ### Changed

@@ -31,6 +31,17 @@ storiesOf('Material Ui', module)
   .add(
     'AudioPlayer Interactive',
     () => {
+      const singleSrc =
+        'https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Joanna%2C+Female+-+English%2C+US.mp3';
+      const srcSet = [
+        'https://converter-audio-example-1.s3.eu-central-1.amazonaws.com/Russell%2C%2BMale%2B-%2BEnglish%2C%2BAustralian+(1)+(online-audio-converter.com).wav',
+        'https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3',
+      ];
+      const srcOptions = {
+        'src set': srcSet,
+        'single src': singleSrc,
+      };
+      const src = select('source', srcOptions, srcSet);
       const width = text('width', '500px');
       const variation = select<AudioPlayerVariation>(
         'variation',
@@ -47,10 +58,6 @@ storiesOf('Material Ui', module)
       const download = boolean('download', true);
       const debug = boolean('debug', true);
       const loop = boolean('loop', true);
-      const srcSet = [
-        'https://converter-audio-example-1.s3.eu-central-1.amazonaws.com/Russell%2C%2BMale%2B-%2BEnglish%2C%2BAustralian+(1)+(online-audio-converter.com).wav',
-        'https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3',
-      ];
 
       return (
         <ThemeProvider theme={muiTheme}>
@@ -63,7 +70,7 @@ storiesOf('Material Ui', module)
             order={order}
             spacing={spacing}
             debug={debug}
-            src={srcSet}
+            src={src}
           />
         </ThemeProvider>
       );

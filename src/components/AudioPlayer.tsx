@@ -240,7 +240,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         player.current.removeEventListener('ended', _audioEnded);
       }
     };
-  }, [player]);
+  }, [player, src]);
 
   if (debug) {
     // tslint:disable-next-line
@@ -257,6 +257,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     : isMobile
     ? 2
     : 3;
+  const audioKey: string = Array.isArray(src) ? src[0] : src;
 
   return (
     <Grid
@@ -273,7 +274,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         classNames.root
       )}
     >
-      <audio ref={player} hidden={true} preload={preload}>
+      <audio ref={player} hidden={true} preload={preload} key={audioKey}>
         {Array.isArray(src) ? (
           src.map((srcLink, index) => <source key={index} src={srcLink} />)
         ) : (
