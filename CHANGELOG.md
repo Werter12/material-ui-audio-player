@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.3 - 2020-04-28
+
+### Changed
+
+- Move React, Material-UI to the devDependencies
+
 ## 1.1.2 - 2020-04-22
 
 ### Changed
