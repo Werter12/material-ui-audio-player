@@ -142,8 +142,7 @@ The attribute for customizing component styles. Accept the result of
 ## Customize component styles
 
 ```javascript
-import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import AudioPlayer from 'material-ui-audio-player';
 
 const muiTheme = createMuiTheme({});
@@ -172,6 +171,12 @@ const useStyles = makeStyles((theme) => {
       '&:hover': {
         color: '#ff4081',
       },
+    },
+    replayIcon: {
+      color: '#e6e600',
+    },
+    pauseIcon: {
+      color: '#0099ff',
     },
     volumeIcon: {
       color: 'rgba(0, 0, 0, 0.54)',
@@ -211,6 +216,8 @@ const useStyles = makeStyles((theme) => {
 
 - root
 - playIcon
+- replayIcon
+- pauseIcon
 - volumeIcon
 - muteIcon
 - mainSlider

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.4 - 2020-05-02
+
+### Added
+
+- Added to the doc and storybook replayIcon, pauseIcon classNames
+
 ## 1.1.3 - 2020-04-28
 
 ### Changed

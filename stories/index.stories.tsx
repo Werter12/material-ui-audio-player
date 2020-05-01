@@ -130,6 +130,12 @@ const srcSet = [
               color: '#ff4081',
             },
           },
+          replayIcon: {
+            color: '#e6e600',
+          },
+          pauseIcon: {
+            color: '#0099ff',
+          },
           volumeIcon: {
             color: 'rgba(0, 0, 0, 0.54)',
           },
