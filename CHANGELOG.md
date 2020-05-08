@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.7 - 2020-05-08
+
+### Changed
+
+- Fix readme text
+
 ## 1.1.6 - 2020-05-08
 
 ### Added
