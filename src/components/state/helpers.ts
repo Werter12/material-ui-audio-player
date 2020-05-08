@@ -3,7 +3,7 @@ export const appendZero = num => (num < 10 ? `0${num}` : num);
 export const getFormattedTime = time => {
   const dateTime = new Date(0, 0, 0, 0, 0, time, 0);
 
-  const dateTimeH = dateTime.getHours();
+  const dateTimeH = appendZero(dateTime.getHours());
   const dateTimeM = appendZero(dateTime.getMinutes());
   const dateTimeS = appendZero(dateTime.getSeconds());
 
