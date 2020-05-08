@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.5 - 2020-05-08
+
+### Changed
+
+- Changed getFormattedTime function, added hours support
+
 ## 1.1.4 - 2020-05-02
 
 ### Added
