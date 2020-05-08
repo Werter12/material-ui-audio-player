@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.6 - 2020-05-08
+
+### Added
+
+- Added icons attribute
+
 ## 1.1.5 - 2020-05-08
 
 ### Changed

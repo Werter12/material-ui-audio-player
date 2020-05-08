@@ -2,44 +2,44 @@ import { Grid, makeStyles, Paper, Slider } from '@material-ui/core';
 import { VolumeOff, VolumeUp } from '@material-ui/icons';
 import cx from 'classnames';
 import * as React from 'react';
-import { IAudioPlayerColors } from './AudioPlayer';
+import { IAudioPlayerColors, Icons } from './AudioPlayer';
 import PLAYER from './state/player';
 
 export const useComponentStyles = makeStyles((theme: any) => {
   return {
     sliderContainer: {
-      flex: '1 1 auto'
+      flex: '1 1 auto',
     },
     slider: (props: any) => ({
-      color: props.playerColors.active
+      color: props.playerColors.active,
     }),
     commonContainer: {
       flex: '0 0 auto',
       '&:hover': {
-        cursor: 'pointer'
-      }
+        cursor: 'pointer',
+      },
     },
     icon: (props: any) => ({
       color: props.playerColors.active,
       '&:hover': {
-        color: props.playerColors.hover
-      }
+        color: props.playerColors.hover,
+      },
     }),
     volumeIconContainer: {
       position: 'relative',
       '&:hover': {
-        cursor: 'pointer'
-      }
+        cursor: 'pointer',
+      },
     },
     volumeControlContainer: {
       position: 'absolute',
       display: 'none',
       [theme.breakpoints.up('sm')]: {
         display: 'flex',
-        height: '60px'
+        height: '60px',
       },
-      padding: '10px 5px'
-    }
+      padding: '10px 5px',
+    },
   };
 });
 interface IPlayerVolume {
@@ -53,20 +53,21 @@ interface IAudioDownloadsControl {
   muteAudio: () => void;
   unmuteAudio: () => void;
   changeAudioVolume: (value: any) => void;
+  icons?: Icons;
   classNames?: any;
 }
 
-export const AudioVolumeControl: React.FunctionComponent<
-  IAudioDownloadsControl
-> = ({
+export const AudioVolumeControl: React.FunctionComponent<IAudioDownloadsControl> = ({
   muteAudio,
   unmuteAudio,
   classNames = {},
   volume,
   changeAudioVolume,
-  playerColors
+  icons = {},
+  playerColors,
 }) => {
   const classes = useComponentStyles({ playerColors });
+  const { VolumeUpIcon = VolumeUp, VolumeOffIcon = VolumeOff } = icons;
   const handleVolumeChange = (event: object, value: any) => {
     changeAudioVolume(value);
   };
@@ -82,13 +83,13 @@ export const AudioVolumeControl: React.FunctionComponent<
       onMouseLeave={toggleVolumeSlider(false)}
     >
       {volume.status === PLAYER.VOLUME.STATUS.UNMUTE ? (
-        <VolumeUp
+        <VolumeUpIcon
           fontSize="large"
           className={cx(classes.icon, classNames.volumeIcon)}
           onClick={muteAudio}
         />
       ) : (
-        <VolumeOff
+        <VolumeOffIcon
           fontSize="large"
           className={cx(classes.icon, classNames.volumeIcon)}
           onClick={unmuteAudio}

@@ -6,6 +6,7 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  SvgIcon,
 } from '@material-ui/core';
 // tslint:disable-next-line
 import { GridSpacing } from '@material-ui/core/Grid';
@@ -145,6 +146,10 @@ enum AudioPlayerPreload {
   none = 'none',
 }
 
+export interface Icons {
+  [key: string]: typeof SvgIcon;
+}
+
 interface IAudioPlayerProps {
   src: string | string[];
   rounded?: boolean;
@@ -161,6 +166,7 @@ interface IAudioPlayerProps {
   autoplay?: boolean;
   debug?: boolean;
   spacing?: GridSpacing;
+  icons?: Icons;
 }
 
 const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
@@ -179,6 +185,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   debug = false,
   // tslint:disable-next-line
   spacing = undefined,
+  icons,
 }) => {
   const player = React.useRef<HTMLAudioElement | null>(null);
   const theme: { [key: string]: any } = useTheme();
@@ -300,6 +307,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       <Grid item={true} className={classes.commonContainer}>
         <AudioPlayControl
           classNames={classNames}
+          icons={icons}
           playerStatus={state.player.status}
           playerColors={playerColors}
           replayAudio={_replayAudio}

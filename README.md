@@ -139,6 +139,23 @@ The attribute for customizing component styles. Accept the result of
 
 - _type:_ `func`
 
+### `icons`
+
+Provide custom icon component from Material-ui icons for specific icon.
+
+- _type:_ `object`
+- _default:_
+
+```
+  const icons = {
+    PlayIcon: PlayCircleFilledWhite,
+    ReplayIcon: Replay,
+    PauseIcon: PauseCircleFilled,
+    VolumeUpIcon: VolumeUp,
+    VolumeOffIcon: VolumeOff
+  }
+```
+
 ## Customize component styles
 
 ```javascript
@@ -229,3 +246,5 @@ const useStyles = makeStyles((theme) => {
 - downloadsContainer
 - downloadsItemLink
 - downloadsItemText
+
+### Available classes

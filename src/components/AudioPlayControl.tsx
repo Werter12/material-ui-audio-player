@@ -2,20 +2,20 @@ import { makeStyles } from '@material-ui/core';
 import {
   PauseCircleFilled,
   PlayCircleFilledWhite,
-  Replay
+  Replay,
 } from '@material-ui/icons';
 import cx from 'classnames';
 import * as React from 'react';
-import { IAudioPlayerColors } from './AudioPlayer';
+import { IAudioPlayerColors, Icons } from './AudioPlayer';
 import PLAYER from './state/player';
 
 export const useComponentStyles = makeStyles({
   icon: (props: any) => ({
     color: props.playerColors.active,
     '&:hover': {
-      color: props.playerColors.hover
-    }
-  })
+      color: props.playerColors.hover,
+    },
+  }),
 });
 
 interface IAudioPlayControlProps {
@@ -24,6 +24,7 @@ interface IAudioPlayControlProps {
   pauseAudio: () => void;
   playAudio: () => void;
   replayAudio: () => void;
+  icons?: Icons;
   classNames?: any;
 }
 
@@ -33,13 +34,19 @@ const AudioPlayControl: React.FunctionComponent<IAudioPlayControlProps> = ({
   pauseAudio,
   playAudio,
   replayAudio,
-  classNames = {}
+  icons = {},
+  classNames = {},
 }) => {
+  const {
+    PlayIcon = PlayCircleFilledWhite,
+    ReplayIcon = Replay,
+    PauseIcon = PauseCircleFilled,
+  } = icons;
   const classes = useComponentStyles({ playerColors });
   switch (playerStatus) {
     case PLAYER.STATUS.PLAY:
       return (
-        <PauseCircleFilled
+        <PauseIcon
           fontSize="large"
           onClick={pauseAudio}
           className={cx(classes.icon, classNames.pauseIcon)}
@@ -47,7 +54,7 @@ const AudioPlayControl: React.FunctionComponent<IAudioPlayControlProps> = ({
       );
     case PLAYER.STATUS.STOP:
       return (
-        <Replay
+        <ReplayIcon
           fontSize="large"
           onClick={replayAudio}
           className={cx(classes.icon, classNames.replayIcon)}
@@ -55,7 +62,7 @@ const AudioPlayControl: React.FunctionComponent<IAudioPlayControlProps> = ({
       );
     default:
       return (
-        <PlayCircleFilledWhite
+        <PlayIcon
           fontSize="large"
           onClick={playAudio}
           className={cx(classes.icon, classNames.playIcon)}
