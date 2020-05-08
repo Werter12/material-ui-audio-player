@@ -246,5 +246,3 @@ const useStyles = makeStyles((theme) => {
 - downloadsContainer
 - downloadsItemLink
 - downloadsItemText
-
-### Available classes
