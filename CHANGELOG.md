@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.8 - 2020-06-03
+
+### Changed
+
+- Changed actions.ts added checks for player.current
+
+### Added
+
+- Travic CI integration
+
 ## 1.1.7 - 2020-05-08
 
 ### Changed
