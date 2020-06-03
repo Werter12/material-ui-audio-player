@@ -15,33 +15,43 @@ const PLAYER_LOOP = 'PLAYER_LOOP';
 
 function playAudio(dispatch, player) {
   return () => {
-    player.current.play();
+    if (player.current) {
+      player.current.play();
+    }
     return dispatch({ type: PLAYER_STATUS_PLAY });
   };
 }
 function pauseAudio(dispatch, player) {
   return () => {
-    player.current.pause();
+    if (player.current) {
+      player.current.pause();
+    }
     dispatch({ type: PLAYER_STATUS_PAUSE });
   };
 }
 function muteAudio(dispatch, player) {
   return () => {
-    player.current.muted = true;
+    if (player.current) {
+      player.current.muted = true;
+    }
     dispatch({ type: PLAYER_VOLUME_STATUS_MUTE });
   };
 }
 function unmuteAudio(dispatch, player) {
   return () => {
-    player.current.muted = false;
+    if (player.current) {
+      player.current.muted = false;
+    }
     dispatch({ type: PLAYER_VOLUME_STATUS_UNMUTE });
   };
 }
 function changeAudioVolume(dispatch, player) {
   return (value: number) => {
-    player.current.volume = value > 0 ? value / 100 : 0;
-    if (player.current.muted) {
-      player.current.muted = false;
+    if (player.current) {
+      player.current.volume = value > 0 ? value / 100 : 0;
+      if (player.current.muted) {
+        player.current.muted = false;
+      }
     }
     dispatch({ type: PLAYER_VOLUME_CHANGE, volumeValue: value });
   };
@@ -56,7 +66,10 @@ function setPlayerTime(dispatch, player) {
     dispatch({
       type: PLAYER_SET_TIME,
       current: player.current.currentTime,
-      progress: getProgress(player.current.currentTime, player.current.duration)
+      progress: getProgress(
+        player.current.currentTime,
+        player.current.duration
+      ),
     });
   };
 }
@@ -69,26 +82,33 @@ function changePlayerSlider(dispatch, player) {
     dispatch({ type: PLAYER_SLIDER_MOVED, progress, current: currentTime });
   };
 }
-function audioEnded(dispatch, player) {
+function audioEnded(dispatch) {
   return () => {
     dispatch({ type: PLAYER_AUDIO_ENDED });
   };
 }
 function replayAudio(dispatch, player) {
   return () => {
-    player.current.play();
+    if (player.current) {
+      player.current.play();
+    }
     dispatch({ type: PLAYER_REPLAY });
   };
 }
 function loopAudio(dispatch, player) {
   return (loop: boolean) => {
-    player.current.loop = loop;
+    if (player.current) {
+      player.current.loop = loop;
+    }
     dispatch({ type: PLAYER_LOOP, loop });
   };
 }
 function setPlayerAutoplay(dispatch, player) {
   return () => {
-    player.current.autoplay = true;
+    if (player.current) {
+      player.current.autoplay = true;
+    }
+
     setTimeout(() => {
       if (player.current.currentTime) {
         dispatch({ type: PLAYER_AUTOPLAY });
@@ -108,7 +128,7 @@ const actionCreators = [
   replayAudio,
   changePlayerSlider,
   setPlayerAutoplay,
-  loopAudio
+  loopAudio,
 ];
 
 export {
@@ -124,5 +144,5 @@ export {
   PLAYER_AUDIO_ENDED,
   PLAYER_REPLAY,
   PLAYER_AUTOPLAY,
-  PLAYER_LOOP
+  PLAYER_LOOP,
 };
