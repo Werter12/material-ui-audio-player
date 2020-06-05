@@ -241,4 +241,132 @@ const useStyles = makeStyles(
         <AudioPlayer src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" />
       </ThemeProvider>
     );
+  })
+  .add(
+    'Compact AudioPlayer',
+    () => {
+      const iconStyles = {
+        padding: '4px 4px 4px 4px',
+        fontSize: 28,
+      };
+      const useStyles = makeStyles((theme: any) => {
+        return {
+          root: {
+            [theme.breakpoints.down('sm')]: {
+              width: '100%',
+            },
+          },
+          loopIcon: {
+            color: '#3f51b5',
+            '&.selected': {
+              color: '#0921a9',
+            },
+            '&:hover': {
+              color: '#7986cb',
+            },
+            [theme.breakpoints.down('sm')]: {
+              display: 'none',
+            },
+          },
+          playIcon: iconStyles,
+          pauseIcon: iconStyles,
+          replayIcon: iconStyles,
+          volumeIcon: iconStyles,
+          downloadsIcon: iconStyles,
+          sliderWrapper: {
+            alignItems: 'center',
+          },
+          progressTime: {
+            color: 'rgba(0, 0, 0, 0.54)',
+          },
+          mainSlider: {
+            color: '#3f51b5',
+            '& .MuiSlider-rail': {
+              color: '#7986cb',
+            },
+            '& .MuiSlider-track': {
+              color: '#3f51b5',
+            },
+            '& .MuiSlider-thumb': {
+              color: '#303f9f',
+            },
+          },
+        };
+      });
+      const src =
+        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+      return (
+        <ThemeProvider theme={muiTheme}>
+          <AudioPlayer
+            width="400px"
+            spacing={1}
+            useStyles={useStyles}
+            src={src}
+            download={true}
+          />
+        </ThemeProvider>
+      );
+    },
+    {
+      info: {
+        text: `
+### Notes
+ You should use useStyles prop for passing stylesHook
+ created with makeStyles
+### Usage
+~~~js
+const useStyles = makeStyles(
+  (theme: any) => {
+    return {
+      root: {
+        [theme.breakpoints.down('sm')]: {
+          width: '100%'
+        },
+      },
+      loopIcon: {
+        color: '#3f51b5',
+        '&.selected': {
+          color: '#0921a9'
+        },
+        '&:hover': {
+          color: '#7986cb'
+        },
+        [theme.breakpoints.down('sm')]: {
+          display: 'none'
+        }
+      },
+      playIcon: {
+        color: '#f50057',
+        '&:hover': {
+          color: '#ff4081'
+        }
+      },
+      volumeIcon: {
+        color: 'rgba(0, 0, 0, 0.54)'
+      },
+      volumeSlider: {
+        color: 'black'
+      },
+      progressTime: {
+        color: 'rgba(0, 0, 0, 0.54)'
+      },
+      mainSlider: {
+        color: '#3f51b5',
+        '& .MuiSlider-rail': {
+          color: '#7986cb'
+        },
+        '& .MuiSlider-track': {
+          color: '#3f51b5'
+        },
+        '& .MuiSlider-thumb': {
+          color: '#303f9f'
+        }
+      }
+    }
   });
+<AudioPlayer src='https://music.com/song' useStyles={useStyles} loop={true}/>
+~~~
+`,
+      },
+    }
+  );
