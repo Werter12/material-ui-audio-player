@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.10 - 2020-07-26
+
+### Changed
+
+- Update storybook example audio urls
+- Bump websocket-eextentions
+- Bump types/react
+- Bump storybook dependencies
+- Bump enzyme-to-json
+- Bump prettier
+- Bump lint-staged
+- Bump webpack
+- Bump typescript
+- Bump material-ui
+
+### Added
+
+- Dependabot
+- Add .nvmrc
+
 ## 1.1.9 - 2020-06-03
 
 ### Changed
