@@ -3,6 +3,7 @@
 [![Dependency Status](https://img.shields.io/david/Werter12/material-ui-audio-player.svg?style=flat)](https://david-dm.org/Werter12/material-ui-audio-player)
 [![NPM version](https://img.shields.io/npm/v/material-ui-audio-player.svg?style=flat)](https://www.npmjs.org/package/material-ui-audio-player)
 [![Build Status](https://travis-ci.com/Werter12/material-ui-audio-player.svg?branch=master)](https://travis-ci.com/github/Werter12/material-ui-audio-player)
+[![Package Size](https://img.shields.io/bundlephobia/min/material-ui-audio-player)](https://img.shields.io/bundlephobia/min/material-ui-audio-player)
 
 Audio player for material ui design developed with react.js. Requires Material UI 4 version.
 
