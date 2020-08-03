@@ -1,18 +1,16 @@
-import {
-  Grid,
-  makeStyles,
-  Paper,
-  Slider,
-  Typography,
-  useMediaQuery,
-  useTheme,
-  SvgIcon,
-} from '@material-ui/core';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import Slider from '@material-ui/core/Slider';
+import Paper from '@material-ui/core/Paper';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Typography from '@material-ui/core/Typography';
+import useTheme from '@material-ui/core/styles/useTheme';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 // tslint:disable-next-line
-import { GridSpacing } from '@material-ui/core/Grid';
-import { Repeat } from '@material-ui/icons';
+import Grid, { GridSpacing } from '@material-ui/core/Grid';
+import Repeat from '@material-ui/icons/Repeat';
 import cx from 'classnames';
 import * as React from 'react';
+
 import AudioDownloadsControl from './AudioDownloadsControl';
 import AudioPlayControl from './AudioPlayControl';
 import AudioVolumeControl from './AudioVolumeControl';

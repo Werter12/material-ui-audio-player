@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.2.0 - 2020-08-03
+
+### Changed
+
+- Bump tslint
+
+### Added
+
+- Add bundle size badge
+- Add save imports (for bundlers)
+
 ## 1.1.10 - 2020-07-26
 
 ### Changed

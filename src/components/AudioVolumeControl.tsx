@@ -1,7 +1,12 @@
-import { Grid, makeStyles, Paper, Slider } from '@material-ui/core';
-import { VolumeOff, VolumeUp } from '@material-ui/icons';
-import cx from 'classnames';
 import * as React from 'react';
+import Slider from '@material-ui/core/Slider';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import VolumeOff from '@material-ui/icons/VolumeOff';
+import VolumeUp from '@material-ui/icons/VolumeUp';
+import cx from 'classnames';
+
 import { IAudioPlayerColors, Icons } from './AudioPlayer';
 import PLAYER from './state/player';
 
