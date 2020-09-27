@@ -47,6 +47,8 @@ storiesOf('Material Ui', module)
       const srcOptions = {
         'src set': srcSet,
         'single src': singleSrc,
+        'different song':
+          'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
       };
       const src = select('source', srcOptions, srcSet);
       const width = text('width', '500px');
