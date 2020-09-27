@@ -48,6 +48,7 @@ export interface IAudioPlayerClassNameProps {
   downloadsContainer: string;
   downloadsItemLink: string;
   downloadsItemText: string;
+  disabled: any;
 }
 
 export const useComponentStyles = makeStyles((theme: any) => {
@@ -168,6 +169,7 @@ interface IAudioPlayerProps {
   onPlayed?: (event: any) => void;
   onPaused?: (event: any) => void;
   onFinished?: (event: any) => void;
+  disabled?: boolean;
 }
 
 const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
@@ -186,6 +188,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   debug = false,
   // tslint:disable-next-line
   spacing = undefined,
+  disabled = false,
   icons,
   // tslint:disable-next-line: no-empty
   onPlayed = (event: any) => {},
@@ -273,7 +276,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         player.current.removeEventListener('play', onPlayed);
       }
     };
-  }, [player, src]);
+  }, [player, src, disabled]);
 
   if (debug) {
     // tslint:disable-next-line
@@ -303,17 +306,20 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         classes[`elevation${elevation}`],
         {
           [classes.rounded]: !rounded,
+          [classNames.disabled]: disabled,
         },
         classNames.root
       )}
     >
-      <audio ref={player} hidden={true} preload={preload} key={audioKey}>
-        {Array.isArray(src) ? (
-          src.map((srcLink, index) => <source key={index} src={srcLink} />)
-        ) : (
-          <source src={src} />
-        )}
-      </audio>
+      {!disabled && (
+        <audio ref={player} hidden={true} preload={preload} key={audioKey}>
+          {Array.isArray(src) ? (
+            src.map((srcLink, index) => <source key={index} src={srcLink} />)
+          ) : (
+            <source src={src} />
+          )}
+        </audio>
+      )}
       {loop && (
         <Grid item={true} className={classes.commonContainer}>
           <Repeat

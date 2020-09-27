@@ -152,6 +152,13 @@ This callback triggers when the player finish playing
 
 - _type:_ `func`
 
+### `disabled`
+
+Disable player (audio tag will be destroyed).
+
+- _default:_ `false`
+- _type:_ `boolean`
+
 ### `useStyles`
 
 The attribute for customizing component styles. Accept the result of
@@ -266,3 +273,4 @@ const useStyles = makeStyles((theme) => {
 - downloadsContainer
 - downloadsItemLink
 - downloadsItemText
+- disabled

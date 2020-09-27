@@ -44,6 +44,13 @@ storiesOf('Material Ui', module)
       const srcSet = [
         'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
       ];
+      const useStyles = makeStyles((theme: any) => {
+        return {
+          disabled: {
+            backgroundColor: '#9e9e9e45',
+          },
+        };
+      });
       const srcOptions = {
         'src set': srcSet,
         'single src': singleSrc,
@@ -65,6 +72,7 @@ storiesOf('Material Ui', module)
       const elevation = number('elevation', 1);
       const spacing = select<GridSpacing>('spacing', gridSpacing, 3);
       const download = boolean('download', true);
+      const disabled = boolean('disabled', false);
       const debug = boolean('debug', true);
       const loop = boolean('loop', true);
       const onFinished = (event): void => {
@@ -92,6 +100,8 @@ storiesOf('Material Ui', module)
             onFinished={onFinished}
             onPaused={onPaused}
             onPlayed={onPlayed}
+            disabled={disabled}
+            useStyles={useStyles}
           />
         </ThemeProvider>
       );
