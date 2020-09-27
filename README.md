@@ -134,6 +134,24 @@ Corresponds to HTML audio attribute `preload`.
 - _default:_ `auto`
 - _type:_ `string`
 
+### `onPlayed`
+
+This callback triggers when the player started play after pause or initial state
+
+- _type:_ `func`
+
+### `onPaused`
+
+This callback triggers when the player paused after the play
+
+- _type:_ `func`
+
+### `onFinished`
+
+This callback triggers when the player finish playing
+
+- _type:_ `func`
+
 ### `useStyles`
 
 The attribute for customizing component styles. Accept the result of

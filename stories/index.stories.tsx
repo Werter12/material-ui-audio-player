@@ -31,6 +31,14 @@ storiesOf('Material Ui', module)
   .add(
     'AudioPlayer Interactive',
     () => {
+      const checkedEmoji = String.fromCodePoint(0x2705);
+      const eventTriggered = (eventName) => {
+        // tslint:disable-next-line: no-console
+        return console.log(
+          `%c${eventName} triggered! ${checkedEmoji}`,
+          'color: green'
+        );
+      };
       const singleSrc =
         'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
       const srcSet = [
@@ -57,6 +65,15 @@ storiesOf('Material Ui', module)
       const download = boolean('download', true);
       const debug = boolean('debug', true);
       const loop = boolean('loop', true);
+      const onFinished = (event): void => {
+        eventTriggered('onFinish');
+      };
+      const onPaused = (event): void => {
+        eventTriggered('onPaused');
+      };
+      const onPlayed = (event): void => {
+        eventTriggered('onPlayed');
+      };
 
       return (
         <ThemeProvider theme={muiTheme}>
@@ -70,6 +87,9 @@ storiesOf('Material Ui', module)
             spacing={spacing}
             debug={debug}
             src={src}
+            onFinished={onFinished}
+            onPaused={onPaused}
+            onPlayed={onPlayed}
           />
         </ThemeProvider>
       );

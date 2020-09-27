@@ -165,6 +165,9 @@ interface IAudioPlayerProps {
   debug?: boolean;
   spacing?: GridSpacing;
   icons?: Icons;
+  onPlayed?: (event: any) => void;
+  onPaused?: (event: any) => void;
+  onFinished?: (event: any) => void;
 }
 
 const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
@@ -184,6 +187,12 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   // tslint:disable-next-line
   spacing = undefined,
   icons,
+  // tslint:disable-next-line: no-empty
+  onPlayed = (event: any) => {},
+  // tslint:disable-next-line: no-empty
+  onPaused = (event: any) => {},
+  // tslint:disable-next-line: no-empty
+  onFinished = (event: any) => {},
 }) => {
   const player = React.useRef<HTMLAudioElement | null>(null);
   const theme: { [key: string]: any } = useTheme();
@@ -220,6 +229,10 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   const handlePlayerTimeUpdate = () => {
     _setPlayerTime();
   };
+  const handleAudioEnd = (event) => {
+    _audioEnded();
+    onFinished(event);
+  };
   React.useEffect(() => {
     if (player && player.current) {
       if (player.current.readyState > 3) {
@@ -232,7 +245,10 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         _setPlayerDuration();
       });
       player.current.addEventListener('timeupdate', handlePlayerTimeUpdate);
-      player.current.addEventListener('ended', _audioEnded);
+      player.current.addEventListener('timeupdate', handlePlayerTimeUpdate);
+      player.current.addEventListener('ended', handleAudioEnd);
+      player.current.addEventListener('pause', onPaused);
+      player.current.addEventListener('play', onPlayed);
     }
     return () => {
       if (player && player.current) {
@@ -242,7 +258,9 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           'timeupdate',
           handlePlayerTimeUpdate
         );
-        player.current.removeEventListener('ended', _audioEnded);
+        player.current.removeEventListener('ended', handleAudioEnd);
+        player.current.removeEventListener('pause', onPaused);
+        player.current.removeEventListener('play', onPlayed);
       }
     };
   }, [player, src]);
