@@ -76,7 +76,9 @@ function setPlayerTime(dispatch, player) {
 function changePlayerSlider(dispatch, player) {
   return (progress: number) => {
     const currentTime = getCurrentTime(progress, player.current.duration);
-    player.current.currentTime = currentTime;
+    if (currentTime) {
+      player.current.currentTime = currentTime;
+    }
     dispatch({ type: PLAYER_SLIDER_MOVED, progress, current: currentTime });
   };
 }
