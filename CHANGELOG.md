@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.3.4 - 2020-09-27
+
+### Added
+
+- Add aditional check for currentTime
+
 ## 1.3.3 - 2020-09-27
 
 ### Added
