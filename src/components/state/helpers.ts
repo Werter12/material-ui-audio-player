@@ -20,14 +20,14 @@ export const getProgress = (currentTime: number, duration: number) => {
   if (isNumeric(currentTime) && isNumeric(duration)) {
     return parseFloat((100 * (currentTime / duration)).toString());
   }
-  return '';
+  return 0;
 };
 
 export const getCurrentTime = (progress: number, duration: number) => {
   if (isNumeric(progress) && isNumeric(duration)) {
     return parseFloat(((progress * duration) / 100).toString());
   }
-  return '0';
+  return 0;
 };
 
 export const populateDispatch = (dispatch, player, ...funcs) => {

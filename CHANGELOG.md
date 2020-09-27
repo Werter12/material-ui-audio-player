@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.3.2 - 2020-09-27
+
+### Added
+
+- Add default for getProgress, getCurrentTime
+
 ## 1.3.1 - 2020-09-27
 
 ### Added
