@@ -2,11 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.3.1 - 2020-09-27
+
+### Added
+
+- Add checks for progress, currentTime, duration
+
 ## 1.3.0 - 2020-09-27
 
 ### Added
 
-- Added onPlayed, onPaused, onFinished
+- Add onPlayed, onPaused, onFinished
 
 ## 1.2.0 - 2020-08-03
 
