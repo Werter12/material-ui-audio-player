@@ -233,18 +233,24 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     _audioEnded();
     onFinished(event);
   };
+  const onLoad = () => {
+    _setPlayerDuration();
+    if (player?.current?.currentTime === 0) {
+      if (!player?.current?.autoplay && !player?.current?.loop) {
+        _pauseAudio();
+      }
+    }
+  };
+
   React.useEffect(() => {
     if (player && player.current) {
       if (player.current.readyState > 3) {
-        _setPlayerDuration();
+        onLoad();
       }
       if (!player.current.autoplay && autoplay) {
         _setPlayerAutoplay();
       }
-      player.current.addEventListener('canplay', () => {
-        _setPlayerDuration();
-      });
-      player.current.addEventListener('timeupdate', handlePlayerTimeUpdate);
+      player.current.addEventListener('canplay', onLoad);
       player.current.addEventListener('timeupdate', handlePlayerTimeUpdate);
       player.current.addEventListener('ended', handleAudioEnd);
       player.current.addEventListener('pause', onPaused);
@@ -252,7 +258,11 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     }
     return () => {
       if (player && player.current) {
-        player.current.removeEventListener('canplay', _setPlayerDuration);
+        player.current.removeEventListener(
+          'timeupdate',
+          handlePlayerTimeUpdate
+        );
+        player.current.removeEventListener('canplay', onLoad);
 
         player.current.removeEventListener(
           'timeupdate',
