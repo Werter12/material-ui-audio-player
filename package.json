@@ -37,7 +37,7 @@
     "@storybook/addon-info": "^5.3.19",
     "@storybook/addon-knobs": "^5.3.19",
     "@storybook/addon-viewport": "^5.3.19",
-    "@storybook/react": "^5.3.19",
+    "@storybook/react": "^6.0.25",
     "@storybook/storybook-deployer": "^2.8.1",
     "@storybook/theming": "^5.1.9",
     "@types/enzyme": "^3.10.3",
