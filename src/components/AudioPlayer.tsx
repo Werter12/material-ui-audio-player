@@ -144,6 +144,16 @@ enum AudioPlayerPreload {
   none = 'none',
 }
 
+export enum TimeOption {
+  single = 'single',
+  double = 'double',
+}
+
+export enum TimePosition {
+  start = 'start',
+  end = 'end',
+}
+
 export interface Icons {
   [key: string]: typeof SvgIcon;
 }
@@ -165,6 +175,8 @@ interface IAudioPlayerProps {
   debug?: boolean;
   spacing?: GridSpacing;
   icons?: Icons;
+  time?: keyof typeof TimeOption;
+  timePosition?: keyof typeof TimePosition;
   onPlayed?: (event: any) => void;
   onPaused?: (event: any) => void;
   onFinished?: (event: any) => void;
@@ -186,6 +198,8 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   debug = false,
   // tslint:disable-next-line
   spacing = undefined,
+  time = 'double',
+  timePosition = 'start',
   icons,
   // tslint:disable-next-line: no-empty
   onPlayed = (event: any) => {},
@@ -205,6 +219,15 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     componentStyles
   );
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSingleTime = React.useMemo(() => time === TimeOption.single, [time]);
+  const isTimePositionStart = React.useMemo(
+    () => timePosition === TimePosition.start,
+    [timePosition]
+  );
+  const [showCurrentTime, toggleTime] = React.useState(true);
+  const toggleCurrentTime = React.useCallback(() => toggleTime((val) => !val), [
+    toggleTime,
+  ]);
 
   const [state, dispatch] = React.useReducer(reducer, inititalState);
   const [
@@ -258,10 +281,6 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     }
     return () => {
       if (player && player.current) {
-        player.current.removeEventListener(
-          'timeupdate',
-          handlePlayerTimeUpdate
-        );
         player.current.removeEventListener('canplay', onLoad);
 
         player.current.removeEventListener(
@@ -291,6 +310,18 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     ? 2
     : 3;
   const audioKey: string = Array.isArray(src) ? src[0] : src;
+  const currentTimeComp = (
+    <Grid item={true} className={cx(classes.commonContainer)}>
+      <Typography
+        className={classNames.progressTime}
+        onClick={toggleCurrentTime}
+      >
+        {showCurrentTime
+          ? getFormattedTime(state.player.current)
+          : getFormattedTime(state.player.remaning, true)}
+      </Typography>
+    </Grid>
+  );
 
   return (
     <Grid
@@ -358,11 +389,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         spacing={2}
         className={cx(classes.sliderContainerWrapper)}
       >
-        <Grid item={true} className={cx(classes.commonContainer)}>
-          <Typography className={classNames.progressTime}>
-            {getFormattedTime(state.player.current)}
-          </Typography>
-        </Grid>
+        {(!isSingleTime || isTimePositionStart) && currentTimeComp}
         <Grid item={true} className={classes.sliderContainer}>
           <Slider
             className={cx(classes.slider, classNames.mainSlider)}
@@ -370,11 +397,14 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
             value={state.player.progress}
           />
         </Grid>
-        <Grid item={true} className={classes.commonContainer}>
-          <Typography className={classNames.progressTime}>
-            {getFormattedTime(state.player.duration)}
-          </Typography>
-        </Grid>
+        {!isSingleTime && (
+          <Grid item={true} className={classes.commonContainer}>
+            <Typography className={classNames.progressTime}>
+              {getFormattedTime(state.player.duration)}
+            </Typography>
+          </Grid>
+        )}
+        {isSingleTime && !isTimePositionStart && currentTimeComp}
       </Grid>
     </Grid>
   );

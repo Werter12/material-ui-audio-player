@@ -4,16 +4,17 @@ function isNumeric(n: any): boolean {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-export const getFormattedTime = (time) => {
+export const getFormattedTime = (time, remaning = false) => {
   const dateTime = new Date(0, 0, 0, 0, 0, time, 0);
 
   const dateTimeH = appendZero(dateTime.getHours());
   const dateTimeM = appendZero(dateTime.getMinutes());
   const dateTimeS = appendZero(dateTime.getSeconds());
+  const minus = remaning ? '-' : '';
 
   return dateTimeH > 0
-    ? `${dateTimeH}:${dateTimeM}:${dateTimeS}`
-    : `${dateTimeM}:${dateTimeS}`;
+    ? `${minus}${dateTimeH}:${dateTimeM}:${dateTimeS}`
+    : `${minus}${dateTimeM}:${dateTimeS}`;
 };
 
 export const getProgress = (currentTime: number, duration: number) => {
@@ -26,6 +27,13 @@ export const getProgress = (currentTime: number, duration: number) => {
 export const getCurrentTime = (progress: number, duration: number) => {
   if (isNumeric(progress) && isNumeric(duration)) {
     return parseFloat(((progress * duration) / 100).toString());
+  }
+  return 0;
+};
+
+export const getRemaningTime = (progress: number, duration: number) => {
+  if (isNumeric(progress) && isNumeric(duration)) {
+    return parseFloat((((100 - progress) * duration) / 100).toString());
   }
   return 0;
 };

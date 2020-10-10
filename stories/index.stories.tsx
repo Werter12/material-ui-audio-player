@@ -10,6 +10,8 @@ import * as React from 'react';
 import AudioPlayer, {
   AudioPlayerVariation,
   AudioPlayerComponentsOrder,
+  TimeOption,
+  TimePosition,
 } from '../src/components/AudioPlayer';
 
 const muiTheme = createMuiTheme({});
@@ -50,7 +52,14 @@ storiesOf('Material Ui', module)
         'different song':
           'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
       };
+
       const src = select('source', srcOptions, srcSet);
+      const time = select('time', TimeOption, TimeOption.double);
+      const timePosition = select(
+        'timePosition',
+        TimePosition,
+        TimePosition.start
+      );
       const width = text('width', '500px');
       const variation = select<AudioPlayerVariation>(
         'variation',
@@ -92,6 +101,8 @@ storiesOf('Material Ui', module)
             onFinished={onFinished}
             onPaused={onPaused}
             onPlayed={onPlayed}
+            time={time}
+            timePosition={timePosition}
           />
         </ThemeProvider>
       );
@@ -187,6 +198,8 @@ const srcSet = [
           <AudioPlayer
             width="500px"
             useStyles={useStyles}
+            time="single"
+            timePosition="end"
             src={src}
             loop={true}
           />

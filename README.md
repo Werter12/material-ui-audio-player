@@ -152,6 +152,22 @@ This callback triggers when the player finish playing
 
 - _type:_ `func`
 
+### `time`
+
+This prop helps to customize time displaying. `double` - means that two timers will be present. `single` - only one.
+
+- _default:_ `double`
+- _options:_ `double`, `single`
+- _type:_ `string`
+
+### `timePosition`
+
+This prop helps to position `single` timer before (`start`) or after (`end`) the slider.
+
+- _default:_ `start`
+- _options:_ `start`, `end`
+- _type:_ `string`
+
 ### `useStyles`
 
 The attribute for customizing component styles. Accept the result of

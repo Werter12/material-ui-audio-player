@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.4.0 - 2020-10-10
+
+### Added
+
+- Add time prop
+- Add timePosition prop
+
 ## 1.3.6 - 2020-09-27
 
 ### Changed

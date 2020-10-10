@@ -1,4 +1,4 @@
-import { getCurrentTime, getProgress } from './helpers';
+import { getCurrentTime, getProgress, getRemaningTime } from './helpers';
 
 const PLAYER_STATUS_PLAY = 'PLAYER_STATUS_PLAY';
 const PLAYER_STATUS_PAUSE = 'PLAYER_STATUS_PAUSE';
@@ -63,23 +63,33 @@ function setPlayerDuration(dispatch, player) {
 }
 function setPlayerTime(dispatch, player) {
   return () => {
+    const progress = getProgress(
+      player?.current?.currentTime,
+      player?.current?.duration
+    );
+    const remaning = getRemaningTime(progress, player?.current?.duration);
     dispatch({
       type: PLAYER_SET_TIME,
       current: player.current.currentTime,
-      progress: getProgress(
-        player.current.currentTime,
-        player.current.duration
-      ),
+      remaning,
+      progress,
     });
   };
 }
 function changePlayerSlider(dispatch, player) {
   return (progress: number) => {
     const currentTime = getCurrentTime(progress, player.current.duration);
+    const remaningTime = getRemaningTime(progress, player.current.duration);
+
     if (currentTime) {
       player.current.currentTime = currentTime;
     }
-    dispatch({ type: PLAYER_SLIDER_MOVED, progress, current: currentTime });
+    dispatch({
+      type: PLAYER_SLIDER_MOVED,
+      progress,
+      current: currentTime,
+      remaning: remaningTime,
+    });
   };
 }
 function audioEnded(dispatch) {
