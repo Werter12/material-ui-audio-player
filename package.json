@@ -1,6 +1,6 @@
 {
   "name": "material-ui-audio-player",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Audio player for material ui design",
   "main": "dist/index.js",
   "repository": {
@@ -43,9 +43,9 @@
     "@types/jest": "^26.0.15",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.3.1",
     "awesome-typescript-loader": "^5.2.1",
     "enzyme": "^3.11.0",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.3.1",
     "enzyme-to-json": "^3.6.1",
     "husky": ">=4.3.0",
     "jest": "^26.6.3",
