@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.5.0 - 2020-11-27
+
+### Added
+
+- Add check for currentTime
+
+### Changed
+
+- Updated devDependencies to latest
+
 ## 1.4.0 - 2020-10-10
 
 ### Added
