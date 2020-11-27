@@ -70,7 +70,7 @@ function setPlayerTime(dispatch, player) {
     const remaning = getRemaningTime(progress, player?.current?.duration);
     dispatch({
       type: PLAYER_SET_TIME,
-      current: player.current.currentTime,
+      current: player?.current?.currentTime,
       remaning,
       progress,
     });
