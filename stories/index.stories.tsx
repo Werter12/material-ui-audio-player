@@ -275,4 +275,33 @@ const useStyles = makeStyles(
         <AudioPlayer src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" />
       </ThemeProvider>
     );
+  })
+  .add('AudioPlayer getPlayer', () => {
+    let player: HTMLAudioElement | null = null;
+    const getPlayer = (currentPlayer) => {
+      player = currentPlayer;
+    };
+    const play = () => {
+      if (player) {
+        player.play();
+      }
+    };
+    const pause = () => {
+      if (player) {
+        player.pause();
+      }
+    };
+
+    return (
+      <ThemeProvider theme={muiTheme}>
+        <AudioPlayer
+          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+          getPlayer={getPlayer}
+          debug={true}
+        />
+        <br />
+        <button onClick={play}>play</button>
+        <button onClick={pause}>pause</button>
+      </ThemeProvider>
+    );
   });
