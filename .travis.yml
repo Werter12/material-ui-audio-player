@@ -1,10 +1,25 @@
 language: node_js
 node_js:
-  - "stable"
-
+  - stable
 install:
   - yarn install --frozen-lockfile
-
 script:
   - yarn run lint
   - yarn run test
+
+before_deploy:
+  - yarn run build
+
+deploy:
+  provider: npm
+  email: samofan77@gmail.com
+  api_key:
+    secure: zoRpKUbWm30yeEyJLiDWr7vN7CIlIC6IDsIPYBk3trMqLcMtYtIujh/VZ44WEiqWSzWV88X+StE7E1HkLb/KM3yz/dDsJ18G5AVY1isP4EFG+osXjYtrVy3Qq5Vg7JprDZdrYr+D0XGMT7Nn4Hc04Hgf3nEiHM5JCKflSgWPp0VV2MsNHhqu0qr1jPlfPX9aSSWTa6nNUoFDtyEOySxKINRCWUpKFM46or28PCrWTAbkcZWNdJFu/cirPai21G1OMC7adhBjFhRuWA6GQ6hSj8tjUfnbivsVm4Qn2JroVP0mhxx6umSM0/ChiBFfcWYnCeg7z54XrNSpzpT9yn4E4OLYH906QnvFtxw52eYsXFeI66Q+xotPHn+P9rlkiIjrpKl8CHjmvUiTf0MudGjfxKZQjjiqlldxCqz9cix+E0BWYy5bSI4S//rUyuGtuDgzgglvolwWjh2agm9qfD/4U27nvOmI+FWONP7rpc1pj20c249B/n1bVJqdQypu5nDu/8lIuN6WgfJzalgSmytzzMEbb8N0gFP2lD8bvHDIzhcHUNrd3PJcxnZbqv0fgDnIOVgljNSFhbTYrCzV1HqzfkrzVd9O7ala85X1RyA7aECLuG0DpGIFaY6oZL1O1bWQnsaoO3Nd6RSB1khzlBdalvuzgSxtUEfk/cb+3gVARvo=
+  on:
+    repo: Werter12/material-ui-audio-player
+    branch: master
+    tags: true
+  skip_cleanup: 'true'
+
+after_deploy:
+  - yarn run deploy-storybook
