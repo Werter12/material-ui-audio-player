@@ -84,6 +84,13 @@ Display download button (icon) with dropdown of available audio tracks for downl
 - _default:_ `false`
 - _type:_ `boolean`
 
+### `volume`
+
+Display volume control button (icon).
+
+- _default:_ `true`
+- _type:_ `boolean`
+
 ### `autoplay`
 
 Corresponds to HTML audio `autoplay` attribute.

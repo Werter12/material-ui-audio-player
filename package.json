@@ -18,7 +18,9 @@
     "coverage": "jest --collect-coverage",
     "start": "start-storybook -p 6006 -c .storybook",
     "build": "yarn tsc",
-    "deploy-storybook": "storybook-to-ghpages"
+    "deploy-storybook": "storybook-to-ghpages",
+    "preversion": "yarn test",
+    "postversion": "git push --follow-tags && echo \"Successfully released version $npm_package_version!\""
   },
   "files": [
     "dist"

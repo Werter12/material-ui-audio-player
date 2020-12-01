@@ -76,6 +76,7 @@ storiesOf('Material Ui', module)
       const download = boolean('download', true);
       const debug = boolean('debug', true);
       const loop = boolean('loop', true);
+      const volume = boolean('volume', true);
       const onFinished = (event): void => {
         eventTriggered('onFinish');
       };
@@ -93,6 +94,7 @@ storiesOf('Material Ui', module)
             width={width}
             variation={variation}
             download={download}
+            volume={volume}
             loop={loop}
             order={order}
             spacing={spacing}

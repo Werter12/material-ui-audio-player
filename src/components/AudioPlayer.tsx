@@ -27,6 +27,7 @@ const inititalState = {
       value: PLAYER.VOLUME.DEFAULT_VALUE,
     },
     duration: 0,
+    remaning: 0,
     progress: 0,
     current: 0,
     loop: false,
@@ -166,6 +167,7 @@ interface IAudioPlayerProps {
   width?: string;
   height?: string;
   download?: boolean;
+  volume?: boolean;
   variation?: keyof typeof AudioPlayerVariation;
   preload?: AudioPlayerPreload;
   loop?: boolean;
@@ -191,6 +193,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   height = 'auto',
   variation = AudioPlayerVariation.default,
   preload = AudioPlayerPreload.auto,
+  volume = true,
   download = false,
   autoplay = false,
   order = AudioPlayerComponentsOrder.standart,
@@ -375,14 +378,16 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       {download && (
         <AudioDownloadsControl src={src} playerColors={playerColors} />
       )}
-      <AudioVolumeControl
-        muteAudio={_muteAudio}
-        unmuteAudio={_unmuteAudio}
-        classNames={classNames}
-        changeAudioVolume={_changeAudioVolume}
-        volume={state.player.volume}
-        playerColors={playerColors}
-      />
+      {volume && (
+        <AudioVolumeControl
+          muteAudio={_muteAudio}
+          unmuteAudio={_unmuteAudio}
+          classNames={classNames}
+          changeAudioVolume={_changeAudioVolume}
+          volume={state.player.volume}
+          playerColors={playerColors}
+        />
+      )}
       <Grid
         item={true}
         container={true}

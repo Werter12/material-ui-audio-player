@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.5.1 - 2020-12-01
+
+### Added
+
+- Add volume prop
+- Add remaning initial state to prevent -NaN
+
 ## 1.5.0 - 2020-11-27
 
 ### Added
