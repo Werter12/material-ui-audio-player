@@ -260,6 +260,10 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     onFinished(event);
   };
   const onLoad = () => {
+    if (player?.current?.duration === Infinity) {
+      player.current.currentTime = 24 * 60 * 60;
+      player.current.currentTime = 0;
+    }
     _setPlayerDuration();
     if (player?.current?.currentTime === 0) {
       if (!player?.current?.autoplay && !player?.current?.loop) {

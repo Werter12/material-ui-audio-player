@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.5.2 - 2020-12-04
+
+### Added
+
+- Add check for duration on Infinite to fix a bug with NaN:NaN
+
 ## 1.5.1 - 2020-12-01
 
 ### Added
