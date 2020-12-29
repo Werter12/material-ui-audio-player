@@ -266,7 +266,9 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     }
     _setPlayerDuration();
     if (player?.current?.currentTime === 0) {
-      if (!player?.current?.autoplay && !player?.current?.loop) {
+      if (player?.current?.autoplay || player?.current?.loop) {
+        // @ts-ignore: no-empty
+      } else {
         _pauseAudio();
       }
     }

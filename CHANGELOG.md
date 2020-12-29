@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.5.3 - 2020-12-29
+
+### Changed
+
+- Fix autoplay play button
+
 ## 1.5.2 - 2020-12-04
 
 ### Added
