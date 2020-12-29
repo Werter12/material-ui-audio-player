@@ -73,7 +73,10 @@ export const AudioDownloadsControl: React.FunctionComponent<IAudioDownloadsContr
     isMobile ? (
       <Grid item={true} className={classes.commonContainer}>
         <a className={classes.downloadLink} href={src[0]} download={true}>
-          <CloudDownload fontSize="large" className={classNames.downloadIcon} />
+          <CloudDownload
+            fontSize="large"
+            className={classNames.downloadsIcon}
+          />
         </a>
       </Grid>
     ) : (
@@ -136,7 +139,7 @@ export const AudioDownloadsControl: React.FunctionComponent<IAudioDownloadsContr
   ) : (
     <Grid item={true} className={classes.commonContainer}>
       <a className={classes.downloadLink} href={src} download={true}>
-        <CloudDownload fontSize="large" className={classNames.downloadIcon} />
+        <CloudDownload fontSize="large" className={classNames.downloadsIcon} />
       </a>
     </Grid>
   );

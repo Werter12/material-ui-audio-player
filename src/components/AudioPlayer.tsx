@@ -49,6 +49,7 @@ export interface IAudioPlayerClassNameProps {
   downloadsContainer: string;
   downloadsItemLink: string;
   downloadsItemText: string;
+  sliderWrapper: string;
 }
 
 export const useComponentStyles = makeStyles((theme: any) => {
@@ -382,7 +383,11 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         />
       </Grid>
       {download && (
-        <AudioDownloadsControl src={src} playerColors={playerColors} />
+        <AudioDownloadsControl
+          src={src}
+          playerColors={playerColors}
+          classNames={classNames}
+        />
       )}
       {volume && (
         <AudioVolumeControl
@@ -398,7 +403,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         item={true}
         container={true}
         spacing={2}
-        className={cx(classes.sliderContainerWrapper)}
+        className={cx(classes.sliderContainerWrapper, classNames.sliderWrapper)}
       >
         {(!isSingleTime || isTimePositionStart) && currentTimeComp}
         <Grid item={true} className={classes.sliderContainer}>
