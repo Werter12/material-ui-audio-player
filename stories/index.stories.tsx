@@ -77,6 +77,8 @@ storiesOf('Material Ui', module)
       const debug = boolean('debug', true);
       const loop = boolean('loop', true);
       const volume = boolean('volume', true);
+      const displaySlider = boolean('displaySlider', true);
+      const displayCloseButton = boolean('displayCloseButton', false);
       const onFinished = (event): void => {
         eventTriggered('onFinish');
       };
@@ -105,6 +107,8 @@ storiesOf('Material Ui', module)
             onPlayed={onPlayed}
             time={time}
             timePosition={timePosition}
+            displaySlider={displaySlider}
+            displayCloseButton={displayCloseButton}
           />
         </ThemeProvider>
       );
@@ -275,6 +279,23 @@ const useStyles = makeStyles(
     return (
       <ThemeProvider theme={muiTheme}>
         <AudioPlayer src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" />
+      </ThemeProvider>
+    );
+  })
+  .add('Small AudioPlayer', () => {
+    const displayCloseButton = boolean('displayCloseButton', true);
+    const width = text('width', '58px');
+
+    return (
+      <ThemeProvider theme={muiTheme}>
+        <AudioPlayer
+          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+          width={width}
+          variation="primary"
+          displaySlider={false}
+          volume={false}
+          displayCloseButton={displayCloseButton}
+        />
       </ThemeProvider>
     );
   });

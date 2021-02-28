@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.6.0 - 2020-02-28
+
+### Added
+
+- Add displaySlider prop
+- Add Small AudioPlayer story
+- Add CloseIcon with displayCloseButton prop
+
 ## 1.5.3 - 2020-12-29
 
 ### Changed

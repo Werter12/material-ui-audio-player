@@ -14,6 +14,7 @@ import * as React from 'react';
 import AudioDownloadsControl from './AudioDownloadsControl';
 import AudioPlayControl from './AudioPlayControl';
 import AudioVolumeControl from './AudioVolumeControl';
+import AudioPlayerCloseButton from './AudioPlayerCloseButton';
 import { actionCreators } from './state/actions';
 import { getFormattedTime, populateDispatch } from './state/helpers';
 import PLAYER from './state/player';
@@ -49,6 +50,7 @@ export interface IAudioPlayerClassNameProps {
   downloadsContainer: string;
   downloadsItemLink: string;
   downloadsItemText: string;
+  closeIcon: string;
 }
 
 export const useComponentStyles = makeStyles((theme: any) => {
@@ -61,6 +63,7 @@ export const useComponentStyles = makeStyles((theme: any) => {
 
   return {
     root: (props: any) => ({
+      position: 'relative',
       backgroundColor: theme.palette.background.paper,
       color: theme.palette.text.primary,
       width: props.width,
@@ -172,6 +175,8 @@ interface IAudioPlayerProps {
   preload?: AudioPlayerPreload;
   loop?: boolean;
   order?: keyof typeof AudioPlayerComponentsOrder;
+  displaySlider?: boolean;
+  displayCloseButton?: boolean;
   // some browsers will block audio autoplay
   autoplay?: boolean;
   debug?: boolean;
@@ -203,6 +208,8 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   spacing = undefined,
   time = 'double',
   timePosition = 'start',
+  displaySlider = true,
+  displayCloseButton = false,
   icons,
   // tslint:disable-next-line: no-empty
   onPlayed = (event: any) => {},
@@ -212,6 +219,10 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   onFinished = (event: any) => {},
 }) => {
   const player = React.useRef<HTMLAudioElement | null>(null);
+  const [visible, setVisibility] = React.useState(true);
+  const onClose = React.useCallback(() => {
+    setVisibility(false);
+  }, []);
   const theme: { [key: string]: any } = useTheme();
   const playerColors: IAudioPlayerColors = getColors(theme, variation);
   const componentsOrder =
@@ -332,7 +343,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     </Grid>
   );
 
-  return (
+  return visible ? (
     <Grid
       container={true}
       spacing={mainContainerSpacing}
@@ -394,31 +405,40 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           playerColors={playerColors}
         />
       )}
-      <Grid
-        item={true}
-        container={true}
-        spacing={2}
-        className={cx(classes.sliderContainerWrapper)}
-      >
-        {(!isSingleTime || isTimePositionStart) && currentTimeComp}
-        <Grid item={true} className={classes.sliderContainer}>
-          <Slider
-            className={cx(classes.slider, classNames.mainSlider)}
-            onChange={handleAudioSliderChange}
-            value={state.player.progress}
-          />
-        </Grid>
-        {!isSingleTime && (
-          <Grid item={true} className={classes.commonContainer}>
-            <Typography className={classNames.progressTime}>
-              {getFormattedTime(state.player.duration)}
-            </Typography>
+      {displaySlider && (
+        <Grid
+          item={true}
+          container={true}
+          spacing={2}
+          className={cx(classes.sliderContainerWrapper)}
+        >
+          {(!isSingleTime || isTimePositionStart) && currentTimeComp}
+          <Grid item={true} className={classes.sliderContainer}>
+            <Slider
+              className={cx(classes.slider, classNames.mainSlider)}
+              onChange={handleAudioSliderChange}
+              value={state.player.progress}
+            />
           </Grid>
-        )}
-        {isSingleTime && !isTimePositionStart && currentTimeComp}
-      </Grid>
+          {!isSingleTime && (
+            <Grid item={true} className={classes.commonContainer}>
+              <Typography className={classNames.progressTime}>
+                {getFormattedTime(state.player.duration)}
+              </Typography>
+            </Grid>
+          )}
+          {isSingleTime && !isTimePositionStart && currentTimeComp}
+        </Grid>
+      )}
+      {displayCloseButton && (
+        <AudioPlayerCloseButton
+          onClose={onClose}
+          classNames={classNames}
+          playerColors={playerColors}
+        />
+      )}
     </Grid>
-  );
+  ) : null;
 };
 
 export default AudioPlayer;

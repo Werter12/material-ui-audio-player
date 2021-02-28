@@ -195,9 +195,24 @@ Provide custom icon component from Material-ui icons for specific icon.
     ReplayIcon: Replay,
     PauseIcon: PauseCircleFilled,
     VolumeUpIcon: VolumeUp,
-    VolumeOffIcon: VolumeOff
+    VolumeOffIcon: VolumeOff,
+    CloseIcon: Close,
   }
 ```
+
+### `displaySlider`
+
+Display slider with time.
+
+- _default:_ `true`
+- _type:_ `boolean`
+
+### `displayCloseButton`
+
+Display close button (icon).
+
+- _default:_ `false`
+- _type:_ `boolean`
 
 ## Customize component styles
 
