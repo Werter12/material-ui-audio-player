@@ -35,8 +35,8 @@ import AudioPlayer from 'material-ui-audio-player';
 const muiTheme = createMuiTheme({});
 
 const src = [
-  'https://converter-audio-example-1.s3.eu-central-1.amazonaws.com/Russell%2C%2BMale%2B-%2BEnglish%2C%2BAustralian+(1)+(online-audio-converter.com).wav',
-  'https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3',
+  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
 ];
 
 <ThemeProvider theme={muiTheme}>
