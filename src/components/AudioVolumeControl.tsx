@@ -101,7 +101,12 @@ export const AudioVolumeControl: React.FunctionComponent<IAudioDownloadsControl>
         />
       )}
       {volumeSlider && (
-        <Paper className={cx(classes.volumeControlContainer)}>
+        <Paper
+          className={cx(
+            classes.volumeControlContainer,
+            classNames.volumeControlContainer
+          )}
+        >
           <Slider
             orientation="vertical"
             aria-labelledby="volume-control"
