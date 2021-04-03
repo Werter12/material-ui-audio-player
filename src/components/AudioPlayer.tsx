@@ -42,6 +42,7 @@ export interface IAudioPlayerClassNameProps {
   volumeIcon: string;
   muteIcon: string;
   mainSlider: string;
+  volumeSliderContainer: string;
   volumeSlider: string;
   downloadsIcon: string;
   pauseIcon: string;

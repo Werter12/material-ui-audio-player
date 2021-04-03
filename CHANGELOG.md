@@ -2,13 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.6.1 - 2020-02-28
+## 1.6.2 - 2021-04-03
+
+### Changed
+
+- Change default zIndex of the Volume slider container
+
+### Added
+
+- Add volumeSliderContainer className
+
+## 1.6.1 - 2021-02-28
 
 ### Changed
 
 - Update README
 
-## 1.6.0 - 2020-02-28
+## 1.6.0 - 2021-02-28
 
 ### Added
 

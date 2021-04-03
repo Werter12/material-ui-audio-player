@@ -39,6 +39,7 @@ export const useComponentStyles = makeStyles((theme: any) => {
     volumeControlContainer: {
       position: 'absolute',
       display: 'none',
+      zIndex: 10,
       [theme.breakpoints.up('sm')]: {
         display: 'flex',
         height: '60px',
@@ -101,7 +102,12 @@ export const AudioVolumeControl: React.FunctionComponent<IAudioDownloadsControl>
         />
       )}
       {volumeSlider && (
-        <Paper className={cx(classes.volumeControlContainer)}>
+        <Paper
+          className={cx(
+            classes.volumeControlContainer,
+            classNames.volumeSliderContainer
+          )}
+        >
           <Slider
             orientation="vertical"
             aria-labelledby="volume-control"

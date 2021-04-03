@@ -296,6 +296,7 @@ const useStyles = makeStyles((theme) => {
 - volumeIcon
 - muteIcon
 - mainSlider
+- volumeSliderContainer
 - volumeSlider
 - downloadsIcon
 - pauseIcon
