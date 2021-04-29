@@ -394,7 +394,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         />
       </Grid>
       {download && (
-        <AudioDownloadsControl src={src} playerColors={playerColors} />
+        <AudioDownloadsControl src={src} playerColors={playerColors} icons={icons}/>
       )}
       {volume && (
         <AudioVolumeControl
@@ -404,6 +404,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           changeAudioVolume={_changeAudioVolume}
           volume={state.player.volume}
           playerColors={playerColors}
+          icons={icons}
         />
       )}
       {displaySlider && (
@@ -436,6 +437,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
           onClose={onClose}
           classNames={classNames}
           playerColors={playerColors}
+          icons={icons}
         />
       )}
     </Grid>
