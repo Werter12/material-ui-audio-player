@@ -188,6 +188,7 @@ interface IAudioPlayerProps {
   onPlayed?: (event: any) => void;
   onPaused?: (event: any) => void;
   onFinished?: (event: any) => void;
+  onClose?: () => void;
 }
 
 const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
@@ -218,11 +219,14 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   onPaused = (event: any) => {},
   // tslint:disable-next-line: no-empty
   onFinished = (event: any) => {},
+  // tslint:disable-next-line: no-empty
+  onClose = () => {},
 }) => {
   const player = React.useRef<HTMLAudioElement | null>(null);
   const [visible, setVisibility] = React.useState(true);
-  const onClose = React.useCallback(() => {
+  const handleClose = React.useCallback(() => {
     setVisibility(false);
+    onClose();
   }, []);
   const theme: { [key: string]: any } = useTheme();
   const playerColors: IAudioPlayerColors = getColors(theme, variation);
@@ -394,7 +398,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         />
       </Grid>
       {download && (
-        <AudioDownloadsControl src={src} playerColors={playerColors} icons={icons}/>
+        <AudioDownloadsControl src={src} playerColors={playerColors}/>
       )}
       {volume && (
         <AudioVolumeControl
@@ -434,7 +438,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       )}
       {displayCloseButton && (
         <AudioPlayerCloseButton
-          onClose={onClose}
+          onClose={handleClose}
           classNames={classNames}
           playerColors={playerColors}
           icons={icons}
