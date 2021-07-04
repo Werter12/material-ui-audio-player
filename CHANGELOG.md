@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+Not released
+- Replace tslint on eslint
+
 ## 1.6.3 - 2021-07-04
 
 ### Added
