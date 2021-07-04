@@ -20,6 +20,8 @@ import { getFormattedTime, populateDispatch } from './state/helpers';
 import PLAYER from './state/player';
 import reducer from './state/reducer';
 
+const isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+
 const inititalState = {
   player: {
     status: PLAYER.STATUS.PAUSE,
@@ -276,6 +278,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     onFinished(event);
   };
   const onLoad = () => {
+    console.log('onLoad')
     if (player?.current?.duration === Infinity) {
       player.current.currentTime = 24 * 60 * 60;
       player.current.currentTime = 0;
@@ -290,6 +293,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     }
   };
 
+
   React.useEffect(() => {
     if (player && player.current) {
       if (player.current.readyState > 3) {
@@ -297,6 +301,9 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       }
       if (!player.current.autoplay && autoplay) {
         _setPlayerAutoplay();
+      }
+      if (isSafari) {
+        player.current.load()
       }
       player.current.addEventListener('canplay', onLoad);
       player.current.addEventListener('timeupdate', handlePlayerTimeUpdate);
