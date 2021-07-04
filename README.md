@@ -159,6 +159,12 @@ This callback triggers when the player finish playing
 
 - _type:_ `func`
 
+### `onClose`
+
+This callback triggers when you close the player with help of the close button `displayCloseButton`
+
+- _type:_ `func`
+
 ### `time`
 
 This prop helps to customize time displaying. `double` - means that two timers will be present. `single` - only one.
