@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.6.3 - 2021-07-04
+
+### Added
+
+- Add onClose handler
+
 ## 1.6.2 - 2021-04-03
 
 ### Changed
