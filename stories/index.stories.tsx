@@ -285,6 +285,8 @@ const useStyles = makeStyles(
   .add('Small AudioPlayer', () => {
     const displayCloseButton = boolean('displayCloseButton', true);
     const width = text('width', '58px');
+    // tslint:disable-next-line
+    const onClose = () => console.log('closed');
 
     return (
       <ThemeProvider theme={muiTheme}>
@@ -295,6 +297,7 @@ const useStyles = makeStyles(
           displaySlider={false}
           volume={false}
           displayCloseButton={displayCloseButton}
+          onClose={onClose}
         />
       </ThemeProvider>
     );
