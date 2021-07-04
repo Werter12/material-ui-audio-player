@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.6.4 - 2021-07-04
+## 1.6.5 - 2021-07-04
 
 ### Changed
 
