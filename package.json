@@ -1,6 +1,6 @@
 {
   "name": "material-ui-audio-player",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "Audio player for material ui design",
   "main": "dist/index.js",
   "repository": {
