@@ -56,6 +56,7 @@ interface IPlayerVolume {
 interface IAudioDownloadsControl {
   playerColors: IAudioPlayerColors;
   volume: IPlayerVolume;
+  muteable: Boolean;
   muteAudio: () => void;
   unmuteAudio: () => void;
   changeAudioVolume: (value: any) => void;
@@ -64,6 +65,7 @@ interface IAudioDownloadsControl {
 }
 
 export const AudioVolumeControl: React.FunctionComponent<IAudioDownloadsControl> = ({
+  muteable = true,
   muteAudio,
   unmuteAudio,
   classNames = {},
@@ -92,13 +94,13 @@ export const AudioVolumeControl: React.FunctionComponent<IAudioDownloadsControl>
         <VolumeUpIcon
           fontSize="large"
           className={cx(classes.icon, classNames.volumeIcon)}
-          onClick={muteAudio}
+          onClick={muteable ? muteAudio : () => {}}
         />
       ) : (
         <VolumeOffIcon
           fontSize="large"
           className={cx(classes.icon, classNames.volumeIcon)}
-          onClick={unmuteAudio}
+          onClick={muteable ? unmuteAudio : () => {}}
         />
       )}
       {volumeSlider && (
