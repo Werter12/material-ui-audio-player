@@ -76,7 +76,11 @@ storiesOf('Material Ui', module)
       const download = boolean('download', true);
       const debug = boolean('debug', true);
       const loop = boolean('loop', true);
-      const muted = select('muted', { 'null': null, 'true': true, 'false': false}, null);
+      const muted = select(
+        'muted',
+        { null: null, true: true, false: false },
+        null
+      );
       const volume = boolean('volume', true);
       const displaySlider = boolean('displaySlider', true);
       const displayCloseButton = boolean('displayCloseButton', false);
@@ -301,6 +305,39 @@ const useStyles = makeStyles(
           displayCloseButton={displayCloseButton}
           onClose={onClose}
         />
+      </ThemeProvider>
+    );
+  })
+  .add('Controlled AudioPlayer', () => {
+    let player: HTMLAudioElement | null = null;
+    let playerDispatch: React.Dispatch<any>;
+    const getPlayer = (currentPlayer, dispatch) => {
+      player = currentPlayer;
+      playerDispatch = dispatch;
+    };
+    const play = () => {
+      if (player) {
+        player.play();
+        playerDispatch({ type: 'PLAYER_STATUS_PLAY'});
+      }
+    };
+    const pause = () => {
+      if (player) {
+        player.pause();
+        playerDispatch({ type: 'PLAYER_STATUS_PAUSE'});
+      }
+    };
+
+    return (
+      <ThemeProvider theme={muiTheme}>
+        <AudioPlayer
+          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+          getPlayer={getPlayer}
+          debug={true}
+        />
+        <br />
+        <button onClick={play}>play</button>
+        <button onClick={pause}>pause</button>
       </ThemeProvider>
     );
   });

@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.7.0 - 2021-10-05
+### Added
+
+- Add "getPlayer" prop as part of controlled audio player implimentation
+
 ## 1.6.7 - 2021-10-05
 ### Added
 
