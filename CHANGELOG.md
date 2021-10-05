@@ -5,7 +5,8 @@ All notable changes to this project will be documented in this file.
 ## 1.6.7 - 2021-10-05
 ### Added
 
-- "muted" props to control mute state of audio and "volume" button from external sources
+- Add "muted" props to control mute state of audio and "volume" button from external sources
+- Add yarn instead npm requirement
 
 ## 1.6.6 (1.6.5) - 2021-07-04
 
