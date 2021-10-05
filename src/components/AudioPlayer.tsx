@@ -174,6 +174,7 @@ interface IAudioPlayerProps {
   height?: string;
   download?: boolean;
   volume?: boolean;
+  muted?: boolean | null;
   variation?: keyof typeof AudioPlayerVariation;
   preload?: AudioPlayerPreload;
   loop?: boolean;
@@ -203,6 +204,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   variation = AudioPlayerVariation.default,
   preload = AudioPlayerPreload.auto,
   volume = true,
+  muted = null,
   download = false,
   autoplay = false,
   order = AudioPlayerComponentsOrder.standart,
@@ -325,6 +327,16 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     };
   }, [player, src]);
 
+  React.useEffect(() => {
+    if (player?.current && typeof muted === 'boolean') {
+      if (muted) {
+        _muteAudio()
+      } else {
+        _unmuteAudio()
+      }
+    }
+  }, [muted])
+
   if (debug) {
     // tslint:disable-next-line
     console.log('state', state);
@@ -408,6 +420,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       )}
       {volume && (
         <AudioVolumeControl
+          muted={muted}
           muteAudio={_muteAudio}
           unmuteAudio={_unmuteAudio}
           classNames={classNames}

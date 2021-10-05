@@ -76,6 +76,7 @@ storiesOf('Material Ui', module)
       const download = boolean('download', true);
       const debug = boolean('debug', true);
       const loop = boolean('loop', true);
+      const muted = select('muted', { 'null': null, 'true': true, 'false': false}, null);
       const volume = boolean('volume', true);
       const displaySlider = boolean('displaySlider', true);
       const displayCloseButton = boolean('displayCloseButton', false);
@@ -100,6 +101,7 @@ storiesOf('Material Ui', module)
             loop={loop}
             order={order}
             spacing={spacing}
+            muted={muted}
             debug={debug}
             src={src}
             onFinished={onFinished}

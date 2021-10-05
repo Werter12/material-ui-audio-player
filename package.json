@@ -7,6 +7,11 @@
     "type": "git",
     "url": "git+https://github.com/Werter12/material-ui-audio-player.git"
   },
+  "engines": {
+    "node": ">=v12.18.2",
+    "yarn": ">=v1.12.0",
+    "npm": "please-use-yarn"
+  },
   "author": "Werter12 <samofan77@gmail.com>",
   "license": "MIT",
   "private": false,

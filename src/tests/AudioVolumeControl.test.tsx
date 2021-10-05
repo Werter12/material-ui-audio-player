@@ -82,6 +82,32 @@ describe('<AudioVolumeControl />', () => {
     expect(unmuteAudio.mock.calls.length).toBe(1);
   });
 
+  it('should not be able to mute audio', () => {
+    const muteAudio = jest.fn();
+    const unmuteAudio = jest.fn();
+    const changeAudioVolume = jest.fn();
+    const volume = {
+      status: PLAYER.VOLUME.STATUS.MUTE,
+      value: 100
+    };
+
+    const wrapper = muiShallow(
+      <AudioVolumeControl
+        muted={false}
+        volume={volume}
+        muteAudio={muteAudio}
+        unmuteAudio={unmuteAudio}
+        changeAudioVolume={changeAudioVolume}
+        playerColors={playerColors}
+      />
+    );
+
+    const icon = wrapper.find(VolumeOff);
+    expect(icon).toHaveLength(1);
+    icon.simulate('click');
+    expect(unmuteAudio.mock.calls.length).toBe(0);
+  });
+
   it('toggle volume slider works', () => {
     const muteAudio = jest.fn();
     const unmuteAudio = jest.fn();
