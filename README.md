@@ -228,6 +228,13 @@ Prop for controling mute state of the audio and volume button. (By default is nu
 - _options:_ `true`, `false`
 - _type:_ `boolean`
 
+### `getPlayer`
+
+Callback for getting access to HTML audio player instance and `dispatch` react function (from `useReducer`) in order to change player's state directly (programmatically). Check out `Controlled AudioPlayer` section in the storybook.
+
+- _type:_ `func`
+-  function_params:_ `player`, `dispatch`
+
 ## Customize component styles
 
 ```javascript

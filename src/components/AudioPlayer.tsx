@@ -191,7 +191,7 @@ interface IAudioPlayerProps {
   onPlayed?: (event: any) => void;
   onPaused?: (event: any) => void;
   onFinished?: (event: any) => void;
-  getPlayer?: (player: HTMLAudioElement | null) => void;
+  getPlayer?: (player: HTMLAudioElement | null, dispatch: React.Dispatch<any>) => void;
   onClose?: () => void;
 }
 
@@ -224,8 +224,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   onPaused = (event: any) => {},
   // tslint:disable-next-line: no-empty
   onFinished = (event: any) => {},
-  // tslint:disable-next-line: no-empty
-  getPlayer = (event: any) => {},
+  getPlayer = (player: HTMLAudioElement | null, dispatch: React.Dispatch<any>) => {},
   onClose = () => {},
 }) => {
   const player = React.useRef<HTMLAudioElement | null>(null);
@@ -287,7 +286,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       player.current.currentTime = 0;
     }
     _setPlayerDuration();
-    getPlayer(player.current);
+    getPlayer(player.current, dispatch);
     if (player?.current?.currentTime === 0) {
       if (player?.current?.autoplay || player?.current?.loop) {
         // @ts-ignore: no-empty

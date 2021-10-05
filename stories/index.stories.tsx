@@ -308,19 +308,23 @@ const useStyles = makeStyles(
       </ThemeProvider>
     );
   })
-  .add('AudioPlayer getPlayer', () => {
+  .add('Controlled AudioPlayer', () => {
     let player: HTMLAudioElement | null = null;
-    const getPlayer = (currentPlayer) => {
+    let playerDispatch: React.Dispatch<any>;
+    const getPlayer = (currentPlayer, dispatch) => {
       player = currentPlayer;
+      playerDispatch = dispatch;
     };
     const play = () => {
       if (player) {
         player.play();
+        playerDispatch({ type: 'PLAYER_STATUS_PLAY'});
       }
     };
     const pause = () => {
       if (player) {
         player.pause();
+        playerDispatch({ type: 'PLAYER_STATUS_PAUSE'});
       }
     };
 
