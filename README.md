@@ -220,6 +220,14 @@ Display close button (icon).
 - _default:_ `false`
 - _type:_ `boolean`
 
+### `muted`
+
+Prop for controling mute state of the audio and volume button. (By default is null. When any boolean passed, the mute state for button and audio will be completly controlled from external source)
+
+- _default:_ `null`
+- _options:_ `true`, `false`
+- _type:_ `boolean`
+
 ## Customize component styles
 
 ```javascript

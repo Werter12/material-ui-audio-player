@@ -29,7 +29,6 @@ const inititalState = {
       status: PLAYER.VOLUME.STATUS.UNMUTE,
       value: PLAYER.VOLUME.DEFAULT_VALUE,
     },
-    muteable: true,
     duration: 0,
     remaning: 0,
     progress: 0,
@@ -175,7 +174,7 @@ interface IAudioPlayerProps {
   height?: string;
   download?: boolean;
   volume?: boolean;
-  muteable?: boolean;
+  muted?: boolean | null;
   variation?: keyof typeof AudioPlayerVariation;
   preload?: AudioPlayerPreload;
   loop?: boolean;
@@ -205,7 +204,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   variation = AudioPlayerVariation.default,
   preload = AudioPlayerPreload.auto,
   volume = true,
-  muteable = true,
+  muted = null,
   download = false,
   autoplay = false,
   order = AudioPlayerComponentsOrder.standart,
@@ -328,6 +327,16 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     };
   }, [player, src]);
 
+  React.useEffect(() => {
+    if (player?.current && typeof muted === 'boolean') {
+      if (muted) {
+        _muteAudio()
+      } else {
+        _unmuteAudio()
+      }
+    }
+  }, [muted])
+
   if (debug) {
     // tslint:disable-next-line
     console.log('state', state);
@@ -411,7 +420,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       )}
       {volume && (
         <AudioVolumeControl
-          muteable
+          muted={muted}
           muteAudio={_muteAudio}
           unmuteAudio={_unmuteAudio}
           classNames={classNames}
