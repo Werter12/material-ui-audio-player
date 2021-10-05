@@ -14,10 +14,13 @@ import * as React from 'react';
 import AudioDownloadsControl from './AudioDownloadsControl';
 import AudioPlayControl from './AudioPlayControl';
 import AudioVolumeControl from './AudioVolumeControl';
+import AudioPlayerCloseButton from './AudioPlayerCloseButton';
 import { actionCreators } from './state/actions';
 import { getFormattedTime, populateDispatch } from './state/helpers';
 import PLAYER from './state/player';
 import reducer from './state/reducer';
+
+const isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
 
 const inititalState = {
   player: {
@@ -27,6 +30,7 @@ const inititalState = {
       value: PLAYER.VOLUME.DEFAULT_VALUE,
     },
     duration: 0,
+    remaning: 0,
     progress: 0,
     current: 0,
     loop: false,
@@ -40,6 +44,7 @@ export interface IAudioPlayerClassNameProps {
   volumeIcon: string;
   muteIcon: string;
   mainSlider: string;
+  volumeSliderContainer: string;
   volumeSlider: string;
   downloadsIcon: string;
   pauseIcon: string;
@@ -48,6 +53,7 @@ export interface IAudioPlayerClassNameProps {
   downloadsContainer: string;
   downloadsItemLink: string;
   downloadsItemText: string;
+  closeIcon: string;
 }
 
 export const useComponentStyles = makeStyles((theme: any) => {
@@ -60,6 +66,7 @@ export const useComponentStyles = makeStyles((theme: any) => {
 
   return {
     root: (props: any) => ({
+      position: 'relative',
       backgroundColor: theme.palette.background.paper,
       color: theme.palette.text.primary,
       width: props.width,
@@ -166,10 +173,14 @@ interface IAudioPlayerProps {
   width?: string;
   height?: string;
   download?: boolean;
+  volume?: boolean;
+  muted?: boolean | null;
   variation?: keyof typeof AudioPlayerVariation;
   preload?: AudioPlayerPreload;
   loop?: boolean;
   order?: keyof typeof AudioPlayerComponentsOrder;
+  displaySlider?: boolean;
+  displayCloseButton?: boolean;
   // some browsers will block audio autoplay
   autoplay?: boolean;
   debug?: boolean;
@@ -181,6 +192,7 @@ interface IAudioPlayerProps {
   onPaused?: (event: any) => void;
   onFinished?: (event: any) => void;
   getPlayer?: (player: HTMLAudioElement | null) => void;
+  onClose?: () => void;
 }
 
 const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
@@ -192,6 +204,8 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   height = 'auto',
   variation = AudioPlayerVariation.default,
   preload = AudioPlayerPreload.auto,
+  volume = true,
+  muted = null,
   download = false,
   autoplay = false,
   order = AudioPlayerComponentsOrder.standart,
@@ -201,6 +215,8 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   spacing = undefined,
   time = 'double',
   timePosition = 'start',
+  displaySlider = true,
+  displayCloseButton = false,
   icons,
   // tslint:disable-next-line: no-empty
   onPlayed = (event: any) => {},
@@ -210,8 +226,14 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   onFinished = (event: any) => {},
   // tslint:disable-next-line: no-empty
   getPlayer = (event: any) => {},
+  onClose = () => {},
 }) => {
   const player = React.useRef<HTMLAudioElement | null>(null);
+  const [visible, setVisibility] = React.useState(true);
+  const handleClose = React.useCallback(() => {
+    setVisibility(false);
+    onClose();
+  }, []);
   const theme: { [key: string]: any } = useTheme();
   const playerColors: IAudioPlayerColors = getColors(theme, variation);
   const componentsOrder =
@@ -260,14 +282,21 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     onFinished(event);
   };
   const onLoad = () => {
+    if (player?.current?.duration === Infinity) {
+      player.current.currentTime = 24 * 60 * 60;
+      player.current.currentTime = 0;
+    }
     _setPlayerDuration();
     getPlayer(player.current);
     if (player?.current?.currentTime === 0) {
-      if (!player?.current?.autoplay && !player?.current?.loop) {
+      if (player?.current?.autoplay || player?.current?.loop) {
+        // @ts-ignore: no-empty
+      } else {
         _pauseAudio();
       }
     }
   };
+
 
   React.useEffect(() => {
     if (player && player.current) {
@@ -276,6 +305,9 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       }
       if (!player.current.autoplay && autoplay) {
         _setPlayerAutoplay();
+      }
+      if (isSafari) {
+        player.current.load()
       }
       player.current.addEventListener('canplay', onLoad);
       player.current.addEventListener('timeupdate', handlePlayerTimeUpdate);
@@ -297,6 +329,16 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
       }
     };
   }, [player, src]);
+
+  React.useEffect(() => {
+    if (player?.current && typeof muted === 'boolean') {
+      if (muted) {
+        _muteAudio()
+      } else {
+        _unmuteAudio()
+      }
+    }
+  }, [muted])
 
   if (debug) {
     // tslint:disable-next-line
@@ -327,7 +369,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
     </Grid>
   );
 
-  return (
+  return visible ? (
     <Grid
       container={true}
       spacing={mainContainerSpacing}
@@ -377,41 +419,55 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
         />
       </Grid>
       {download && (
-        <AudioDownloadsControl src={src} playerColors={playerColors} />
+        <AudioDownloadsControl src={src} playerColors={playerColors}/>
       )}
-      <AudioVolumeControl
-        muteAudio={_muteAudio}
-        unmuteAudio={_unmuteAudio}
-        classNames={classNames}
-        changeAudioVolume={_changeAudioVolume}
-        volume={state.player.volume}
-        playerColors={playerColors}
-      />
-      <Grid
-        item={true}
-        container={true}
-        spacing={2}
-        className={cx(classes.sliderContainerWrapper)}
-      >
-        {(!isSingleTime || isTimePositionStart) && currentTimeComp}
-        <Grid item={true} className={classes.sliderContainer}>
-          <Slider
-            className={cx(classes.slider, classNames.mainSlider)}
-            onChange={handleAudioSliderChange}
-            value={state.player.progress}
-          />
-        </Grid>
-        {!isSingleTime && (
-          <Grid item={true} className={classes.commonContainer}>
-            <Typography className={classNames.progressTime}>
-              {getFormattedTime(state.player.duration)}
-            </Typography>
+      {volume && (
+        <AudioVolumeControl
+          muted={muted}
+          muteAudio={_muteAudio}
+          unmuteAudio={_unmuteAudio}
+          classNames={classNames}
+          changeAudioVolume={_changeAudioVolume}
+          volume={state.player.volume}
+          playerColors={playerColors}
+          icons={icons}
+        />
+      )}
+      {displaySlider && (
+        <Grid
+          item={true}
+          container={true}
+          spacing={2}
+          className={cx(classes.sliderContainerWrapper)}
+        >
+          {(!isSingleTime || isTimePositionStart) && currentTimeComp}
+          <Grid item={true} className={classes.sliderContainer}>
+            <Slider
+              className={cx(classes.slider, classNames.mainSlider)}
+              onChange={handleAudioSliderChange}
+              value={state.player.progress}
+            />
           </Grid>
-        )}
-        {isSingleTime && !isTimePositionStart && currentTimeComp}
-      </Grid>
+          {!isSingleTime && (
+            <Grid item={true} className={classes.commonContainer}>
+              <Typography className={classNames.progressTime}>
+                {getFormattedTime(state.player.duration)}
+              </Typography>
+            </Grid>
+          )}
+          {isSingleTime && !isTimePositionStart && currentTimeComp}
+        </Grid>
+      )}
+      {displayCloseButton && (
+        <AudioPlayerCloseButton
+          onClose={handleClose}
+          classNames={classNames}
+          playerColors={playerColors}
+          icons={icons}
+        />
+      )}
     </Grid>
-  );
+  ) : null;
 };
 
 export default AudioPlayer;

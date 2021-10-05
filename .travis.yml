@@ -18,8 +18,4 @@ deploy:
   on:
     repo: Werter12/material-ui-audio-player
     branch: master
-    tags: true
   skip_cleanup: 'true'
-
-after_deploy:
-  - yarn run deploy-storybook

@@ -119,11 +119,7 @@ function setPlayerAutoplay(dispatch, player) {
       player.current.autoplay = true;
     }
 
-    setTimeout(() => {
-      if (player.current.currentTime) {
-        dispatch({ type: PLAYER_AUTOPLAY });
-      }
-    }, 300);
+    dispatch({ type: PLAYER_AUTOPLAY });
   };
 }
 const actionCreators = [

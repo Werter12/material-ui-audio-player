@@ -2,6 +2,74 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.6.7 - 2021-10-05
+### Added
+
+- Add "muted" props to control mute state of audio and "volume" button from external sources
+- Add yarn instead npm requirement
+
+## 1.6.6 (1.6.5) - 2021-07-04
+
+### Changed
+
+- Remove redundant console.log
+
+## 1.6.4 - 2021-07-04
+
+### Changed
+
+- Replace tslint on eslint
+- Fix safari play button issue
+
+## 1.6.3 - 2021-07-04
+
+### Added
+
+- Add onClose handler
+
+## 1.6.2 - 2021-04-03
+
+### Changed
+
+- Change default zIndex of the Volume slider container
+
+### Added
+
+- Add volumeSliderContainer className
+
+## 1.6.1 - 2021-02-28
+
+### Changed
+
+- Update README
+
+## 1.6.0 - 2021-02-28
+
+### Added
+
+- Add displaySlider prop
+- Add Small AudioPlayer story
+- Add CloseIcon with displayCloseButton prop
+
+## 1.5.3 - 2020-12-29
+
+### Changed
+
+- Fix autoplay play button
+
+## 1.5.2 - 2020-12-04
+
+### Added
+
+- Add check for duration on Infinite to fix a bug with NaN:NaN
+
+## 1.5.1 - 2020-12-01
+
+### Added
+
+- Add volume prop
+- Add remaning initial state to prevent -NaN
+
 ## 1.5.0 - 2020-11-27
 
 ### Added

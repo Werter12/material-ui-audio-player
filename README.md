@@ -35,8 +35,8 @@ import AudioPlayer from 'material-ui-audio-player';
 const muiTheme = createMuiTheme({});
 
 const src = [
-  'https://converter-audio-example-1.s3.eu-central-1.amazonaws.com/Russell%2C%2BMale%2B-%2BEnglish%2C%2BAustralian+(1)+(online-audio-converter.com).wav',
-  'https://converter-audio-examples.s3.eu-central-1.amazonaws.com/Russell%2C+Male+-+English%2C+Australian.mp3',
+  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
 ];
 
 <ThemeProvider theme={muiTheme}>
@@ -82,6 +82,13 @@ Component view variation.
 Display download button (icon) with dropdown of available audio tracks for download.
 
 - _default:_ `false`
+- _type:_ `boolean`
+
+### `volume`
+
+Display volume control button (icon).
+
+- _default:_ `true`
 - _type:_ `boolean`
 
 ### `autoplay`
@@ -152,6 +159,12 @@ This callback triggers when the player finish playing
 
 - _type:_ `func`
 
+### `onClose`
+
+This callback triggers when you close the player with help of the close button `displayCloseButton`
+
+- _type:_ `func`
+
 ### `time`
 
 This prop helps to customize time displaying. `double` - means that two timers will be present. `single` - only one.
@@ -188,9 +201,32 @@ Provide custom icon component from Material-ui icons for specific icon.
     ReplayIcon: Replay,
     PauseIcon: PauseCircleFilled,
     VolumeUpIcon: VolumeUp,
-    VolumeOffIcon: VolumeOff
+    VolumeOffIcon: VolumeOff,
+    CloseIcon: Close,
   }
 ```
+
+### `displaySlider`
+
+Display slider with time.
+
+- _default:_ `true`
+- _type:_ `boolean`
+
+### `displayCloseButton`
+
+Display close button (icon).
+
+- _default:_ `false`
+- _type:_ `boolean`
+
+### `muted`
+
+Prop for controling mute state of the audio and volume button. (By default is null. When any boolean passed, the mute state for button and audio will be completly controlled from external source)
+
+- _default:_ `null`
+- _options:_ `true`, `false`
+- _type:_ `boolean`
 
 ## Customize component styles
 
@@ -274,6 +310,7 @@ const useStyles = makeStyles((theme) => {
 - volumeIcon
 - muteIcon
 - mainSlider
+- volumeSliderContainer
 - volumeSlider
 - downloadsIcon
 - pauseIcon
