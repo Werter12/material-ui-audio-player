@@ -56,7 +56,7 @@ interface IPlayerVolume {
 interface IAudioDownloadsControl {
   playerColors: IAudioPlayerColors;
   volume: IPlayerVolume;
-  muted: Boolean | null;
+  muted?: Boolean | null;
   muteAudio: () => void;
   unmuteAudio: () => void;
   changeAudioVolume: (value: any) => void;
@@ -65,7 +65,7 @@ interface IAudioDownloadsControl {
 }
 
 export const AudioVolumeControl: React.FunctionComponent<IAudioDownloadsControl> = ({
-  muted,
+  muted = null,
   muteAudio,
   unmuteAudio,
   classNames = {},

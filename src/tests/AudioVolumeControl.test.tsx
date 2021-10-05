@@ -93,7 +93,7 @@ describe('<AudioVolumeControl />', () => {
 
     const wrapper = muiShallow(
       <AudioVolumeControl
-        muteable={false}
+        muted={false}
         volume={volume}
         muteAudio={muteAudio}
         unmuteAudio={unmuteAudio}
