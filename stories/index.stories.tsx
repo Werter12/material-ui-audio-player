@@ -1,9 +1,12 @@
 import {
-  createMuiTheme,
-  makeStyles,
+  createTheme,
   GridSpacing,
   ThemeProvider,
-} from '@material-ui/core';
+  Theme,
+  StyledEngineProvider,
+  adaptV4Theme,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { boolean, number, select, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
@@ -14,7 +17,14 @@ import AudioPlayer, {
   TimePosition,
 } from '../src/components/AudioPlayer';
 
-const muiTheme = createMuiTheme({});
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
+const muiTheme = createTheme(adaptV4Theme({}));
 
 const availableVariations = {
   primary: 'primary',
@@ -95,28 +105,30 @@ storiesOf('Material Ui', module)
       };
 
       return (
-        <ThemeProvider theme={muiTheme}>
-          <AudioPlayer
-            elevation={elevation}
-            width={width}
-            variation={variation}
-            download={download}
-            volume={volume}
-            loop={loop}
-            order={order}
-            spacing={spacing}
-            muted={muted}
-            debug={debug}
-            src={src}
-            onFinished={onFinished}
-            onPaused={onPaused}
-            onPlayed={onPlayed}
-            time={time}
-            timePosition={timePosition}
-            displaySlider={displaySlider}
-            displayCloseButton={displayCloseButton}
-          />
-        </ThemeProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={muiTheme}>
+            <AudioPlayer
+              elevation={elevation}
+              width={width}
+              variation={variation}
+              download={download}
+              volume={volume}
+              loop={loop}
+              order={order}
+              spacing={spacing}
+              muted={muted}
+              debug={debug}
+              src={src}
+              onFinished={onFinished}
+              onPaused={onPaused}
+              onPlayed={onPlayed}
+              time={time}
+              timePosition={timePosition}
+              displaySlider={displaySlider}
+              displayCloseButton={displayCloseButton}
+            />
+          </ThemeProvider>
+        </StyledEngineProvider>
       );
     },
     {
@@ -152,7 +164,7 @@ const srcSet = [
       const useStyles = makeStyles((theme: any) => {
         return {
           root: {
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
               width: '100%',
             },
           },
@@ -164,7 +176,7 @@ const srcSet = [
             '&:hover': {
               color: '#7986cb',
             },
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
               display: 'none',
             },
           },
@@ -206,16 +218,18 @@ const srcSet = [
       const src =
         'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
       return (
-        <ThemeProvider theme={muiTheme}>
-          <AudioPlayer
-            width="500px"
-            useStyles={useStyles}
-            time="single"
-            timePosition="end"
-            src={src}
-            loop={true}
-          />
-        </ThemeProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={muiTheme}>
+            <AudioPlayer
+              width="500px"
+              useStyles={useStyles}
+              time="single"
+              timePosition="end"
+              src={src}
+              loop={true}
+            />
+          </ThemeProvider>
+        </StyledEngineProvider>
       );
     },
     {
@@ -283,9 +297,11 @@ const useStyles = makeStyles(
   )
   .add('AudioPlayer Responsive', () => {
     return (
-      <ThemeProvider theme={muiTheme}>
-        <AudioPlayer src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" />
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={muiTheme}>
+          <AudioPlayer src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" />
+        </ThemeProvider>
+      </StyledEngineProvider>
     );
   })
   .add('Small AudioPlayer', () => {
@@ -295,17 +311,19 @@ const useStyles = makeStyles(
     const onClose = () => console.log('closed');
 
     return (
-      <ThemeProvider theme={muiTheme}>
-        <AudioPlayer
-          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-          width={width}
-          variation="primary"
-          displaySlider={false}
-          volume={false}
-          displayCloseButton={displayCloseButton}
-          onClose={onClose}
-        />
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={muiTheme}>
+          <AudioPlayer
+            src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            width={width}
+            variation="primary"
+            displaySlider={false}
+            volume={false}
+            displayCloseButton={displayCloseButton}
+            onClose={onClose}
+          />
+        </ThemeProvider>
+      </StyledEngineProvider>
     );
   })
   .add('Controlled AudioPlayer', () => {
@@ -329,15 +347,17 @@ const useStyles = makeStyles(
     };
 
     return (
-      <ThemeProvider theme={muiTheme}>
-        <AudioPlayer
-          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-          getPlayer={getPlayer}
-          debug={true}
-        />
-        <br />
-        <button onClick={play}>play</button>
-        <button onClick={pause}>pause</button>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={muiTheme}>
+          <AudioPlayer
+            src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            getPlayer={getPlayer}
+            debug={true}
+          />
+          <br />
+          <button onClick={play}>play</button>
+          <button onClick={pause}>pause</button>
+        </ThemeProvider>
+      </StyledEngineProvider>
     );
   });

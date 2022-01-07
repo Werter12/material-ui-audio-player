@@ -1,6 +1,6 @@
 // Grab the original exports
-import { createMuiTheme } from '@material-ui/core';
-import * as Styles from '@material-ui/styles';
+import { createTheme, adaptV4Theme } from '@mui/material';
+import * as Styles from '@mui/styles';
 
 const makeStyles = () => {
   return () => {
@@ -8,7 +8,7 @@ const makeStyles = () => {
   };
 };
 const useTheme = () => {
-  return createMuiTheme({});
+  return createTheme(adaptV4Theme({}));
 };
 
 module.exports = { ...Styles, makeStyles, useTheme };

@@ -1,9 +1,9 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createTheme, adaptV4Theme } from '@mui/material';
 import {
   PauseCircleFilled,
   PlayCircleFilledWhite,
   Replay
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import AudioPlayControl from '../components/AudioPlayControl';
@@ -11,7 +11,7 @@ import { AudioPlayerVariation, getColors } from '../components/AudioPlayer';
 import PLAYER from '../components/state/player';
 
 describe('<AudioPlayControl />', () => {
-  const muiTheme = createMuiTheme({});
+  const muiTheme = createTheme(adaptV4Theme({}));
   const playerColors = getColors(muiTheme, AudioPlayerVariation.default);
   it('renders', () => {
     const pauseAudioMock = jest.fn();
