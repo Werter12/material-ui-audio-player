@@ -1,11 +1,11 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import useTheme from '@material-ui/core/styles/useTheme';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import CloudDownload from '@material-ui/icons/CloudDownload';
+import Paper from '@mui/material/Paper';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import CloudDownload from '@mui/icons-material/CloudDownload';
 import cx from 'classnames';
 
 import { IAudioPlayerColors } from './AudioPlayer';
@@ -68,7 +68,7 @@ export const AudioDownloadsControl: React.FunctionComponent<IAudioDownloadsContr
   const toggleDownloadsDropdown = (value: boolean) => () => {
     openDownloadsDropdown(value);
   };
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   return Array.isArray(src) ? (
     isMobile ? (
       <Grid item={true} className={classes.commonContainer}>
@@ -95,7 +95,7 @@ export const AudioDownloadsControl: React.FunctionComponent<IAudioDownloadsContr
             container={true}
             direction="column"
             alignItems="center"
-            justify="center"
+            justifyContent="center"
             component={Paper}
             className={classes.downloadsContainer}
           >

@@ -1,6 +1,6 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createTheme, adaptV4Theme } from '@mui/material';
 // tslint:disable-next-line
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow } from '@mui/material/test-utils';
 import { mount } from 'enzyme';
 import * as React from 'react';
 import AudioDownloadsControl from '../components/AudioDownloadsControl';
@@ -8,7 +8,7 @@ import { AudioPlayerVariation, getColors } from '../components/AudioPlayer';
 
 describe('<AudioDownloadsControl />', () => {
   const muiShallow = createShallow({ untilSelector: 'AudioDownloadsControl' });
-  const muiTheme = createMuiTheme({});
+  const muiTheme = createTheme(adaptV4Theme({}));
   const playerColors = getColors(muiTheme, AudioPlayerVariation.default);
   const src = 'https://example';
   const srcSet = ['https://example/music1.mp3', 'https://example/music1.waw'];

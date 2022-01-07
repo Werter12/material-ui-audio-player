@@ -1,6 +1,6 @@
 import * as React from 'react';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Close from '@material-ui/icons/Close';
+import makeStyles from '@mui/styles/makeStyles';
+import Close from '@mui/icons-material/Close';
 import cx from 'classnames';
 
 import { IAudioPlayerColors, Icons } from './AudioPlayer';

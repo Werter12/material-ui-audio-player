@@ -1,8 +1,8 @@
 import * as React from 'react';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import PauseCircleFilled from '@material-ui/icons/PauseCircleFilled';
-import PlayCircleFilledWhite from '@material-ui/icons/PlayCircleFilledWhite';
-import Replay from '@material-ui/icons/Replay';
+import makeStyles from '@mui/styles/makeStyles';
+import PauseCircleFilled from '@mui/icons-material/PauseCircleFilled';
+import PlayCircleFilledWhite from '@mui/icons-material/PlayCircleFilledWhite';
+import Replay from '@mui/icons-material/Replay';
 import cx from 'classnames';
 
 import { IAudioPlayerColors, Icons } from './AudioPlayer';

@@ -1,13 +1,13 @@
-import SvgIcon from '@material-ui/core/SvgIcon';
-import Slider from '@material-ui/core/Slider';
-import Paper from '@material-ui/core/Paper';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Typography from '@material-ui/core/Typography';
-import useTheme from '@material-ui/core/styles/useTheme';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import SvgIcon from '@mui/material/SvgIcon';
+import Slider from '@mui/material/Slider';
+import Paper from '@mui/material/Paper';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 // tslint:disable-next-line
-import Grid, { GridSpacing } from '@material-ui/core/Grid';
-import Repeat from '@material-ui/icons/Repeat';
+import Grid, { GridSpacing } from '@mui/material/Grid';
+import Repeat from '@mui/icons-material/Repeat';
 import cx from 'classnames';
 import * as React from 'react';
 
@@ -238,7 +238,7 @@ const AudioPlayer: React.FunctionComponent<IAudioPlayerProps> = ({
   const classNames: Partial<IAudioPlayerClassNameProps> = useStyles(
     componentStyles
   );
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isSingleTime = React.useMemo(() => time === TimeOption.single, [time]);
   const isTimePositionStart = React.useMemo(
     () => timePosition === TimePosition.start,

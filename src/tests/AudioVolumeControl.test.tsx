@@ -1,7 +1,7 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createTheme, adaptV4Theme } from '@mui/material';
 // tslint:disable-next-line
-import { createShallow } from '@material-ui/core/test-utils';
-import { VolumeOff, VolumeUp } from '@material-ui/icons';
+import { createShallow } from '@mui/material/test-utils';
+import { VolumeOff, VolumeUp } from '@mui/icons-material';
 import * as React from 'react';
 import { AudioPlayerVariation, getColors } from '../components/AudioPlayer';
 import AudioVolumeControl from '../components/AudioVolumeControl';
@@ -9,7 +9,7 @@ import PLAYER from '../components/state/player';
 import { mountWithTheme } from '../components/utils/enzymeHelpers';
 
 describe('<AudioVolumeControl />', () => {
-  const muiTheme = createMuiTheme({});
+  const muiTheme = createTheme(adaptV4Theme({}));
   const playerColors = getColors(muiTheme, AudioPlayerVariation.default);
   const muiShallow = createShallow({ untilSelector: 'AudioVolumeControl' });
   it('renders', () => {
