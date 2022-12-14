@@ -28,10 +28,10 @@ const muiTheme = createMuiTheme({});
 A bunch of props will help to customize component.
 
 ```javascript
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import AudioPlayer from 'material-ui-audio-player';
 
-const muiTheme = createMuiTheme({});
+const muiTheme = createTheme({});
 
 const src = [
   'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
