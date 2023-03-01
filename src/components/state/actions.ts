@@ -58,7 +58,7 @@ function changeAudioVolume(dispatch, player) {
 }
 function setPlayerDuration(dispatch, player) {
   return () => {
-    dispatch({ type: PLAYER_SET_DURATION, duration: player.current.duration });
+    dispatch({ type: PLAYER_SET_DURATION, duration: player.current?.duration });
   };
 }
 function setPlayerTime(dispatch, player) {
@@ -78,8 +78,8 @@ function setPlayerTime(dispatch, player) {
 }
 function changePlayerSlider(dispatch, player) {
   return (progress: number) => {
-    const currentTime = getCurrentTime(progress, player.current.duration);
-    const remaningTime = getRemaningTime(progress, player.current.duration);
+    const currentTime = getCurrentTime(progress, player.current?.duration);
+    const remaningTime = getRemaningTime(progress, player.current?.duration);
 
     if (currentTime) {
       player.current.currentTime = currentTime;
